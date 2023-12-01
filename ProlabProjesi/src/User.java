@@ -8,7 +8,8 @@ import java.sql.*;
 // 1- Admin
 // 2- Company
 interface ILoginable {
-
+    // Girişleri kontrol eden metot
+    boolean Giris(String kullaniciAdiGirdisi, String sifreGirdisi);
 }
 
 abstract class User implements ILoginable {
@@ -27,23 +28,14 @@ abstract class User implements ILoginable {
     }
 
     // Kullanıcı Adı değişkeni için Get/Set Metotları
-    public String get_kullaniciAdi() {
-        return kullaniciAdi;
-    }
+    public abstract String get_kullaniciAdi();
 
-    public void set_kullaniciAdi(String kullaniciAdiYeni) {
-        kullaniciAdi = kullaniciAdiYeni;
-    }
+    public abstract void set_kullaniciAdi(String kullaniciAdiYeni);
 
     // Şifre değişkeni için Get/Set Metotları
-    public String get_sifre() {
-        return sifre;
-    }
+    public abstract String get_sifre();
 
-    public void set_sifre(String sifreYeni) {
-        sifre = sifreYeni;
-    }
-
+    public abstract void set_sifre(String sifreYeni);
 
 }
 
@@ -56,6 +48,26 @@ class Admin extends User {
     String sifre = "admin123";
     static boolean admin_aktif = false; // Sistemde sadece tek bir adminin aktif olmasını sağlayan değişken
 
+    // Kullanıcı Adı değişkeni için Get/Set Metotları
+    @Override
+    public String get_kullaniciAdi() {
+        return kullaniciAdi;
+    }
+    @Override
+    public void set_kullaniciAdi(String kullaniciAdiYeni) {
+        kullaniciAdi = kullaniciAdiYeni;
+    }
+
+    // Şifre değişkeni için Get/Set Metotları
+    @Override
+    public String get_sifre() {
+        return sifre;
+    }
+    @Override
+    public void set_sifre(String sifreYeni) {
+        sifre = sifreYeni;
+    }
+
     // Admin Classı Contruct Edilirken kullanılacak metot
     Admin() {
 
@@ -63,10 +75,11 @@ class Admin extends User {
 
 
     // Giriş Bilgilerini kontrol eden kısım
+    @Override
     public boolean Giris(String kullaniciAdiGirdisi, String sifreGirdisi) {
         // Admin girişi için doğru bilgiler girildiyse TRUE yanlış girildiyse FALSE değer
         // döndüren metot
-        return kullaniciAdiGirdisi.equals(kullaniciAdi) && sifreGirdisi.equals(sifre);
+        return kullaniciAdiGirdisi.equals(new Admin().get_kullaniciAdi()) && sifreGirdisi.equals(new Admin().get_sifre());
     }
 
     // Admin_Aktif değişkeni için Get/Set metotları
@@ -261,6 +274,33 @@ class Company extends User {
         super(kullaniciAdiDegiskeni, sifreDegiskeni);
     }
 
+    // Kullanıcı Adı değişkeni için Get/Set Metotları
+    @Override
+    public String get_kullaniciAdi() {
+        return kullaniciAdi;
+    }
+    @Override
+    public void set_kullaniciAdi(String kullaniciAdiYeni) {
+        kullaniciAdi = kullaniciAdiYeni;
+    }
+
+    // Şifre değişkeni için Get/Set Metotları
+    @Override
+    public String get_sifre() {
+        return sifre;
+    }
+    @Override
+    public void set_sifre(String sifreYeni) {
+        sifre = sifreYeni;
+    }
+
+    // Firma Girişlerini kontrol eden fonksiyon
+    @Override
+    public boolean Giris(String kullaniciAdiGirdisi, String sifreGirdisi) {
+        return false;
+    }
+
+
     // Company Class'ının Hizmet Bedeli Arayüzü
     static class Hizmet_Bedeli_Arayuzu extends JFrame {
 
@@ -326,6 +366,18 @@ class Company extends User {
             setVisible(true); // Arayüzü görünür kılan metot
             //setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // Arayüzden çıkış yapmayı sağlayan metot
         }
+    }
+
+    // Company Class'ının Tüm Firmaları Görüntüleyen Arayüz Classı
+    static class Firmalari_Goruntule extends JFrame {
+
+        // Firma Görüntüleme Arayüzü
+        public Firmalari_Goruntule() {
+            // Firmaların Bulunudğu Database ile bağlantı kuran kısım
+
+        }
+
+
     }
 
 
