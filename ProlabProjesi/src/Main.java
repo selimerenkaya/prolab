@@ -32,7 +32,7 @@ class Arayuz extends JFrame {
         // Butona tıklanınca çalışacak kısım
         admin_giris_butonu.addActionListener(e -> {
             dispose(); // Butona tıklanınca Giriş Ekranını kapatan komut
-            new Admin_Arayuz(); // Admin Panelinin gözükmesini sağlayan komut
+            new Admin.Admin_Giris_Arayuz(); // Admin Giriş Panelinin gözükmesini sağlayan komut
         });
         panel.add(admin_giris_butonu); // Panele eklenmesi
 
@@ -64,72 +64,13 @@ class Arayuz extends JFrame {
         this.getContentPane().add(panel); // Oluşturulan içeriklerin panele ekleyen kısım
 
 
-
         setVisible(true); // Arayüzü görünür kılan metot
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // Arayüzden çıkış yapmayı sağlayan metot
 
     }
 }
 
-// Admin Panelinin Arayüzü
-class Admin_Arayuz extends JFrame {
 
-    // Admin Panel ekranı oluşturulduğunda çalışacak kod
-    public Admin_Arayuz() {
-        // Ana Menünün Arayüzünün oluşturulması
-        setTitle("Admin Paneli");
-        setSize(800, 600);
-
-
-        // Panel ve Butonların oluşturulması
-        // Panel
-        JPanel panel = new JPanel();
-        panel.setLayout(null);
-
-        // Giriş Bilgilerini alan kısım
-        // 1- Kullanıcı adı
-        JLabel kullanici_adi_baslik = new JLabel("Kullanıcı Adı");
-        kullanici_adi_baslik.setBounds(20, 20, 100, 20);
-        JTextField kullanici_adi = new JTextField();
-        kullanici_adi.setBounds(20, 40, 200, 30);
-        add(kullanici_adi_baslik);
-        add(kullanici_adi);
-
-        // 2- Şifre
-        JLabel sifre_baslik = new JLabel("Şifre");
-        sifre_baslik.setBounds(20, 80, 100, 20);
-        JTextField sifre = new JTextField();
-        sifre.setBounds(20, 100, 200, 30);
-        add(sifre_baslik);
-        add(sifre);
-
-        // Giriş Yapılmasını Sağlayan Buton
-        JButton giris_butonu = new JButton("Giriş Yap");
-        giris_butonu.setBounds(50, 140, 130, 40);
-
-        // Butona tıklanınca çalışacak kısım
-        giris_butonu.addActionListener(e -> {
-            Admin kayit_bilgisi_admin = new Admin();
-            boolean giris_izni = kayit_bilgisi_admin.Giris(kullanici_adi.getText(), sifre.getText());
-            if (giris_izni){
-                System.out.println("Giriş başarılı");
-            }
-            else{
-                System.out.println("Giriş başarısız.");
-            }
-
-            //dispose(); // Butona tıklanınca Giriş Ekranını kapatan komut
-        });
-        panel.add(giris_butonu); // Panele eklenmesi
-
-        this.getContentPane().add(panel); // Oluşturulan içeriklerin panele ekleyen kısım
-
-
-
-        setVisible(true); // Arayüzü görünür kılan metot
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // Arayüzden çıkış yapmayı sağlayan metot
-    }
-}
 
 // Firma Panelinin Arayüzü
 class Firma_Arayuz extends JFrame {
@@ -156,7 +97,7 @@ class Firma_Arayuz extends JFrame {
     }
 }
 
-// Admin Panelinin Arayüzü
+// Kullanıcı Panelinin Arayüzü
 class Kullanici_Arayuz extends JFrame {
 
     // Admin Panel ekranı oluşturulduğunda çalışacak kod

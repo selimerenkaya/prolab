@@ -10,11 +10,11 @@ public class Customer {
 
     // Customer Class'ının Constructu
     // Gerekli olan tüm bilgileri içermelidir
-    Customer(String isim, String soyisim, String kimlik, Date kogumGunu){
+    Customer(String isim, String soyisim, String kimlik, Date dogumGunu){
         Ad = isim;
         Soyad = soyisim;
         TcKimlik = kimlik;
-        DogumTarihi = kogumGunu;
+        DogumTarihi = dogumGunu;
     }
 
 
