@@ -10,15 +10,19 @@ abstract class Vehicle {
 
 // Otobüs Classı
 class Bus extends Vehicle {
-
+    // Yakıt Türleri
+    // 1- Benzin
+    // 2- Motorin
 }
 
 // Tren Classı
 class Train extends Vehicle {
-
+    // Yakıt Türleri
+    // 1- Elektrik
 }
 
 // Uçak Classı
 class Airplane extends Vehicle {
-
+    // Yakıt Türleri
+    // 1- Gaz
 }

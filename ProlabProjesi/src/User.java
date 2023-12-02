@@ -1,17 +1,20 @@
 import javax.swing.*;
 import java.awt.*;
-import java.sql.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+
+
+// Giriş Yapılabilir Classları temsil eden interface
+interface ILoginable {
+    // Girişleri kontrol eden metot
+    boolean Giris(String kullaniciAdiGirdisi, String sifreGirdisi);
+}
 
 // Sistemdeki kullanıcıları temsil eden class
 // Abstract bir class
 // 2 türe ayrılır
 // 1- Admin
 // 2- Company
-interface ILoginable {
-    // Girişleri kontrol eden metot
-    boolean Giris(String kullaniciAdiGirdisi, String sifreGirdisi);
-}
-
 abstract class User implements ILoginable {
     // User Class'ının özellikleri
     String kullaniciAdi;
@@ -192,6 +195,7 @@ class Admin extends User {
 
             // Butona tıklanınca çalışacak kısım
             firmalari_goruntule.addActionListener(e -> {
+                new Company.Firmalari_Goruntule();
                 //dispose(); // Butona tıklanınca Giriş Ekranını kapatan komut
             });
             panel.add(firmalari_goruntule); // Panele eklenmesi
@@ -202,6 +206,7 @@ class Admin extends User {
 
             // Butona tıklanınca çalışacak kısım
             yeni_firma_ekle.addActionListener(e -> {
+                new Company.Firmalara_Ekle();
                 //dispose(); // Butona tıklanınca Giriş Ekranını kapatan komut
             });
             panel.add(yeni_firma_ekle); // Panele eklenmesi
@@ -254,6 +259,13 @@ class Admin extends User {
 // User Class'ının Company Classı
 class Company extends User {
     static int hizmet_bedeli = 1000; // TL bazında
+    // Firma Oluşturulurken Gerekli Olan Bilgiler
+    String firma_isim;
+    String kullaniciAdi;
+    String sifre;
+    ArrayList<Object> aracBilgileri = new ArrayList<>();
+
+
 
     // Hizmet bedeli değişkeni için Get/Set metotları
     public int get_hizmet_bedeli() {
@@ -264,15 +276,43 @@ class Company extends User {
         hizmet_bedeli = hizmet_bedeli_girdisi;
     }
 
+    // Firma İsim değişkeni için Get/Set metotları
+    public String get_firma_isim() {
+        return firma_isim;
+    }
+
+    public void set_firma_isim(String firma_isim_girdisi) {
+        firma_isim = firma_isim_girdisi;
+    }
+
     // Company Parametresiz Constructor Metodu
     public Company(){
 
     }
 
-    // Company Classı Contruct Edilirken kullanılacak metot
-    Company(String kullaniciAdiDegiskeni, String sifreDegiskeni) {
-        super(kullaniciAdiDegiskeni, sifreDegiskeni);
+    // Company Classı Contruct Edilirken kullanılacak metot - 3 Parametreli
+    // Yeni Firma oluşturulurken çağrılır
+    Company(String firma_isim_girdisi, String kullaniciAdi_girdisi, String sifre_girdisi) {
+        // Araç Bilgileri Firma Paneli Arayüzünden girilecektir
+        // Yoksa En başta boş olarak tanımlanır
+        firma_isim = firma_isim_girdisi;
+        kullaniciAdi = kullaniciAdi_girdisi;
+        sifre = sifre_girdisi;
+        aracBilgileri = new ArrayList<>(); // Firma Paneli - Araç Ekle kısmından düzenlenecek
     }
+
+    // Company Classı Contruct Edilirken kullanılacak metot - 4 Parametreli
+    // Kod ilk çalıştığında önceden verilen şirketler
+    // oluşturulurken kullanılır
+    Company(String firma_isim_girdisi, String kullaniciAdi_girdisi, String sifre_girdisi, ArrayList<Object> aracBilgileriGirdisi) {
+        // Araç Bilgileri random bir şekilde hazırlanacak ve eklenecektir
+        firma_isim = firma_isim_girdisi;
+        kullaniciAdi = kullaniciAdi_girdisi;
+        sifre = sifre_girdisi;
+        aracBilgileri = aracBilgileriGirdisi;
+    }
+
+
 
     // Kullanıcı Adı değişkeni için Get/Set Metotları
     @Override
@@ -368,15 +408,139 @@ class Company extends User {
         }
     }
 
+
     // Company Class'ının Tüm Firmaları Görüntüleyen Arayüz Classı
     static class Firmalari_Goruntule extends JFrame {
 
         // Firma Görüntüleme Arayüzü
         public Firmalari_Goruntule() {
-            // Firmaların Bulunudğu Database ile bağlantı kuran kısım
+            //Arayüz Ayarları
+            setTitle("Firma Bilgileri");
+            setSize(800, 600);
+
+            // Panelin Oluşturulması
+            JPanel panel = new JPanel();
+
+            // Firma Bilgilerini Alan kısım
+            ArrayList<Company> firmaBilgileri = new Transport().FirmaBilgileriniDondur();
+
+            // Firma Bilgilerini Bilgi Listine atayan kısım
+            String[][] bilgi = {};
+            for (Company bilgiler : firmaBilgileri) {
+                String[] yeni_firma = {bilgiler.get_firma_isim(), bilgiler.get_kullaniciAdi(), bilgiler.get_sifre()};
+                bilgi = Arrays.copyOf(bilgi, bilgi.length + 1);
+                bilgi[bilgi.length - 1] = yeni_firma;
+
+            }
+
+            // Sütün adları
+            String[] sutunAdlari = {"Firma İsmi", "Kullanıcı Adı", "Şifre"};
+
+            // Bilgi Tablosunun oluşturulması
+            JTable BilgiTablosu = new JTable(bilgi, sutunAdlari);
+            BilgiTablosu.setBounds(30, 40, 200, 300);
+            BilgiTablosu.setFocusable(false);
+            BilgiTablosu.setRowSelectionAllowed(false);
+
+            // Bilgi Tablosuna scroll eklenmesi
+            JScrollPane scroll = new JScrollPane(BilgiTablosu);
+            panel.add(scroll);
+
+
+            this.getContentPane().add(panel); // Oluşturulan içeriklerin panele ekleyen kısım
+            setVisible(true);
+
 
         }
 
+    }
+
+    // Company Class'ının Tüm Firma Eklerken Kullanılan Arayüz Classı
+    static class Firmalara_Ekle extends JFrame {
+        public Firmalara_Ekle() {
+            // Firma Ekleme Menüsünün Arayüzünün oluşturulması
+            setTitle("Firma Ekle");
+            setSize(800, 600);
+
+
+            // Panel ve Butonların oluşturulması
+            // Panel
+            JPanel panel = new JPanel();
+            panel.setLayout(null);
+
+            // 1- Firma İsmi Alan Kısım
+            JLabel firma_ismi_baslik = new JLabel("Firma İsmi Giriniz");
+            firma_ismi_baslik.setBounds(20, 10, 200, 20);
+            JTextField firmaIsmiGirdisi = new JTextField();
+            firmaIsmiGirdisi.setBounds(20, 30, 250, 30);
+            add(firma_ismi_baslik);
+            add(firmaIsmiGirdisi);
+
+            // 2- Firma Girişi için Kullanıcı Adı Alan Kısım
+            JLabel firma_kullaniciAdi_baslik = new JLabel("Firma için Kullanıcı Adı Giriniz");
+            firma_kullaniciAdi_baslik.setBounds(20, 70, 200, 20);
+            JTextField firmaKullaniciAdiGirdisi = new JTextField();
+            firmaKullaniciAdiGirdisi.setBounds(20, 90, 250, 30);
+            add(firma_kullaniciAdi_baslik);
+            add(firmaKullaniciAdiGirdisi);
+
+            // 3- Firma Girişi için Şifre Alan Kısım
+            JLabel firma_sifre_baslik = new JLabel("Firma için Şifre Giriniz");
+            firma_sifre_baslik.setBounds(20, 130, 200, 20);
+            JTextField firmaSifreGirdisi = new JTextField();
+            firmaSifreGirdisi.setBounds(20, 150, 250, 30);
+            add(firma_sifre_baslik);
+            add(firmaSifreGirdisi);
+
+            // 4- Geri Bildirim Yazısı
+            JLabel geri_bildirim = new JLabel();
+            Font geri_bildirim_font = geri_bildirim.getFont();
+            geri_bildirim.setFont(geri_bildirim_font.deriveFont(geri_bildirim_font.getStyle() | Font.BOLD, 16));
+            geri_bildirim.setBounds(30, 240, 200, 20);
+
+            geri_bildirim.setVisible(false);
+            panel.add(geri_bildirim);
+
+            // 5- Onayla Butonu
+            JButton onayla_butonu = new JButton("Eklemeyi Onayla");
+            onayla_butonu.setBounds(50, 190, 180, 40);
+
+
+            // Butona tıklanınca çalışacak kısım
+            onayla_butonu.addActionListener(e -> {
+                geri_bildirim.setVisible(false);
+                // Geri Bildirim Almayı Sağlayan kısım
+                try {
+                    // Girdiler Boş Değilse çalışacak kısım
+                    if (!firmaIsmiGirdisi.getText().isEmpty() && !firmaKullaniciAdiGirdisi.getText().isEmpty() && !firmaSifreGirdisi.getText().isEmpty() ){
+                        Company yeni_firma = new Company(firmaIsmiGirdisi.getText(), firmaKullaniciAdiGirdisi.getText(), firmaSifreGirdisi.getText());
+                        new Transport().FirmaListesineEkle(yeni_firma);
+                        geri_bildirim.setText("Başarıyla Eklendi.");
+                        geri_bildirim.setForeground(Color.GREEN);
+                        geri_bildirim.setVisible(true);
+                    }
+                    else{
+                        throw new Exception("Girdilerde boş olan kısım var!");
+                    }
+
+                }
+                catch (Exception ex){
+                    System.out.println("Hata alındı!");
+                    geri_bildirim.setText("Hata Oluştu!");
+                    geri_bildirim.setForeground(Color.RED);
+                    geri_bildirim.setVisible(true);
+                }
+
+            });
+            panel.add(onayla_butonu); // Panele eklenmesi
+
+
+
+
+
+            this.getContentPane().add(panel); // Oluşturulan içeriklerin panele ekleyen kısım
+            setVisible(true);
+        }
 
     }
 

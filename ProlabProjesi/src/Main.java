@@ -127,6 +127,7 @@ public class Main {
     public static void main(String[] args) {
 
         // Giriş Ekranının main içinde çağrılması
+        new Transport().HazirBilgileriOlustur();
         Arayuz giris_ekrani = new Arayuz();
 
 
