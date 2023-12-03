@@ -6,6 +6,7 @@
 
 // Kullanılan Kütüphaneler
 import javax.swing.*;
+import java.awt.*;
 import java.lang.*;
 
 // Giriş Ekranının arayüzü
@@ -22,13 +23,14 @@ class Arayuz extends JFrame {
         // Panel
         JPanel panel = new JPanel();
         panel.setLayout(null);
+        panel.setBackground(Color.white);
 
 
         // Butonlar
         // 1- Admin Giriş Butonu
         JButton admin_giris_butonu = new JButton("Admin Girişi");
         admin_giris_butonu.setBounds(20, 20, 150, 50);
-
+        admin_giris_butonu.setBackground(Color.BLUE);
         // Butona tıklanınca çalışacak kısım
         admin_giris_butonu.addActionListener(e -> {
             dispose(); // Butona tıklanınca Giriş Ekranını kapatan komut
@@ -40,7 +42,7 @@ class Arayuz extends JFrame {
         // 2- Firma Giriş Butonu
         JButton firma_giris_butonu = new JButton("Firma Girişi");
         firma_giris_butonu.setBounds(190, 20, 150, 50);
-
+        firma_giris_butonu.setBackground((Color.PINK));
         // Butona tıklanınca çalışacak kısım
         firma_giris_butonu.addActionListener(e -> {
             dispose(); // Butona tıklanınca Giriş Ekranını kapatan komut
@@ -52,7 +54,7 @@ class Arayuz extends JFrame {
         // 3- Bilet Ara Butonu
         JButton bilet_ara_butonu = new JButton("Bilet Ara");
         bilet_ara_butonu.setBounds(360, 20, 150, 50);
-
+        bilet_ara_butonu.setBackground(Color.YELLOW);
         // Butona tıklanınca çalışacak kısım
         bilet_ara_butonu.addActionListener(e -> {
             dispose(); // Butona tıklanınca Giriş Ekranını kapatan komut
@@ -135,4 +137,3 @@ public class Main {
 
     }
 }
-

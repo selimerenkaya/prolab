@@ -1,8 +1,11 @@
 import java.util.ArrayList;
 import java.util.Arrays;
 
+interface Ireservable{
+
+}
 // Firma Bilgilerini, Araçları ve Seyahat bilgileri gibi bir sürü bilgiyi barındıran Class
-public class Transport {
+public class Transport implements Ireservable {
     // Şirketleri (Firmalar) Tutan ArrayList
     static ArrayList<Company> sirketler = new ArrayList<>();
 

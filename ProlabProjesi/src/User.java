@@ -112,10 +112,12 @@ class Admin extends User {
             setSize(800, 600);
 
 
+
             // Panel ve Butonların oluşturulması
             // Panel
             JPanel panel = new JPanel();
             panel.setLayout(null);
+            panel.setBackground(Color.white);
 
             // Giriş Bilgilerini alan kısım
             // 1- Kullanıcı adı
@@ -129,7 +131,7 @@ class Admin extends User {
             // 2- Şifre
             JLabel sifre_baslik = new JLabel("Şifre");
             sifre_baslik.setBounds(20, 80, 100, 20);
-            JTextField sifreGirdisi = new JTextField();
+            JTextField sifreGirdisi = new JTextField(); //veri arayüzde böyle alınıyor
             sifreGirdisi.setBounds(20, 100, 200, 30);
             add(sifre_baslik);
             add(sifreGirdisi);
@@ -149,7 +151,7 @@ class Admin extends User {
                 } else {
                     System.out.println("Giriş başarısız.");
                 }
-
+                //bence fena değil eklenebilir
                 //dispose(); // Butona tıklanınca Giriş Ekranını kapatan komut
             });
             panel.add(giris_butonu); // Panele eklenmesi
@@ -217,6 +219,7 @@ class Admin extends User {
 
             // Butona tıklanınca çalışacak kısım
             firma_kayit_sil.addActionListener(e -> {
+                new Company.Firmalardan_Sil();
                 //dispose(); // Butona tıklanınca Giriş Ekranını kapatan komut
             });
             panel.add(firma_kayit_sil); // Panele eklenmesi
@@ -254,17 +257,20 @@ class Admin extends User {
 
 }
 
+//kar ve gelir hesaplama yeteneğine sahip nesneleri temsil eder
+//günlük kar hesabı genel kar zarar hesabı burada yapılmalı
+interface Iprofitable{
 
+}
 
-// User Class'ının Company Classı
-class Company extends User {
+// User Class'ının Company Classı Iprofitable implement edildi
+class Company extends User implements Iprofitable {
     static int hizmet_bedeli = 1000; // TL bazında
     // Firma Oluşturulurken Gerekli Olan Bilgiler
     String firma_isim;
     String kullaniciAdi;
     String sifre;
     ArrayList<Object> aracBilgileri = new ArrayList<>();
-
 
 
     // Hizmet bedeli değişkeni için Get/Set metotları
@@ -286,7 +292,7 @@ class Company extends User {
     }
 
     // Company Parametresiz Constructor Metodu
-    public Company(){
+    public Company() {
 
     }
 
@@ -313,12 +319,12 @@ class Company extends User {
     }
 
 
-
     // Kullanıcı Adı değişkeni için Get/Set Metotları
     @Override
     public String get_kullaniciAdi() {
         return kullaniciAdi;
     }
+
     @Override
     public void set_kullaniciAdi(String kullaniciAdiYeni) {
         kullaniciAdi = kullaniciAdiYeni;
@@ -329,6 +335,7 @@ class Company extends User {
     public String get_sifre() {
         return sifre;
     }
+
     @Override
     public void set_sifre(String sifreYeni) {
         sifre = sifreYeni;
@@ -388,8 +395,7 @@ class Company extends User {
                     geri_bildirim.setForeground(Color.GREEN);
                     geri_bildirim.setVisible(true);
 
-                }
-                catch (Exception ex){
+                } catch (Exception ex) {
                     System.out.println("Hata alındı!");
                     geri_bildirim.setText("Hata Oluştu!");
                     geri_bildirim.setForeground(Color.RED);
@@ -455,7 +461,7 @@ class Company extends User {
 
     }
 
-    // Company Class'ının Tüm Firma Eklerken Kullanılan Arayüz Classı
+    // Company Class'ının Firma Eklerken Kullanılan Arayüz Classı
     static class Firmalara_Ekle extends JFrame {
         public Firmalara_Ekle() {
             // Firma Ekleme Menüsünün Arayüzünün oluşturulması
@@ -496,7 +502,7 @@ class Company extends User {
             JLabel geri_bildirim = new JLabel();
             Font geri_bildirim_font = geri_bildirim.getFont();
             geri_bildirim.setFont(geri_bildirim_font.deriveFont(geri_bildirim_font.getStyle() | Font.BOLD, 16));
-            geri_bildirim.setBounds(30, 240, 200, 20);
+            geri_bildirim.setBounds(30, 240, 300, 20);
 
             geri_bildirim.setVisible(false);
             panel.add(geri_bildirim);
@@ -511,22 +517,37 @@ class Company extends User {
                 geri_bildirim.setVisible(false);
                 // Geri Bildirim Almayı Sağlayan kısım
                 try {
+                    boolean firma_mevcut = false;
                     // Girdiler Boş Değilse çalışacak kısım
-                    if (!firmaIsmiGirdisi.getText().isEmpty() && !firmaKullaniciAdiGirdisi.getText().isEmpty() && !firmaSifreGirdisi.getText().isEmpty() ){
-                        Company yeni_firma = new Company(firmaIsmiGirdisi.getText(), firmaKullaniciAdiGirdisi.getText(), firmaSifreGirdisi.getText());
-                        new Transport().FirmaListesineEkle(yeni_firma);
-                        geri_bildirim.setText("Başarıyla Eklendi.");
-                        geri_bildirim.setForeground(Color.GREEN);
-                        geri_bildirim.setVisible(true);
-                    }
-                    else{
+                    if (!firmaIsmiGirdisi.getText().isEmpty() && !firmaKullaniciAdiGirdisi.getText().isEmpty() && !firmaSifreGirdisi.getText().isEmpty()) {
+                        // Girilen Firma ismi kayıtlı mı diye kontrol eden kısım
+                        for (Company firma : Transport.sirketler) {
+                            if (firmaIsmiGirdisi.getText().equals(firma.get_firma_isim())) {
+                                firma_mevcut = true;
+                                break;
+                            }
+                        }
+                        // Firma mevcut değil ise ekleyen kısım
+                        if (!firma_mevcut) {
+                            Company yeni_firma = new Company(firmaIsmiGirdisi.getText(), firmaKullaniciAdiGirdisi.getText(), firmaSifreGirdisi.getText());
+                            new Transport().FirmaListesineEkle(yeni_firma);
+                            geri_bildirim.setText("Başarıyla Eklendi.");
+                            geri_bildirim.setForeground(Color.GREEN);
+                            geri_bildirim.setVisible(true);
+                        }
+                        else {
+                            geri_bildirim.setText("Hata Oluştu! Firma zaten mevcut!");
+                            firma_mevcut = false;
+                            throw new Exception("Firma zaten mevcut!");
+                        }
+
+                    } else {
+                        geri_bildirim.setText("Hata Oluştu! Boş girdi Kısmı!");
                         throw new Exception("Girdilerde boş olan kısım var!");
                     }
 
-                }
-                catch (Exception ex){
+                } catch (Exception ex) {
                     System.out.println("Hata alındı!");
-                    geri_bildirim.setText("Hata Oluştu!");
                     geri_bildirim.setForeground(Color.RED);
                     geri_bildirim.setVisible(true);
                 }
@@ -535,14 +556,86 @@ class Company extends User {
             panel.add(onayla_butonu); // Panele eklenmesi
 
 
-
-
-
             this.getContentPane().add(panel); // Oluşturulan içeriklerin panele ekleyen kısım
             setVisible(true);
         }
-
     }
 
+    // Company Class'ının Firma Silerken Kullanılan Arayüz Classı
+    static class Firmalardan_Sil extends JFrame {
+        public Firmalardan_Sil() {
+            // Firma Ekleme Menüsünün Arayüzünün oluşturulması
+            setTitle("Firma Ekle");
+            setSize(800, 600);
 
+            // Panelin oluşturulması
+            JPanel panel = new JPanel();
+            panel.setLayout(null);
+
+            // 1- Silinecek firmanın isminin girileceği başlık
+            JLabel silinecek_firma_isim_baslik = new JLabel("Silinecek Firma İsmini Giriniz");
+            silinecek_firma_isim_baslik.setBounds(20, 10, 250, 30);
+            panel.add(silinecek_firma_isim_baslik);
+
+            // 2- Silinecek firmanın isim bilgisin alan kısım
+            JTextField silinecek_firma_isim = new JTextField();
+            silinecek_firma_isim.setBounds(20, 40, 150, 30);
+            panel.add(silinecek_firma_isim);
+
+            // 3- Geri Bildirim Yazısı
+            JLabel geri_bildirim = new JLabel();
+            Font geri_bildirim_font = geri_bildirim.getFont();
+            geri_bildirim.setFont(geri_bildirim_font.deriveFont(geri_bildirim_font.getStyle() | Font.BOLD, 16));
+            geri_bildirim.setBounds(30, 120, 300, 50);
+
+            geri_bildirim.setVisible(false);
+            panel.add(geri_bildirim);
+
+            // 4- Firmanın silinmesini onaylayan buton
+            JButton onayla_butonu = new JButton("Onayla ve Sil");
+            onayla_butonu.setBounds(20, 80, 150, 30);
+            // Butona basınca çalışacak kısım
+            onayla_butonu.addActionListener(e -> {
+                // Geri Bildirim Almayı Sağlayan kısım
+                try {
+                    boolean firma_var = false;
+                    // Girdiler Boş Değilse çalışacak kısım
+                    if (!silinecek_firma_isim.getText().isEmpty()){ // Girdi Kısmı dolu mu diye kontrol eden kısım
+                        for (Company firma : Transport.sirketler){
+                            if (silinecek_firma_isim.getText().equals(firma.get_firma_isim())){
+                                new Transport().FirmaListesindenSil(firma);
+                                firma_var = true;
+                                break;
+                            }
+                        }
+                        if (firma_var){
+                            geri_bildirim.setText("Başarıyla Silindi.");
+                            geri_bildirim.setForeground(Color.GREEN);
+                            geri_bildirim.setVisible(true);
+                        }
+                        else {
+                            geri_bildirim.setText("Hata Oluştu! Geçersiz Firma!");
+                            throw new Exception("Girilen ad geçerli bir Firma adı Değil!");
+                        }
+
+                    } else {
+                        geri_bildirim.setText("Hata Oluştu! Boş Girdi Kısmı!");
+                        throw new Exception("Girdilerde boş olan kısım var!");
+                    }
+
+                } catch (Exception ex) {
+                    System.out.println("Hata alındı!");
+                    geri_bildirim.setForeground(Color.RED);
+                    geri_bildirim.setVisible(true);
+                }
+
+            });
+
+            panel.add(onayla_butonu);
+
+
+            this.getContentPane().add(panel); // Oluşturulan içerikleri arayüze ekleyen kısım
+            setVisible(true);
+        }
+    }
 }
