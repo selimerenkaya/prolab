@@ -30,7 +30,7 @@ class Arayuz extends JFrame {
         // 1- Admin Giriş Butonu
         JButton admin_giris_butonu = new JButton("Admin Girişi");
         admin_giris_butonu.setBounds(20, 20, 150, 50);
-        admin_giris_butonu.setBackground(Color.BLUE);
+        admin_giris_butonu.setBackground(new Color(120, 130, 255));
         // Butona tıklanınca çalışacak kısım
         admin_giris_butonu.addActionListener(e -> {
             dispose(); // Butona tıklanınca Giriş Ekranını kapatan komut
@@ -46,7 +46,7 @@ class Arayuz extends JFrame {
         // Butona tıklanınca çalışacak kısım
         firma_giris_butonu.addActionListener(e -> {
             dispose(); // Butona tıklanınca Giriş Ekranını kapatan komut
-            new Firma_Arayuz(); // Firma Panelinin gözükmesini sağlayan komut
+            new Company.Firma_Giris_Arayuz(); // Firma Panelinin gözükmesini sağlayan komut
         });
         panel.add(firma_giris_butonu); // Panele eklenmesi
 
@@ -69,33 +69,6 @@ class Arayuz extends JFrame {
         setVisible(true); // Arayüzü görünür kılan metot
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // Arayüzden çıkış yapmayı sağlayan metot
 
-    }
-}
-
-
-
-// Firma Panelinin Arayüzü
-class Firma_Arayuz extends JFrame {
-
-    // Admin Panel ekranı oluşturulduğunda çalışacak kod
-    public Firma_Arayuz() {
-        // Ana Menünün Arayüzünün oluşturulması
-        setTitle("Firma Paneli");
-        setSize(800, 600);
-
-
-        // Panel ve Butonların oluşturulması
-        // Panel
-        JPanel panel = new JPanel();
-        panel.setLayout(null);
-
-
-        this.getContentPane().add(panel); // Oluşturulan içeriklerin panele ekleyen kısım
-
-
-
-        setVisible(true); // Arayüzü görünür kılan metot
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // Arayüzden çıkış yapmayı sağlayan metot
     }
 }
 

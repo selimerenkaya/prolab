@@ -5,7 +5,9 @@
 // 2- Train
 // 3- Airplane
 abstract class Vehicle {
-
+    String arac_id;
+    String yakit_turu;
+    int kapasite;
 }
 
 // Otobüs Classı

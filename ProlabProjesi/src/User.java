@@ -139,6 +139,7 @@ class Admin extends User {
             // Giriş Yapılmasını Sağlayan Buton
             JButton giris_butonu = new JButton("Giriş Yap");
             giris_butonu.setBounds(50, 140, 130, 40);
+            giris_butonu.setBackground(new Color(120, 130, 255));
 
             // Butona tıklanınca çalışacak kısım
             giris_butonu.addActionListener(e -> {
@@ -159,6 +160,7 @@ class Admin extends User {
             // Ana Menüye Geri Döndüren Buton
             JButton ana_menu_butonu = new JButton("Ana Menüye Geri Dön");
             ana_menu_butonu.setBounds(50, 190, 180, 40);
+            ana_menu_butonu.setBackground(new Color(120, 130, 255));
 
             // Butona tıklanınca çalışacak kısım
             ana_menu_butonu.addActionListener(e -> {
@@ -190,10 +192,12 @@ class Admin extends User {
             // Panel
             JPanel panel = new JPanel();
             panel.setLayout(null);
+            panel.setBackground(new Color(120, 130, 255));
 
             // 1- Firmaların Görüntülenmesini Sağlayan Buton
             JButton firmalari_goruntule = new JButton("Firmaları Görüntüle");
             firmalari_goruntule.setBounds(50, 20, 190, 40);
+            firmalari_goruntule.setBackground(Color.white);
 
             // Butona tıklanınca çalışacak kısım
             firmalari_goruntule.addActionListener(e -> {
@@ -205,6 +209,7 @@ class Admin extends User {
             // 2- Firmalara Yeni Firma Kaydı yapılmasını Sağlayan Buton
             JButton yeni_firma_ekle = new JButton("Yeni Firma Kaydı Yap");
             yeni_firma_ekle.setBounds(50, 70, 190, 40);
+            yeni_firma_ekle.setBackground(Color.white);
 
             // Butona tıklanınca çalışacak kısım
             yeni_firma_ekle.addActionListener(e -> {
@@ -216,6 +221,7 @@ class Admin extends User {
             // 3- Firmalardan Firma Kaydı silinmesini Sağlayan Buton
             JButton firma_kayit_sil = new JButton("Firma Kaydı Sil");
             firma_kayit_sil.setBounds(50, 120, 190, 40);
+            firma_kayit_sil.setBackground(Color.white);
 
             // Butona tıklanınca çalışacak kısım
             firma_kayit_sil.addActionListener(e -> {
@@ -227,6 +233,7 @@ class Admin extends User {
             // 3- Hizmet Bedeli Belirlenmesini Sağlayan Buton
             JButton hizmet_bedeli_belirle = new JButton("Hizmet Bedeli Belirle");
             hizmet_bedeli_belirle.setBounds(50, 170, 190, 40);
+            hizmet_bedeli_belirle.setBackground(Color.white);
 
             // Butona tıklanınca çalışacak kısım
             hizmet_bedeli_belirle.addActionListener(e -> {
@@ -238,6 +245,7 @@ class Admin extends User {
             // 4- Ana Menüye Geri Döndüren Buton
             JButton ana_menu_butonu = new JButton("Çıkış Yap");
             ana_menu_butonu.setBounds(50, 220, 180, 40);
+            ana_menu_butonu.setBackground(Color.white);
 
             // Butona tıklanınca çalışacak kısım
             ana_menu_butonu.addActionListener(e -> {
@@ -348,6 +356,7 @@ class Company extends User implements Iprofitable {
     }
 
 
+    // ADMİN PANELİNDE KULLANILACAK OLAN COMPANY CLASSLARI
     // Company Class'ının Hizmet Bedeli Arayüzü
     static class Hizmet_Bedeli_Arayuzu extends JFrame {
 
@@ -502,7 +511,7 @@ class Company extends User implements Iprofitable {
             JLabel geri_bildirim = new JLabel();
             Font geri_bildirim_font = geri_bildirim.getFont();
             geri_bildirim.setFont(geri_bildirim_font.deriveFont(geri_bildirim_font.getStyle() | Font.BOLD, 16));
-            geri_bildirim.setBounds(30, 240, 300, 20);
+            geri_bildirim.setBounds(30, 240, 360, 20);
 
             geri_bildirim.setVisible(false);
             panel.add(geri_bildirim);
@@ -518,26 +527,34 @@ class Company extends User implements Iprofitable {
                 // Geri Bildirim Almayı Sağlayan kısım
                 try {
                     boolean firma_mevcut = false;
+                    boolean kullaniciAdi_mevcut = false;
                     // Girdiler Boş Değilse çalışacak kısım
                     if (!firmaIsmiGirdisi.getText().isEmpty() && !firmaKullaniciAdiGirdisi.getText().isEmpty() && !firmaSifreGirdisi.getText().isEmpty()) {
-                        // Girilen Firma ismi kayıtlı mı diye kontrol eden kısım
                         for (Company firma : Transport.sirketler) {
+                            // Girilen Firma ismi kayıtlı mı diye kontrol eden kısım
                             if (firmaIsmiGirdisi.getText().equals(firma.get_firma_isim())) {
                                 firma_mevcut = true;
-                                break;
+                            }
+                            if (firmaKullaniciAdiGirdisi.getText().equals(firma.get_kullaniciAdi())) {
+                                kullaniciAdi_mevcut = true;
                             }
                         }
                         // Firma mevcut değil ise ekleyen kısım
                         if (!firma_mevcut) {
-                            Company yeni_firma = new Company(firmaIsmiGirdisi.getText(), firmaKullaniciAdiGirdisi.getText(), firmaSifreGirdisi.getText());
-                            new Transport().FirmaListesineEkle(yeni_firma);
-                            geri_bildirim.setText("Başarıyla Eklendi.");
-                            geri_bildirim.setForeground(Color.GREEN);
-                            geri_bildirim.setVisible(true);
+                            if(!kullaniciAdi_mevcut){
+                                Company yeni_firma = new Company(firmaIsmiGirdisi.getText(), firmaKullaniciAdiGirdisi.getText(), firmaSifreGirdisi.getText());
+                                new Transport().FirmaListesineEkle(yeni_firma);
+                                geri_bildirim.setText("Başarıyla Eklendi.");
+                                geri_bildirim.setForeground(Color.GREEN);
+                                geri_bildirim.setVisible(true);
+                            }
+                            else{
+                                geri_bildirim.setText("Hata Oluştu! Kullanıcı Adı zaten mevcut!");
+                                throw new Exception("Kullanıcı Adı zaten mevcut!");
+                            }
                         }
                         else {
                             geri_bildirim.setText("Hata Oluştu! Firma zaten mevcut!");
-                            firma_mevcut = false;
                             throw new Exception("Firma zaten mevcut!");
                         }
 
@@ -636,6 +653,32 @@ class Company extends User implements Iprofitable {
 
             this.getContentPane().add(panel); // Oluşturulan içerikleri arayüze ekleyen kısım
             setVisible(true);
+        }
+    }
+
+    // FİRMA PANELİNDE KULLANILACAK OLAN COMPANY CLASSLARI
+    // Firma Panelinin Arayüzü
+    static class Firma_Giris_Arayuz extends JFrame {
+
+        // Admin Panel ekranı oluşturulduğunda çalışacak kod
+        public Firma_Giris_Arayuz() {
+            // Ana Menünün Arayüzünün oluşturulması
+            setTitle("Firma Paneli");
+            setSize(800, 600);
+
+
+            // Panel ve Butonların oluşturulması
+            // Panel
+            JPanel panel = new JPanel();
+            panel.setLayout(null);
+
+
+            this.getContentPane().add(panel); // Oluşturulan içeriklerin panele ekleyen kısım
+
+
+
+            setVisible(true); // Arayüzü görünür kılan metot
+            setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // Arayüzden çıkış yapmayı sağlayan metot
         }
     }
 }
