@@ -657,28 +657,168 @@ class Company extends User implements Iprofitable {
     }
 
     // FİRMA PANELİNDE KULLANILACAK OLAN COMPANY CLASSLARI
-    // Firma Panelinin Arayüzü
+    // Firma Giriş Panelinin Arayüzü
     static class Firma_Giris_Arayuz extends JFrame {
 
-        // Admin Panel ekranı oluşturulduğunda çalışacak kod
+        // Firma Giriş Paneli oluşturulduğunda çalışacak kod
         public Firma_Giris_Arayuz() {
             // Ana Menünün Arayüzünün oluşturulması
-            setTitle("Firma Paneli");
+            setTitle("Firma Giriş Paneli");
             setSize(800, 600);
-
 
             // Panel ve Butonların oluşturulması
             // Panel
             JPanel panel = new JPanel();
             panel.setLayout(null);
+            panel.setBackground(Color.white);
+
+            // Giriş Bilgilerini alan kısım
+            // 1- Kullanıcı adı
+            JLabel kullanici_adi_baslik = new JLabel("Kullanıcı Adı");
+            kullanici_adi_baslik.setBounds(20, 20, 100, 20);
+            JTextField kullaniciAdiGirdisi = new JTextField();
+            kullaniciAdiGirdisi.setBounds(20, 40, 200, 30);
+            add(kullanici_adi_baslik);
+            add(kullaniciAdiGirdisi);
+
+            // 2- Şifre
+            JLabel sifre_baslik = new JLabel("Şifre");
+            sifre_baslik.setBounds(20, 80, 100, 20);
+            JTextField sifreGirdisi = new JTextField(); //veri arayüzde böyle alınıyor
+            sifreGirdisi.setBounds(20, 100, 200, 30);
+            add(sifre_baslik);
+            add(sifreGirdisi);
+
+            // 3- Geri Bildirim Yazısı
+            JLabel geri_bildirim = new JLabel();
+            Font geri_bildirim_font = geri_bildirim.getFont();
+            geri_bildirim.setFont(geri_bildirim_font.deriveFont(geri_bildirim_font.getStyle() | Font.BOLD, 16));
+            geri_bildirim.setBounds(40, 230, 300, 50);
+
+            geri_bildirim.setVisible(false);
+            panel.add(geri_bildirim);
+
+            // 4- Giriş Yapılmasını Sağlayan Buton
+            JButton giris_butonu = new JButton("Giriş Yap");
+            giris_butonu.setBounds(50, 140, 130, 40);
+            giris_butonu.setBackground(new Color(120, 130, 255));
+
+            // Butona tıklanınca çalışacak kısım
+            giris_butonu.addActionListener(e -> {
+                try {
+                    // Girdiler Dolu mu diye kontrol eden kısım
+                    if (!kullaniciAdiGirdisi.getText().isEmpty() && !sifreGirdisi.getText().isEmpty()) {
+                        boolean sistemde_var = false;
+                        for(Company firma : Transport.sirketler) {
+                            if (firma.get_kullaniciAdi().equals(kullaniciAdiGirdisi.getText())) {
+                                sistemde_var = true;
+                                if (firma.get_sifre().equals(sifreGirdisi.getText())){
+                                    System.out.println("Giriş Başarılı");
+                                    geri_bildirim.setText("Giriş Başarılı!");
+                                    geri_bildirim.setForeground(Color.GREEN);
+                                    geri_bildirim.setVisible(true);
+
+                                    new Company.Firma_Islem_Arayuz(firma);
+                                    break;
+                                }
+                                else {
+                                    geri_bildirim.setText("Hatalı Şifre!");
+                                    throw new Exception ("Hatalı Şifre!");
+                                }
+                            }
+                        }
+
+                        if (!sistemde_var) {
+                            geri_bildirim.setText("Geçerisz Kullanıcı Adı!");
+                            throw new Exception ("Geçersiz Kullanıcı Adı!");
+                        }
+                    }
+                    else {
+                        geri_bildirim.setText("Boş Girdi Kısmı var!");
+                        throw new Exception ("Boş girdi var!");
+                    }
+                }
+                catch (Exception ex) {
+                    System.out.println("Hata Alındı! " + ex);
+                    geri_bildirim.setForeground(Color.RED);
+                    geri_bildirim.setVisible(true);
+                }
+                //dispose(); // Butona tıklanınca Giriş Ekranını kapatan komut
+            });
+            panel.add(giris_butonu); // Panele eklenmesi
+
+            // 4- Ana Menüye Geri Döndüren Buton
+            JButton ana_menu_butonu = new JButton("Ana Menüye Geri Dön");
+            ana_menu_butonu.setBounds(30, 190, 180, 40);
+            ana_menu_butonu.setBackground(new Color(120, 130, 255));
+
+            // Butona tıklanınca çalışacak kısım
+            ana_menu_butonu.addActionListener(e -> {
+                new Arayuz();
+                dispose(); // Butona tıklanınca Giriş Ekranını kapatan komut
+            });
+            panel.add(ana_menu_butonu); // Panele eklenmesi
+
 
 
             this.getContentPane().add(panel); // Oluşturulan içeriklerin panele ekleyen kısım
 
-
-
             setVisible(true); // Arayüzü görünür kılan metot
             setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // Arayüzden çıkış yapmayı sağlayan metot
+        }
+    }
+
+    // Firma İşlemleri Panelinin Arayüzü
+    static class Firma_Islem_Arayuz extends JFrame {
+        // Firma Panelinde kullanılacak olan firmayı tutan nesne
+        Company firma;
+
+        // Firma İşlem Paneli oluşturulduğunda çalışacak kod
+        public Firma_Islem_Arayuz(Company firmaGirdisi) {
+            firma = firmaGirdisi; // İşlemleri yapılacak firmanın, firma nesnesine atanması
+
+            // Firma İşlem Arayüzünün genel özellikleri
+            setTitle(firma.get_firma_isim() + " Adlı Firmanın İşlem Paneli");
+            int width = 800, height = 600;
+            setSize(width, height);
+
+
+            // Panel ve Butonların oluşturulması
+            // 1- Panel
+            JPanel panel = new JPanel();
+            panel.setLayout(null);
+            panel.setBackground(Color.white);
+
+            // 2- Firma Başlığı
+            JLabel firma_basligi = new JLabel(firma.get_firma_isim() + " Adlı Firmanın İşlem Paneli");
+            firma_basligi.setBounds(width / 2 - 120, 20, 400, 30);
+            firma_basligi.setForeground(Color.BLACK);
+            Font firma_basligi_font = firma_basligi.getFont();
+            firma_basligi.setFont(firma_basligi_font.deriveFont(firma_basligi_font.getStyle() | Font.BOLD, 16));
+            panel.add(firma_basligi);
+
+            // 3- Araç Ekle/Çıkar Butonu
+            JButton arac_ekle_cikar = new JButton("Araç Ekle/Çıkar");
+            arac_ekle_cikar.setBounds(width/ 2 - 135, 50, 250, 30);
+            arac_ekle_cikar.setBackground(Color.PINK);
+            panel.add(arac_ekle_cikar);
+
+            // 4- Sefer Ekle/Çıkar Butonu
+            JButton sefer_ekle_cikar = new JButton("Sefer Ekle/Çıkar");
+            sefer_ekle_cikar.setBounds(width/ 2 - 135, 90, 250, 30);
+            sefer_ekle_cikar.setBackground(Color.PINK);
+            panel.add(sefer_ekle_cikar);
+
+            // 4- Günlük Kar Hesabı Butonu
+            JButton gunluk_kar_hesabi = new JButton("Günlük Kar Hesabı");
+            gunluk_kar_hesabi.setBounds(width/ 2 - 135, 130, 250, 30);
+            gunluk_kar_hesabi.setBackground(Color.PINK);
+            panel.add(gunluk_kar_hesabi);
+
+
+            this.getContentPane().add(panel); // Oluşturulan içeriklerin panele ekleyen kısım
+
+            setVisible(true);
         }
     }
 }

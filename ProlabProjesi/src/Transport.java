@@ -22,7 +22,6 @@ public class Transport implements Ireservable {
         Transport hazirBilgiler = new Transport();
         hazirBilgiler.FirmaListesineEkle(A, B, C, D, F);
 
-
     }
 
     // Şirket Listesine firma eklemeyi sağlayan metot
