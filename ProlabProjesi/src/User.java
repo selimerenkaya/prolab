@@ -299,6 +299,43 @@ class Company extends User implements Iprofitable {
         firma_isim = firma_isim_girdisi;
     }
 
+    // Kullanıcı Adı değişkeni için Get/Set Metotları
+    @Override
+    public String get_kullaniciAdi() {
+        return kullaniciAdi;
+    }
+
+    @Override
+    public void set_kullaniciAdi(String kullaniciAdiYeni) {
+        kullaniciAdi = kullaniciAdiYeni;
+    }
+
+    // Şifre değişkeni için Get/Set Metotları
+    @Override
+    public String get_sifre() {
+        return sifre;
+    }
+
+    @Override
+    public void set_sifre(String sifreYeni) {
+        sifre = sifreYeni;
+    }
+
+    // Araç Bilgileri değişkeni için Get/Set Metotları
+    public ArrayList<Object> get_aracBilgileri() {
+        return aracBilgileri;
+    }
+
+    public void set_aracBilgileri(ArrayList<Object> aracBilgileriGirdisi) {
+        aracBilgileri = aracBilgileriGirdisi;
+    }
+
+    // Firma Girişlerini kontrol eden fonksiyon
+    @Override
+    public boolean Giris(String kullaniciAdiGirdisi, String sifreGirdisi) {
+        return false;
+    }
+
     // Company Parametresiz Constructor Metodu
     public Company() {
 
@@ -324,35 +361,6 @@ class Company extends User implements Iprofitable {
         kullaniciAdi = kullaniciAdi_girdisi;
         sifre = sifre_girdisi;
         aracBilgileri = aracBilgileriGirdisi;
-    }
-
-
-    // Kullanıcı Adı değişkeni için Get/Set Metotları
-    @Override
-    public String get_kullaniciAdi() {
-        return kullaniciAdi;
-    }
-
-    @Override
-    public void set_kullaniciAdi(String kullaniciAdiYeni) {
-        kullaniciAdi = kullaniciAdiYeni;
-    }
-
-    // Şifre değişkeni için Get/Set Metotları
-    @Override
-    public String get_sifre() {
-        return sifre;
-    }
-
-    @Override
-    public void set_sifre(String sifreYeni) {
-        sifre = sifreYeni;
-    }
-
-    // Firma Girişlerini kontrol eden fonksiyon
-    @Override
-    public boolean Giris(String kullaniciAdiGirdisi, String sifreGirdisi) {
-        return false;
     }
 
 
@@ -801,6 +809,10 @@ class Company extends User implements Iprofitable {
             JButton arac_ekle_cikar = new JButton("Araç Ekle/Çıkar");
             arac_ekle_cikar.setBounds(width/ 2 - 135, 50, 250, 30);
             arac_ekle_cikar.setBackground(Color.PINK);
+            // Butona tıklanınca çalışacak kısım
+            arac_ekle_cikar.addActionListener(e -> {
+                new Company.Firma_Islem_Arac_Ekle_Cikar(firma);
+            });
             panel.add(arac_ekle_cikar);
 
             // 4- Sefer Ekle/Çıkar Butonu
@@ -818,6 +830,263 @@ class Company extends User implements Iprofitable {
 
             this.getContentPane().add(panel); // Oluşturulan içeriklerin panele ekleyen kısım
 
+            setVisible(true);
+        }
+    }
+
+    // Firma İşlemlerinden Araç Ekle/Çıkar Panelinin Arayüzü
+    static class Firma_Islem_Arac_Ekle_Cikar extends JFrame {
+        // Firma Panelinde kullanılacak olan firmayı tutan nesne
+        Company firma;
+
+        // Firma İşlemlerinden Araç Ekle/Çıkar Paneli oluşturulduğunda çalışacak kod
+        public Firma_Islem_Arac_Ekle_Cikar(Company firmaGirdisi) {
+            firma = firmaGirdisi; // İşlemleri yapılacak firmanın, firma nesnesine atanması
+
+            // Firma İşlem Arayüzünün genel özellikleri
+            setTitle(firma.get_firma_isim() + " Adlı Firmanın Araç İşlemleri");
+            int width = 800, height = 600;
+            setSize(width, height);
+
+
+            // Panel ve Butonların oluşturulması
+            // 1- Panel
+            JPanel panel = new JPanel();
+            panel.setLayout(null);
+            panel.setBackground(Color.white);
+
+            // 2- Firmanın Araç İşlemleri Başlığı
+            JLabel firma_basligi = new JLabel(firma.get_firma_isim() + " Adlı Firmanın Araç İşlemleri");
+            firma_basligi.setBounds(width / 2 - 120, 20, 400, 30);
+            firma_basligi.setForeground(Color.BLACK);
+            Font firma_basligi_font = firma_basligi.getFont();
+            firma_basligi.setFont(firma_basligi_font.deriveFont(firma_basligi_font.getStyle() | Font.BOLD, 16));
+            panel.add(firma_basligi);
+
+            // 3- Araçları Görüntüleme Butonu
+            JButton arac_goruntule = new JButton("Araçları Görüntüle");
+            arac_goruntule.setBounds(width/ 2 - 135, 50, 250, 30);
+            arac_goruntule.setBackground(new Color(130, 85, 240));
+            // Butona tıklanınca çalışacak kısım
+            arac_goruntule.addActionListener(e -> {
+                new Company.Firma_Islem_Arac_Goruntule(firma);
+            });
+            panel.add(arac_goruntule);
+
+            // 3- Araç Ekleme Butonu
+            JButton arac_ekle = new JButton("Araç Ekle");
+            arac_ekle.setBounds(width/ 2 - 135, 90, 250, 30);
+            arac_ekle.setBackground(new Color(130, 85, 240));
+            // Butona tıklanınca çalışacak kısım
+            arac_ekle.addActionListener(e -> {
+
+            });
+            panel.add(arac_ekle);
+
+            // 3- Araçları Çıkarma Butonu
+            JButton arac_cikar = new JButton("Araç Çıkar");
+            arac_cikar.setBounds(width/ 2 - 135, 130, 250, 30);
+            arac_cikar.setBackground(new Color(130, 85, 240));
+            // Butona tıklanınca çalışacak kısım
+            arac_cikar.addActionListener(e -> {
+                new Company.Firma_Islem_Arac_Sil(firma);
+            });
+            panel.add(arac_cikar);
+
+
+            this.getContentPane().add(panel); // Oluşturulan içeriklerin panele ekleyen kısım
+
+            setVisible(true);
+        }
+    }
+
+    // Firma İşlemlerinden Araçları Görüntüle Panelinin Arayüzü
+    static class Firma_Islem_Arac_Goruntule extends JFrame {
+        // Firma İşlemlerinin Araç Görüntüle Panelinde kullanılacak olan firmayı tutan nesne
+        Company firma;
+
+        // Firma İşlemlerinden Araçları Görüntüle Paneli oluşturulduğunda çalışacak kod
+        public Firma_Islem_Arac_Goruntule(Company firmaGirdisi) {
+            firma = firmaGirdisi;
+            //Arayüz Ayarları
+            setTitle(firma.get_firma_isim() + "Firmasının Araç Bilgileri");
+            setSize(800, 600);
+
+            // 1- Panel
+            JPanel panel = new JPanel();
+            panel.setBackground(Color.white);
+
+            // Firmanın Araç Bilgilerini Alan kısım
+            ArrayList<Object> aracBilgileri = firma.get_aracBilgileri();
+
+            // Firma Bilgilerini Bilgi Listine atayan kısım
+            String[][] bilgi = {};
+            for (Object bilgiler : aracBilgileri) {
+                Class arac_sinifi = bilgiler.getClass();
+                if ("Bus".equals(arac_sinifi.getName()))
+                {
+                    Bus temp_arac = (Bus) bilgiler;
+                    String[] arac = {temp_arac.get_arac_id(), temp_arac.getArac_tur(), temp_arac.get_guzergah().get_ulasim_turu(),
+                            String.valueOf(temp_arac.get_kapasite()), temp_arac.get_yakit_turu(),
+                            String.valueOf(temp_arac.get_yakit_ucreti())};
+                    bilgi = Arrays.copyOf(bilgi, bilgi.length + 1);
+                    bilgi[bilgi.length - 1] = arac;
+
+                }
+                else if ("Train".equals(arac_sinifi.getName()))
+                {
+                    Train temp_arac = (Train) bilgiler;
+                    String[] arac = {temp_arac.get_arac_id(), temp_arac.getClass().toString(), temp_arac.get_guzergah().toString(),
+                            String.valueOf(temp_arac.get_kapasite()), temp_arac.get_yakit_turu(),
+                            String.valueOf(temp_arac.get_yakit_ucreti())};
+                    bilgi = Arrays.copyOf(bilgi, bilgi.length + 1);
+                    bilgi[bilgi.length - 1] = arac;
+
+                }
+                else if ("Airplane".equals(arac_sinifi.getName()))
+                {
+                    Airplane temp_arac = (Airplane) bilgiler;
+                    String[] arac = {temp_arac.get_arac_id(), temp_arac.getClass().toString(), temp_arac.get_guzergah().toString(),
+                            String.valueOf(temp_arac.get_kapasite()), temp_arac.get_yakit_turu(),
+                            String.valueOf(temp_arac.get_yakit_ucreti())};
+                    bilgi = Arrays.copyOf(bilgi, bilgi.length + 1);
+                    bilgi[bilgi.length - 1] = arac;
+
+                }
+
+            }
+
+            // Sütün adları
+            String[] sutunAdlari = {"Araç İD", "Araç Tipi", "Ulaşım Türü",
+                    "Kapasitesi", "Yakıt Türü", "Yakıt Ücreti"};
+
+            // Bilgi Tablosunun oluşturulması
+            JTable BilgiTablosu = new JTable(bilgi, sutunAdlari);
+            BilgiTablosu.setBounds(20, 40, 400, 300);
+            BilgiTablosu.setFocusable(false);
+            BilgiTablosu.setRowSelectionAllowed(false);
+            BilgiTablosu.setBackground(Color.white);
+
+            // Bilgi Tablosuna scroll eklenmesi
+            JScrollPane scroll = new JScrollPane(BilgiTablosu);
+            panel.add(scroll);
+
+
+            this.getContentPane().add(panel); // Oluşturulan içeriklerin panele ekleyen kısım
+            setVisible(true);
+        }
+    }
+
+    // Firma İşlemlerinden Araç Silme Panelinin Arayüzü
+    static class Firma_Islem_Arac_Sil extends JFrame {
+        // Firma İşlemlerinden Araç Silme Panelinde kullanılacak olan firmayı tutan nesne
+        Company firma;
+
+        // Firma İşlemlerinden Araç Silme Paneli oluşturulduğunda çalışacak kod
+        public Firma_Islem_Arac_Sil(Company firmaGirdisi) {
+            firma = firmaGirdisi;
+            //Arayüz Ayarları
+            setTitle(firma.get_firma_isim() + "Firmasının Araç Ekleme Menüsü");
+            setSize(800, 600);
+
+            // 1- Panel
+            JPanel panel = new JPanel();
+            panel.setLayout(null);
+            panel.setBackground(Color.white);
+
+            // Firmanın Araç Bilgilerini Alan kısım
+            ArrayList<Object> aracBilgileri = firma.get_aracBilgileri();
+
+            // 1- Silinecek aracın İD'sini alan kısmın başlığı
+            JLabel silinecek_arac_isim_baslik = new JLabel("Silinecek Aracın İD'sini giriniz");
+            silinecek_arac_isim_baslik.setBounds(20, 10, 250, 30);
+            panel.add(silinecek_arac_isim_baslik);
+
+            // 2- Silinecek aracın İD'sini alan kısım
+            JTextField silinecek_arac_id = new JTextField();
+            silinecek_arac_id.setBounds(20, 40, 150, 30);
+            panel.add(silinecek_arac_id);
+
+            // 3- Geri Bildirim Yazısı
+            JLabel geri_bildirim = new JLabel();
+            Font geri_bildirim_font = geri_bildirim.getFont();
+            geri_bildirim.setFont(geri_bildirim_font.deriveFont(geri_bildirim_font.getStyle() | Font.BOLD, 16));
+            geri_bildirim.setBounds(30, 120, 300, 50);
+
+            geri_bildirim.setVisible(false);
+            panel.add(geri_bildirim);
+
+            // 4- Firmanın silinmesini onaylayan buton
+            JButton onayla_butonu = new JButton("Onayla ve Sil");
+            onayla_butonu.setBounds(20, 80, 150, 30);
+            // Butona basınca çalışacak kısım
+            onayla_butonu.addActionListener(e -> {
+                // Geri Bildirim Almayı Sağlayan kısım
+                try {
+                    boolean arac_id_mevcut = false;
+                    for(Object bilgiler : aracBilgileri) {
+                        Class arac_sinifi = bilgiler.getClass();
+                        if ("Bus".equals(arac_sinifi.getName()))
+                        {
+                            Bus temp_arac = (Bus) bilgiler;
+                            if (silinecek_arac_id.getText().equals(temp_arac.get_arac_id())){
+                                firma.get_aracBilgileri().remove(bilgiler);
+                                aracBilgileri.remove(bilgiler);
+                                arac_id_mevcut = true;
+                                break;
+                            }
+
+                        }
+                        else if ("Train".equals(arac_sinifi.getName()))
+                        {
+                            Train temp_arac = (Train) bilgiler;
+                            if (silinecek_arac_id.getText().equals(temp_arac.get_arac_id())){
+                                firma.get_aracBilgileri().remove(bilgiler);
+                                aracBilgileri.remove(bilgiler);
+                                arac_id_mevcut = true;
+                                break;
+                            }
+
+                        }
+                        else if ("Airplane".equals(arac_sinifi.getName()))
+                        {
+                            Airplane temp_arac = (Airplane) bilgiler;
+                            if (silinecek_arac_id.getText().equals(temp_arac.get_arac_id())){
+                                firma.get_aracBilgileri().remove(bilgiler);
+                                aracBilgileri.remove(bilgiler);
+                                arac_id_mevcut = true;
+                                break;
+                            }
+
+                        }
+                    }
+                    // Araç İD'si mevcutsa silineceğinden çalışacak kısım
+                    if (arac_id_mevcut) {
+                        geri_bildirim.setText("Başarıyla Silindi!");
+                        geri_bildirim.setForeground(Color.GREEN);
+                        geri_bildirim.setVisible(true);
+                    }
+                    // Mevcut değilse çalışacak kısım
+                    else {
+                        throw new Exception("Araç mevcut değil!");
+                    }
+
+                } catch (Exception ex) {
+                    System.out.println("Hata alındı!");
+                    geri_bildirim.setText("Böyle bir araç yok!");
+                    geri_bildirim.setForeground(Color.RED);
+                    geri_bildirim.setVisible(true);
+                }
+
+            });
+
+            panel.add(onayla_butonu);
+
+
+
+
+
+            this.getContentPane().add(panel); // Oluşturulan içeriklerin panele ekleyen kısım
             setVisible(true);
         }
     }

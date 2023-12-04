@@ -10,6 +10,8 @@ abstract class Vehicle {
     int yakit_ucreti;
     int kapasite;
     Route guzergah;
+    int kullanan_personel_ucret;
+    int hizmet_personel_ucret;
 
     // Araç İD'si için Get/Set Metotları
     abstract String get_arac_id();
@@ -35,6 +37,16 @@ abstract class Vehicle {
 
     abstract void set_guzergah(Route guzergah_Girdisi);
 
+    // Kullanan personel ücreti için Get/Set Metotları
+    abstract int get_kullanan_personel_ucret();
+
+    abstract void set_kullanan_personel_ucret(int kullanan_personel_ucret_Girdisi);
+
+    // Hizmet personel ücreti için Get/Set Metotları
+    abstract int get_hizmet_personel_ucret();
+
+    abstract void set_hizmet_personel_ucret(int hizmet_personel_ucret_Girdisi);
+
     // Yakıt gideri hesaplaması yapan Metot
     abstract int CalculateFuelCost();
 
@@ -47,11 +59,18 @@ class Bus extends Vehicle {
     // 1- Benzin
     // 2- Motorin
 
+    static String arac_tur = "Otobüs";
     String arac_id;
     String yakit_turu;
     int yakit_ucreti;
     int kapasite;
     Route guzergah;
+    int kullanan_personel_ucret;
+    int hizmet_personel_ucret;
+
+    public String getArac_tur() {
+        return arac_tur;
+    }
 
     @Override
     public String get_arac_id() {
@@ -103,6 +122,26 @@ class Bus extends Vehicle {
     @Override
     void set_guzergah(Route guzergah_Girdisi) {
         guzergah = guzergah_Girdisi;
+    }
+
+    @Override
+    int get_kullanan_personel_ucret() {
+        return kullanan_personel_ucret;
+    }
+
+    @Override
+    void set_kullanan_personel_ucret(int kullanan_personel_ucret_Girdisi) {
+        kullanan_personel_ucret = kullanan_personel_ucret_Girdisi;
+    }
+
+    @Override
+    int get_hizmet_personel_ucret() {
+        return hizmet_personel_ucret;
+    }
+
+    @Override
+    void set_hizmet_personel_ucret(int hizmet_personel_ucret_Girdisi) {
+        hizmet_personel_ucret = hizmet_personel_ucret_Girdisi;
     }
 
 
@@ -119,12 +158,15 @@ class Bus extends Vehicle {
     }
 
     // Parametreli Contruct
-    public Bus(String arac_id_Girdisi, String yakit_turu_Girdisi, int yakit_ucreti_Girdisi , int kapasite_Girdisi, Route guzergahGirdisi) {
+    public Bus(String arac_id_Girdisi, String yakit_turu_Girdisi, int yakit_ucreti_Girdisi , int kapasite_Girdisi,
+               Route guzergahGirdisi, int kullanan_personel_ucretGirdisi, int hizmet_personel_ucretGirdisi) {
         arac_id = arac_id_Girdisi;
         yakit_turu = yakit_turu_Girdisi;
         yakit_ucreti = yakit_ucreti_Girdisi;
         kapasite = kapasite_Girdisi;
         guzergah = guzergahGirdisi;
+        kullanan_personel_ucret = kullanan_personel_ucretGirdisi;
+        hizmet_personel_ucret = hizmet_personel_ucretGirdisi;
     }
 
 }
@@ -134,11 +176,18 @@ class Train extends Vehicle {
     // Yakıt Türleri
     // 1- Elektrik
 
+    static String arac_tur = "Tren";
     String arac_id;
     String yakit_turu;
     int yakit_ucreti;
     int kapasite;
     Route guzergah;
+    int kullanan_personel_ucret;
+    int hizmet_personel_ucret;
+
+    public String getArac_tur() {
+        return arac_tur;
+    }
 
     @Override
     public String get_arac_id() {
@@ -190,6 +239,26 @@ class Train extends Vehicle {
     @Override
     void set_guzergah(Route guzergah_Girdisi) {
         guzergah = guzergah_Girdisi;
+    }
+
+    @Override
+    int get_kullanan_personel_ucret() {
+        return kullanan_personel_ucret;
+    }
+
+    @Override
+    void set_kullanan_personel_ucret(int kullanan_personel_ucret_Girdisi) {
+        kullanan_personel_ucret = kullanan_personel_ucret_Girdisi;
+    }
+
+    @Override
+    int get_hizmet_personel_ucret() {
+        return hizmet_personel_ucret;
+    }
+
+    @Override
+    void set_hizmet_personel_ucret(int hizmet_personel_ucret_Girdisi) {
+        hizmet_personel_ucret = hizmet_personel_ucret_Girdisi;
     }
 
     // Yakıt gideri hesaplaması yapan Metot
@@ -205,12 +274,15 @@ class Train extends Vehicle {
     }
 
     // Parametreli Contruct
-    public Train(String arac_id_Girdisi, String yakit_turu_Girdisi, int yakit_ucreti_Girdisi, int kapasite_Girdisi, Route guzergahGirdisi) {
+    public Train(String arac_id_Girdisi, String yakit_turu_Girdisi, int yakit_ucreti_Girdisi, int kapasite_Girdisi,
+                 Route guzergahGirdisi, int kullanan_personel_ucretGirdisi, int hizmet_personel_ucretGirdisi) {
         arac_id = arac_id_Girdisi;
         yakit_turu = yakit_turu_Girdisi;
         yakit_ucreti = yakit_ucreti_Girdisi;
         kapasite = kapasite_Girdisi;
         guzergah = guzergahGirdisi;
+        kullanan_personel_ucret = kullanan_personel_ucretGirdisi;
+        hizmet_personel_ucret = hizmet_personel_ucretGirdisi;
     }
 }
 
@@ -219,11 +291,18 @@ class Airplane extends Vehicle {
     // Yakıt Türleri
     // 1- Gaz
 
+    static String arac_tur = "Uçak";
     String arac_id;
     String yakit_turu;
     int yakit_ucreti;
     int kapasite;
     Route guzergah;
+    int kullanan_personel_ucret;
+    int hizmet_personel_ucret;
+
+    public String getArac_tur() {
+        return arac_tur;
+    }
 
     @Override
     public String get_arac_id() {
@@ -277,6 +356,26 @@ class Airplane extends Vehicle {
         guzergah = guzergah_Girdisi;
     }
 
+    @Override
+    int get_kullanan_personel_ucret() {
+        return kullanan_personel_ucret;
+    }
+
+    @Override
+    void set_kullanan_personel_ucret(int kullanan_personel_ucret_Girdisi) {
+        kullanan_personel_ucret = kullanan_personel_ucret_Girdisi;
+    }
+
+    @Override
+    int get_hizmet_personel_ucret() {
+        return hizmet_personel_ucret;
+    }
+
+    @Override
+    void set_hizmet_personel_ucret(int hizmet_personel_ucret_Girdisi) {
+        hizmet_personel_ucret = hizmet_personel_ucret_Girdisi;
+    }
+
     // Yakıt gideri hesaplaması yapan Metot
     @Override
     int CalculateFuelCost() {
@@ -290,11 +389,14 @@ class Airplane extends Vehicle {
     }
 
     // Parametreli Contruct
-    public Airplane(String arac_id_Girdisi, String yakit_turu_Girdisi, int yakit_ucreti_Girdisi, int kapasite_Girdisi, Route guzergahGirdisi) {
+    public Airplane(String arac_id_Girdisi, String yakit_turu_Girdisi, int yakit_ucreti_Girdisi, int kapasite_Girdisi,
+                    Route guzergahGirdisi, int kullanan_personel_ucretGirdisi, int hizmet_personel_ucretGirdisi) {
         arac_id = arac_id_Girdisi;
         yakit_turu = yakit_turu_Girdisi;
         yakit_ucreti = yakit_ucreti_Girdisi;
         kapasite = kapasite_Girdisi;
         guzergah = guzergahGirdisi;
+        kullanan_personel_ucret = kullanan_personel_ucretGirdisi;
+        hizmet_personel_ucret = hizmet_personel_ucretGirdisi;
     }
 }
