@@ -69,8 +69,10 @@ public class Transport implements Ireservable {
 
         // Araçların Oluşturulması
         // A firmasının Araçları
-        Bus A_arac_1 = new Bus("Otobüs 1", "Benzin", 10, 20, guzergah_3, 5000, 2000);
-        Bus A_arac_2 = new Bus("Otobüs 2", "Benzin", 10, 15, guzergah_3, 5000, 2000);
+        Bus A_arac_1 = new Bus("Otobüs 1", "Benzin", 10,
+                20, guzergah_3, 5000, 2000);
+        Bus A_arac_2 = new Bus("Otobüs 2", "Benzin", 10,
+                15, guzergah_3, 5000, 2000);
         // Araç Bilgilerini Tutan ArrayList
         ArrayList<Object> A_aracListesi = new ArrayList<>();
         A_aracListesi.add(A_arac_1);
@@ -78,8 +80,10 @@ public class Transport implements Ireservable {
 
 
         // B firmasının Araçları
-        Bus B_arac_1 = new Bus("Otobüs 1", "Motorin", 5, 15, guzergah_3, 3000, 1500);
-        Bus B_arac_2 = new Bus("Otobüs 2", "Motorin", 5, 20, guzergah_4, 3000, 1500);
+        Bus B_arac_1 = new Bus("Otobüs 1", "Motorin", 5,
+                15, guzergah_3, 3000, 1500);
+        Bus B_arac_2 = new Bus("Otobüs 2", "Motorin", 5,
+                20, guzergah_4, 3000, 1500);
         // Araç Bilgilerini Tutan ArrayList
         ArrayList<Object> B_aracListesi = new ArrayList<>();
         B_aracListesi.add(B_arac_1);
@@ -87,9 +91,12 @@ public class Transport implements Ireservable {
 
 
         // C firmasının Araçları
-        Bus C_arac_1 = new Bus("Otobüs 1", "Motorin", 6, 20, guzergah_4, 4000, 2000);
-        Airplane C_arac_2 = new Airplane("Uçak 1", "Gaz", 25, 30, guzergah_5, 10000, 6000);
-        Airplane C_arac_3 = new Airplane("Uçak 2", "Gaz", 25, 30, guzergah_5, 10000, 6000);
+        Bus C_arac_1 = new Bus("Otobüs 1", "Motorin", 6,
+                20, guzergah_4, 4000, 2000);
+        Airplane C_arac_2 = new Airplane("Uçak 1", "Gaz", 25,
+                30, guzergah_5, 10000, 6000);
+        Airplane C_arac_3 = new Airplane("Uçak 2", "Gaz", 25,
+                30, guzergah_5, 10000, 6000);
         // Araç Bilgilerini Tutan ArrayList
         ArrayList<Object> C_aracListesi = new ArrayList<>();
         C_aracListesi.add(C_arac_1);
@@ -98,9 +105,12 @@ public class Transport implements Ireservable {
 
 
         // D firmasının Araçları
-        Train D_arac_1 = new Train("Tren 1", "Elektrik", 3, 25, guzergah_1, 2000, 1000);
-        Train D_arac_2 = new Train("Tren 2", "Elektrik", 3, 25, guzergah_2, 2000, 1000);
-        Train D_arac_3 = new Train("Tren 3", "Elektrik", 3, 25, guzergah_2, 2000, 1000);
+        Train D_arac_1 = new Train("Tren 1", "Elektrik", 3,
+                25, guzergah_1, 2000, 1000);
+        Train D_arac_2 = new Train("Tren 2", "Elektrik", 3,
+                25, guzergah_2, 2000, 1000);
+        Train D_arac_3 = new Train("Tren 3", "Elektrik", 3,
+                25, guzergah_2, 2000, 1000);
         // Araç Bilgilerini Tutan ArrayList
         ArrayList<Object> D_aracListesi = new ArrayList<>();
         D_aracListesi.add(D_arac_1);
@@ -109,8 +119,10 @@ public class Transport implements Ireservable {
 
 
         // F firmasının Araçları
-        Airplane F_arac_1 = new Airplane("Uçak 1", "Gaz", 20, 30, guzergah_6, 7500, 4000);
-        Airplane F_arac_2 = new Airplane("Uçak 2", "Gaz", 20, 30, guzergah_6, 7500, 4000);
+        Airplane F_arac_1 = new Airplane("Uçak 1", "Gaz", 20,
+                30, guzergah_6, 7500, 4000);
+        Airplane F_arac_2 = new Airplane("Uçak 2", "Gaz", 20,
+                30, guzergah_6, 7500, 4000);
         // Araç Bilgilerini Tutan ArrayList
         ArrayList<Object> F_aracListesi = new ArrayList<>();
         F_aracListesi.add(F_arac_1);

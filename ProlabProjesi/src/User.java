@@ -868,9 +868,9 @@ class Company extends User implements Iprofitable {
             arac_goruntule.setBounds(width/ 2 - 135, 50, 250, 30);
             arac_goruntule.setBackground(new Color(130, 85, 240));
             // Butona tıklanınca çalışacak kısım
-            arac_goruntule.addActionListener(e -> {
-                new Company.Firma_Islem_Arac_Goruntule(firma);
-            });
+            arac_goruntule.addActionListener(e ->
+                new Company.Firma_Islem_Arac_Goruntule(firma)
+            );
             panel.add(arac_goruntule);
 
             // 3- Araç Ekleme Butonu
@@ -878,9 +878,9 @@ class Company extends User implements Iprofitable {
             arac_ekle.setBounds(width/ 2 - 135, 90, 250, 30);
             arac_ekle.setBackground(new Color(130, 85, 240));
             // Butona tıklanınca çalışacak kısım
-            arac_ekle.addActionListener(e -> {
-
-            });
+            arac_ekle.addActionListener(e ->
+                new Company.Firma_Islem_Arac_Ekle(firma)
+            );
             panel.add(arac_ekle);
 
             // 3- Araçları Çıkarma Butonu
@@ -888,9 +888,9 @@ class Company extends User implements Iprofitable {
             arac_cikar.setBounds(width/ 2 - 135, 130, 250, 30);
             arac_cikar.setBackground(new Color(130, 85, 240));
             // Butona tıklanınca çalışacak kısım
-            arac_cikar.addActionListener(e -> {
-                new Company.Firma_Islem_Arac_Sil(firma);
-            });
+            arac_cikar.addActionListener(e ->
+                new Company.Firma_Islem_Arac_Sil(firma)
+            );
             panel.add(arac_cikar);
 
 
@@ -909,8 +909,8 @@ class Company extends User implements Iprofitable {
         public Firma_Islem_Arac_Goruntule(Company firmaGirdisi) {
             firma = firmaGirdisi;
             //Arayüz Ayarları
-            setTitle(firma.get_firma_isim() + "Firmasının Araç Bilgileri");
-            setSize(800, 600);
+            setTitle(firma.get_firma_isim() + " Firmasının Araç Bilgileri");
+            setSize(1400, 620);
 
             // 1- Panel
             JPanel panel = new JPanel();
@@ -923,52 +923,60 @@ class Company extends User implements Iprofitable {
             String[][] bilgi = {};
             for (Object bilgiler : aracBilgileri) {
                 Class arac_sinifi = bilgiler.getClass();
-                if ("Bus".equals(arac_sinifi.getName()))
-                {
-                    Bus temp_arac = (Bus) bilgiler;
-                    String[] arac = {temp_arac.get_arac_id(), temp_arac.getArac_tur(), temp_arac.get_guzergah().get_ulasim_turu(),
-                            String.valueOf(temp_arac.get_kapasite()), temp_arac.get_yakit_turu(),
-                            String.valueOf(temp_arac.get_yakit_ucreti())};
-                    bilgi = Arrays.copyOf(bilgi, bilgi.length + 1);
-                    bilgi[bilgi.length - 1] = arac;
+                switch (arac_sinifi.getName()) {
+                    case "Bus" -> {
+                        Bus temp_arac = (Bus) bilgiler;
+                        String[] arac = {temp_arac.get_arac_id(), temp_arac.getArac_tur(),
+                                String.valueOf(temp_arac.get_kapasite()), temp_arac.get_yakit_turu(),
+                                String.valueOf(temp_arac.get_yakit_ucreti()),
+                                String.valueOf(temp_arac.get_kullanan_personel_ucret()), String.valueOf(temp_arac.get_hizmet_personel_ucret())};
+                        bilgi = Arrays.copyOf(bilgi, bilgi.length + 1);
+                        bilgi[bilgi.length - 1] = arac;
 
-                }
-                else if ("Train".equals(arac_sinifi.getName()))
-                {
-                    Train temp_arac = (Train) bilgiler;
-                    String[] arac = {temp_arac.get_arac_id(), temp_arac.getClass().toString(), temp_arac.get_guzergah().toString(),
-                            String.valueOf(temp_arac.get_kapasite()), temp_arac.get_yakit_turu(),
-                            String.valueOf(temp_arac.get_yakit_ucreti())};
-                    bilgi = Arrays.copyOf(bilgi, bilgi.length + 1);
-                    bilgi[bilgi.length - 1] = arac;
+                    }
+                    case "Train" -> {
+                        Train temp_arac = (Train) bilgiler;
+                        String[] arac = {temp_arac.get_arac_id(), temp_arac.getArac_tur(),
+                                String.valueOf(temp_arac.get_kapasite()), temp_arac.get_yakit_turu(),
+                                String.valueOf(temp_arac.get_yakit_ucreti()),
+                                String.valueOf(temp_arac.get_kullanan_personel_ucret()), String.valueOf(temp_arac.get_hizmet_personel_ucret())};
+                        bilgi = Arrays.copyOf(bilgi, bilgi.length + 1);
+                        bilgi[bilgi.length - 1] = arac;
 
-                }
-                else if ("Airplane".equals(arac_sinifi.getName()))
-                {
-                    Airplane temp_arac = (Airplane) bilgiler;
-                    String[] arac = {temp_arac.get_arac_id(), temp_arac.getClass().toString(), temp_arac.get_guzergah().toString(),
-                            String.valueOf(temp_arac.get_kapasite()), temp_arac.get_yakit_turu(),
-                            String.valueOf(temp_arac.get_yakit_ucreti())};
-                    bilgi = Arrays.copyOf(bilgi, bilgi.length + 1);
-                    bilgi[bilgi.length - 1] = arac;
+                    }
+                    case "Airplane" -> {
+                        Airplane temp_arac = (Airplane) bilgiler;
+                        String[] arac = {temp_arac.get_arac_id(), temp_arac.getArac_tur(),
+                                String.valueOf(temp_arac.get_kapasite()), temp_arac.get_yakit_turu(),
+                                String.valueOf(temp_arac.get_yakit_ucreti()),
+                                String.valueOf(temp_arac.get_kullanan_personel_ucret()), String.valueOf(temp_arac.get_hizmet_personel_ucret())};
+                        bilgi = Arrays.copyOf(bilgi, bilgi.length + 1);
+                        bilgi[bilgi.length - 1] = arac;
 
+                    }
                 }
 
             }
 
             // Sütün adları
-            String[] sutunAdlari = {"Araç İD", "Araç Tipi", "Ulaşım Türü",
-                    "Kapasitesi", "Yakıt Türü", "Yakıt Ücreti"};
+            String[] sutunAdlari = {"Araç İD", "Araç Tipi",
+                    "Kapasite", "Yakıt Türü", "Yakıt Ücreti",
+                    "Araç Kullanan Personel Ücreti", "Hizmet Veren Personel Ücreti"};
 
             // Bilgi Tablosunun oluşturulması
             JTable BilgiTablosu = new JTable(bilgi, sutunAdlari);
-            BilgiTablosu.setBounds(20, 40, 400, 300);
+            BilgiTablosu.setBounds(0, 40, 1350, 300);
             BilgiTablosu.setFocusable(false);
             BilgiTablosu.setRowSelectionAllowed(false);
             BilgiTablosu.setBackground(Color.white);
+            BilgiTablosu.setRowHeight(30);
+
+            BilgiTablosu.setPreferredScrollableViewportSize(BilgiTablosu.getPreferredSize());
+            BilgiTablosu.setFillsViewportHeight(true);
 
             // Bilgi Tablosuna scroll eklenmesi
             JScrollPane scroll = new JScrollPane(BilgiTablosu);
+            scroll.setPreferredSize(new Dimension(1350, 400));
             panel.add(scroll);
 
 
@@ -976,6 +984,270 @@ class Company extends User implements Iprofitable {
             setVisible(true);
         }
     }
+
+
+    // Firma İşlemlerinden Araç Ekleme Panelinin Arayüzü
+    static class Firma_Islem_Arac_Ekle extends JFrame {
+        // Firma İşlemlerinden Araç Ekleme Panelinde kullanılacak olan firmayı tutan nesne
+        Company firma;
+
+        // Firma İşlemlerinden Araç Ekleme Paneli oluşturulduğunda çalışacak kod
+        public Firma_Islem_Arac_Ekle(Company firmaGirdisi) {
+            firma = firmaGirdisi;
+            //Arayüz Ayarları
+            setTitle(firma.get_firma_isim() + " Firmasının Araç Ekleme Menüsü");
+            setSize(800, 600);
+
+            // 1- Panel
+            JPanel panel = new JPanel();
+            panel.setLayout(null);
+            panel.setBackground(Color.white);
+
+            // Firmanın Araç Bilgilerini Alan kısım
+            ArrayList<Object> aracBilgileri = firma.get_aracBilgileri();
+
+            // 1- Eklenecek Aracın İD'sinin Başlığı
+            JLabel eklenecek_arac_isim_baslik = new JLabel("Eklenecek Aracın İD'sini giriniz");
+            eklenecek_arac_isim_baslik.setBounds(20, 10, 350, 30);
+            panel.add(eklenecek_arac_isim_baslik);
+
+            // 2- Eklenecek aracın İD'sini alan kısım
+            JTextField eklenecek_arac_id = new JTextField();
+            eklenecek_arac_id.setBounds(20, 40, 150, 30);
+            panel.add(eklenecek_arac_id);
+
+            // 3- Eklenecek Aracın Araç Türünün Başlığı
+            JLabel eklenecek_arac_tur_baslik = new JLabel("Eklenecek Aracın Türünü giriniz (Otobüs, Tren, Uçak)");
+            eklenecek_arac_tur_baslik.setBounds(20, 80, 450, 30);
+            panel.add(eklenecek_arac_tur_baslik);
+
+            // 4- Eklenecek aracın türünü alan kısım
+            JTextField eklenecek_arac_tur = new JTextField();
+            eklenecek_arac_tur.setBounds(20, 110, 150, 30);
+            panel.add(eklenecek_arac_tur);
+
+            // 5- Eklenecek Aracın Kapasitesinin başlığı
+            JLabel eklenecek_arac_kapasite_baslik = new JLabel("Eklenecek Aracın Kapasitesini giriniz");
+            eklenecek_arac_kapasite_baslik.setBounds(20, 150, 350, 30);
+            panel.add(eklenecek_arac_kapasite_baslik);
+
+            // 6- Eklenecek aracın kapasitesini alan kısım
+            JTextField eklenecek_arac_kapasite = new JTextField();
+            eklenecek_arac_kapasite.setBounds(20, 180, 150, 30);
+            panel.add(eklenecek_arac_kapasite);
+
+            // 7- Eklenecek Aracın Yakıt türünün başlığı
+            JLabel eklenecek_arac_yakit_tur_baslik = new JLabel("Eklenecek Aracın Yakıt Türünü giriniz " +
+                    "(Otobüs -> Benzin, Motorin // Tren -> Elektrik // Uçak -> Gaz)");
+            eklenecek_arac_yakit_tur_baslik.setBounds(20, 220, 580, 30);
+            panel.add(eklenecek_arac_yakit_tur_baslik);
+
+            // 8- Eklenecek aracın Yakıt türünü alan kısım
+            JTextField eklenecek_arac_yakit_turu = new JTextField();
+            eklenecek_arac_yakit_turu.setBounds(20, 250, 150, 30);
+            panel.add(eklenecek_arac_yakit_turu);
+
+            // 9- Eklenecek Aracın Yakıt ücretinin başlığı
+            JLabel eklenecek_arac_yakit_ucret_baslik = new JLabel("Eklenecek Aracın Yakıt Ücretini giriniz");
+            eklenecek_arac_yakit_ucret_baslik.setBounds(20, 290, 350, 30);
+            panel.add(eklenecek_arac_yakit_ucret_baslik);
+
+            // 10- Eklenecek aracın Yakıt ücretini alan kısım
+            JTextField eklenecek_arac_yakit_ucret = new JTextField();
+            eklenecek_arac_yakit_ucret.setBounds(20, 320, 150, 30);
+            panel.add(eklenecek_arac_yakit_ucret);
+
+            // 11- Eklenecek Aracın Araç Kullanan Personel ücretinin başlığı
+            JLabel eklenecek_arac_kullanan_personel_ucret_baslik = new JLabel("Eklenecek Aracın Araç Kullanan Personel Ücretini giriniz");
+            eklenecek_arac_kullanan_personel_ucret_baslik.setBounds(20, 360, 450, 30);
+            panel.add(eklenecek_arac_kullanan_personel_ucret_baslik);
+
+            // 12- Eklenecek Aracın Araç Kullanan Personel ücretini alan kısım
+            JTextField eklenecek_arac_kullanan_personel_ucret = new JTextField();
+            eklenecek_arac_kullanan_personel_ucret.setBounds(20, 390, 150, 30);
+            panel.add(eklenecek_arac_kullanan_personel_ucret);
+
+            // 13- Eklenecek Aracın Hizmet Eden Personel ücretinin başlığı
+            JLabel eklenecek_arac_hizmet_personel_ucret_baslik = new JLabel("Eklenecek Aracın Hizmet Eden Personel Ücretini giriniz");
+            eklenecek_arac_hizmet_personel_ucret_baslik.setBounds(20, 430, 450, 30);
+            panel.add(eklenecek_arac_hizmet_personel_ucret_baslik);
+
+            // 14- Eklenecek Aracın Hizmet Eden Personel ücretini alan kısım
+            JTextField eklenecek_arac_hizmet_personel_ucret = new JTextField();
+            eklenecek_arac_hizmet_personel_ucret.setBounds(20, 460, 150, 30);
+            panel.add(eklenecek_arac_hizmet_personel_ucret);
+
+            // 15- Geri Bildirim Yazısı
+            JLabel geri_bildirim = new JLabel();
+            Font geri_bildirim_font = geri_bildirim.getFont();
+            geri_bildirim.setFont(geri_bildirim_font.deriveFont(geri_bildirim_font.getStyle() | Font.BOLD, 16));
+            geri_bildirim.setBounds(200, 490, 300, 50);
+
+            geri_bildirim.setVisible(false);
+            panel.add(geri_bildirim);
+
+            // 16- Firmanın silinmesini onaylayan buton
+            JButton onayla_butonu = new JButton("Onayla ve Ekle");
+            onayla_butonu.setBounds(20, 500, 150, 30);
+            onayla_butonu.setBackground(new Color(130, 85, 240));
+            // Butona basınca çalışacak kısım
+            onayla_butonu.addActionListener(e -> {
+                try {
+                    geri_bildirim.setText("Hatalı Girdi Türü Var!");
+                    boolean id_mevcut = false;
+                    // Girdilerin Hepsi Doluysa çalışacak kısım
+                    if (!eklenecek_arac_id.getText().isEmpty() && !eklenecek_arac_tur.getText().isEmpty()  && !eklenecek_arac_kapasite.getText().isEmpty()
+                            && !eklenecek_arac_yakit_turu.getText().isEmpty() && !eklenecek_arac_yakit_ucret.getText().isEmpty()
+                            && !eklenecek_arac_kullanan_personel_ucret.getText().isEmpty() && !eklenecek_arac_hizmet_personel_ucret.getText().isEmpty())
+                    {
+                        // Girilen bilgiler doğru türde mi diye kontrol eden kısım
+                        int girdi_1 = Integer.parseInt(eklenecek_arac_yakit_ucret.getText());
+                        int girdi_2 = Integer.parseInt(eklenecek_arac_kapasite.getText());
+                        int girdi_3 = Integer.parseInt(eklenecek_arac_kullanan_personel_ucret.getText());
+                        int girdi_4 = Integer.parseInt(eklenecek_arac_hizmet_personel_ucret.getText());
+
+                        if (girdi_1 <= 0 || girdi_2 <= 0 || girdi_3 <= 0 || girdi_4 <= 0) {
+                            geri_bildirim.setText("Girdiler Pozitif Değerde olmalıdır!");
+                            throw new Exception("Girdiler Pozitif olmalıdır!");
+                        }
+
+                        // Arac İD'si mevcut mu diye kontrol eden kısım
+                        for(Object bilgiler : aracBilgileri) {
+                            Class arac_sinifi = bilgiler.getClass();
+                            switch (arac_sinifi.getName()) {
+                                case "Bus" -> {
+                                    Bus temp_arac = (Bus) bilgiler;
+                                    if (temp_arac.get_arac_id().equals(eklenecek_arac_id.getText())) {
+                                        id_mevcut = true;
+                                    }
+                                }
+                                case "Train" -> {
+                                    Train temp_arac = (Train) bilgiler;
+                                    if (temp_arac.get_arac_id().equals(eklenecek_arac_id.getText())) {
+                                        id_mevcut = true;
+                                    }
+                                }
+                                case "Airplane" -> {
+                                    Airplane temp_arac = (Airplane) bilgiler;
+                                    if (temp_arac.get_arac_id().equals(eklenecek_arac_id.getText())) {
+                                        id_mevcut = true;
+                                    }
+                                }
+                            }
+                        }
+
+                        // Girilen İD kayıtlı değilse çalışacak kısım
+                        if (!id_mevcut)
+                        {
+                            // Girilen Araç Türü Geçerli mi diye kontrol eden kısım
+                            String[] arac_turleri = {"Otobüs", "Tren", "Uçak"};
+                            boolean gecerli_arac_turu = false;
+                            for (String arac_turu : arac_turleri) {
+                                if (eklenecek_arac_tur.getText().equals(arac_turu)) {
+                                    gecerli_arac_turu = true;
+                                    break;
+                                }
+                            }
+
+                            // Girilen araç türü geçerliyse çalışan kısım
+                            if(gecerli_arac_turu) {
+                                // Girilen Araç Türüne göre yakıt türünü kontrol eden
+                                // yakıt türü doğru ise aracı oluşturup
+                                // araç listesine ekleyen kısım
+                                switch (eklenecek_arac_tur.getText()) {
+                                    case "Otobüs" -> {
+                                        if (eklenecek_arac_yakit_turu.getText().equals("Benzin") || eklenecek_arac_yakit_turu.getText().equals("Motorin")) {
+                                            Bus arac = new Bus(eklenecek_arac_id.getText(), eklenecek_arac_yakit_turu.getText(),
+                                                    Integer.parseInt(eklenecek_arac_yakit_ucret.getText()),
+                                                    Integer.parseInt(eklenecek_arac_kapasite.getText()),
+                                                    Integer.parseInt(eklenecek_arac_kullanan_personel_ucret.getText()),
+                                                    Integer.parseInt(eklenecek_arac_hizmet_personel_ucret.getText()));
+                                            firma.aracBilgileri.add(arac);
+                                            geri_bildirim.setText("Başarıyla Eklendi!");
+                                            geri_bildirim.setForeground(Color.GREEN);
+                                            geri_bildirim.setVisible(true);
+                                        }
+                                        else {
+                                            geri_bildirim.setText("Araç Türü için Geçersiz Yakıt Türü!");
+                                            throw new Exception("Araç Türü için Geçersiz Yakıt Türü!");
+                                        }
+                                    }
+                                    case "Tren" -> {
+                                        if (eklenecek_arac_yakit_turu.getText().equals("Elektrik")) {
+                                            Train arac = new Train(eklenecek_arac_id.getText(), eklenecek_arac_yakit_turu.getText(),
+                                                    Integer.parseInt(eklenecek_arac_yakit_ucret.getText()),
+                                                    Integer.parseInt(eklenecek_arac_kapasite.getText()),
+                                                    Integer.parseInt(eklenecek_arac_kullanan_personel_ucret.getText()),
+                                                    Integer.parseInt(eklenecek_arac_hizmet_personel_ucret.getText()));
+                                            firma.aracBilgileri.add(arac);
+                                            geri_bildirim.setText("Başarıyla Eklendi!");
+                                            geri_bildirim.setForeground(Color.GREEN);
+                                            geri_bildirim.setVisible(true);
+                                        }
+                                        else {
+                                            geri_bildirim.setText("Araç Türü için Geçersiz Yakıt Türü!");
+                                            throw new Exception("Araç Türü için Geçersiz Yakıt Türü!");
+                                        }
+
+                                    }
+                                    case "Uçak" -> {
+                                        if (eklenecek_arac_yakit_turu.getText().equals("Gaz")) {
+                                            Airplane arac = new Airplane(eklenecek_arac_id.getText(), eklenecek_arac_yakit_turu.getText(),
+                                                    Integer.parseInt(eklenecek_arac_yakit_ucret.getText()),
+                                                    Integer.parseInt(eklenecek_arac_kapasite.getText()),
+                                                    Integer.parseInt(eklenecek_arac_kullanan_personel_ucret.getText()),
+                                                    Integer.parseInt(eklenecek_arac_hizmet_personel_ucret.getText()));
+                                            firma.aracBilgileri.add(arac);
+                                            geri_bildirim.setText("Başarıyla Eklendi!");
+                                            geri_bildirim.setForeground(Color.GREEN);
+                                            geri_bildirim.setVisible(true);
+                                        }
+                                        else {
+                                            geri_bildirim.setText("Araç Türü için Geçersiz Yakıt Türü!");
+                                            throw new Exception("Araç Türü için Geçersiz Yakıt Türü!");
+                                        }
+                                    }
+                                }
+                            }
+                            else {
+                                geri_bildirim.setText("Geçersiz Araç Türü!");
+                                throw new Exception("Geçersiz Araç Türü!");
+                            }
+
+                        }
+                        else {
+                            geri_bildirim.setText("Araç İD'si zaten mevcut!");
+                            throw new Exception("Araç İD'si zaten mevcut!");
+                        }
+
+                    }
+                    else {
+                        geri_bildirim.setText("Girdilerde Boşluk Var!");
+                        throw new Exception("Girdilerde boşluk var!");
+                    }
+                }
+                catch (Exception ex) {
+                    System.out.println("Hata Alındı! " + ex);
+                    geri_bildirim.setForeground(Color.red);
+                    geri_bildirim.setVisible(true);
+                }
+
+            });
+
+            panel.add(onayla_butonu);
+
+
+
+
+
+
+
+            this.getContentPane().add(panel); // Oluşturulan içeriklerin panele ekleyen kısım
+            setVisible(true);
+        }
+    }
+
+
 
     // Firma İşlemlerinden Araç Silme Panelinin Arayüzü
     static class Firma_Islem_Arac_Sil extends JFrame {
@@ -986,7 +1258,7 @@ class Company extends User implements Iprofitable {
         public Firma_Islem_Arac_Sil(Company firmaGirdisi) {
             firma = firmaGirdisi;
             //Arayüz Ayarları
-            setTitle(firma.get_firma_isim() + "Firmasının Araç Ekleme Menüsü");
+            setTitle(firma.get_firma_isim() + " Firmasının Araç Silme Menüsü");
             setSize(800, 600);
 
             // 1- Panel
@@ -1019,45 +1291,46 @@ class Company extends User implements Iprofitable {
             // 4- Firmanın silinmesini onaylayan buton
             JButton onayla_butonu = new JButton("Onayla ve Sil");
             onayla_butonu.setBounds(20, 80, 150, 30);
+            onayla_butonu.setBackground(new Color(130, 85, 240));
             // Butona basınca çalışacak kısım
             onayla_butonu.addActionListener(e -> {
                 // Geri Bildirim Almayı Sağlayan kısım
                 try {
                     boolean arac_id_mevcut = false;
+                    label:
                     for(Object bilgiler : aracBilgileri) {
                         Class arac_sinifi = bilgiler.getClass();
-                        if ("Bus".equals(arac_sinifi.getName()))
-                        {
-                            Bus temp_arac = (Bus) bilgiler;
-                            if (silinecek_arac_id.getText().equals(temp_arac.get_arac_id())){
-                                firma.get_aracBilgileri().remove(bilgiler);
-                                aracBilgileri.remove(bilgiler);
-                                arac_id_mevcut = true;
-                                break;
-                            }
+                        switch (arac_sinifi.getName()) {
+                            case "Bus" -> {
+                                Bus temp_arac = (Bus) bilgiler;
+                                if (silinecek_arac_id.getText().equals(temp_arac.get_arac_id())) {
+                                    firma.get_aracBilgileri().remove(bilgiler);
+                                    aracBilgileri.remove(bilgiler);
+                                    arac_id_mevcut = true;
+                                    break label;
+                                }
 
-                        }
-                        else if ("Train".equals(arac_sinifi.getName()))
-                        {
-                            Train temp_arac = (Train) bilgiler;
-                            if (silinecek_arac_id.getText().equals(temp_arac.get_arac_id())){
-                                firma.get_aracBilgileri().remove(bilgiler);
-                                aracBilgileri.remove(bilgiler);
-                                arac_id_mevcut = true;
-                                break;
                             }
+                            case "Train" -> {
+                                Train temp_arac = (Train) bilgiler;
+                                if (silinecek_arac_id.getText().equals(temp_arac.get_arac_id())) {
+                                    firma.get_aracBilgileri().remove(bilgiler);
+                                    aracBilgileri.remove(bilgiler);
+                                    arac_id_mevcut = true;
+                                    break label;
+                                }
 
-                        }
-                        else if ("Airplane".equals(arac_sinifi.getName()))
-                        {
-                            Airplane temp_arac = (Airplane) bilgiler;
-                            if (silinecek_arac_id.getText().equals(temp_arac.get_arac_id())){
-                                firma.get_aracBilgileri().remove(bilgiler);
-                                aracBilgileri.remove(bilgiler);
-                                arac_id_mevcut = true;
-                                break;
                             }
+                            case "Airplane" -> {
+                                Airplane temp_arac = (Airplane) bilgiler;
+                                if (silinecek_arac_id.getText().equals(temp_arac.get_arac_id())) {
+                                    firma.get_aracBilgileri().remove(bilgiler);
+                                    aracBilgileri.remove(bilgiler);
+                                    arac_id_mevcut = true;
+                                    break label;
+                                }
 
+                            }
                         }
                     }
                     // Araç İD'si mevcutsa silineceğinden çalışacak kısım
@@ -1081,9 +1354,6 @@ class Company extends User implements Iprofitable {
             });
 
             panel.add(onayla_butonu);
-
-
-
 
 
             this.getContentPane().add(panel); // Oluşturulan içeriklerin panele ekleyen kısım

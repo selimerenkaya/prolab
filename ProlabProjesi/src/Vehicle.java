@@ -157,6 +157,17 @@ class Bus extends Vehicle {
 
     }
 
+    // Güzergah parametresi olmayan Parametreli Contruct
+    public Bus(String arac_id_Girdisi, String yakit_turu_Girdisi, int yakit_ucreti_Girdisi , int kapasite_Girdisi,
+                int kullanan_personel_ucretGirdisi, int hizmet_personel_ucretGirdisi) {
+        arac_id = arac_id_Girdisi;
+        yakit_turu = yakit_turu_Girdisi;
+        yakit_ucreti = yakit_ucreti_Girdisi;
+        kapasite = kapasite_Girdisi;
+        kullanan_personel_ucret = kullanan_personel_ucretGirdisi;
+        hizmet_personel_ucret = hizmet_personel_ucretGirdisi;
+    }
+
     // Parametreli Contruct
     public Bus(String arac_id_Girdisi, String yakit_turu_Girdisi, int yakit_ucreti_Girdisi , int kapasite_Girdisi,
                Route guzergahGirdisi, int kullanan_personel_ucretGirdisi, int hizmet_personel_ucretGirdisi) {
@@ -273,6 +284,17 @@ class Train extends Vehicle {
 
     }
 
+    // Güzergah parametresi olmayan Parametreli Contruct
+    public Train(String arac_id_Girdisi, String yakit_turu_Girdisi, int yakit_ucreti_Girdisi, int kapasite_Girdisi,
+                 int kullanan_personel_ucretGirdisi, int hizmet_personel_ucretGirdisi) {
+        arac_id = arac_id_Girdisi;
+        yakit_turu = yakit_turu_Girdisi;
+        yakit_ucreti = yakit_ucreti_Girdisi;
+        kapasite = kapasite_Girdisi;
+        kullanan_personel_ucret = kullanan_personel_ucretGirdisi;
+        hizmet_personel_ucret = hizmet_personel_ucretGirdisi;
+    }
+
     // Parametreli Contruct
     public Train(String arac_id_Girdisi, String yakit_turu_Girdisi, int yakit_ucreti_Girdisi, int kapasite_Girdisi,
                  Route guzergahGirdisi, int kullanan_personel_ucretGirdisi, int hizmet_personel_ucretGirdisi) {
@@ -386,6 +408,17 @@ class Airplane extends Vehicle {
     // Parametresiz Construct
     public Airplane() {
 
+    }
+
+    // Güzergah parametresi olmayan Parametreli Contruct
+    public Airplane(String arac_id_Girdisi, String yakit_turu_Girdisi, int yakit_ucreti_Girdisi, int kapasite_Girdisi,
+                    int kullanan_personel_ucretGirdisi, int hizmet_personel_ucretGirdisi) {
+        arac_id = arac_id_Girdisi;
+        yakit_turu = yakit_turu_Girdisi;
+        yakit_ucreti = yakit_ucreti_Girdisi;
+        kapasite = kapasite_Girdisi;
+        kullanan_personel_ucret = kullanan_personel_ucretGirdisi;
+        hizmet_personel_ucret = hizmet_personel_ucretGirdisi;
     }
 
     // Parametreli Contruct
