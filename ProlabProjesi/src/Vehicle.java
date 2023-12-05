@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 // Araçları temsil eden Class
 // Abstract bir class
 // 3 Türe ayrılır
@@ -12,6 +14,7 @@ abstract class Vehicle {
     Route guzergah;
     int kullanan_personel_ucret;
     int hizmet_personel_ucret;
+    ArrayList<Personel> personelBilgileri;
 
     // Araç İD'si için Get/Set Metotları
     abstract String get_arac_id();
@@ -47,6 +50,10 @@ abstract class Vehicle {
 
     abstract void set_hizmet_personel_ucret(int hizmet_personel_ucret_Girdisi);
 
+    abstract ArrayList<Personel> getPersonelBilgileri();
+
+    abstract void setPersonelBilgileri(ArrayList<Personel> personelBilgileri);
+
     // Yakıt gideri hesaplaması yapan Metot
     abstract int CalculateFuelCost();
 
@@ -67,6 +74,8 @@ class Bus extends Vehicle {
     Route guzergah;
     int kullanan_personel_ucret;
     int hizmet_personel_ucret;
+    ArrayList<Personel> personelBilgileri = new ArrayList<>();
+
 
     public String getArac_tur() {
         return arac_tur;
@@ -142,6 +151,16 @@ class Bus extends Vehicle {
     @Override
     void set_hizmet_personel_ucret(int hizmet_personel_ucret_Girdisi) {
         hizmet_personel_ucret = hizmet_personel_ucret_Girdisi;
+    }
+
+    @Override
+    public ArrayList<Personel> getPersonelBilgileri() {
+        return personelBilgileri;
+    }
+
+    @Override
+    public void setPersonelBilgileri(ArrayList<Personel> personelBilgileri) {
+        this.personelBilgileri = personelBilgileri;
     }
 
 
@@ -159,18 +178,20 @@ class Bus extends Vehicle {
 
     // Güzergah parametresi olmayan Parametreli Contruct
     public Bus(String arac_id_Girdisi, String yakit_turu_Girdisi, int yakit_ucreti_Girdisi , int kapasite_Girdisi,
-                int kullanan_personel_ucretGirdisi, int hizmet_personel_ucretGirdisi) {
+                int kullanan_personel_ucretGirdisi, int hizmet_personel_ucretGirdisi, ArrayList<Personel> personelBilgileriGirdi) {
         arac_id = arac_id_Girdisi;
         yakit_turu = yakit_turu_Girdisi;
         yakit_ucreti = yakit_ucreti_Girdisi;
         kapasite = kapasite_Girdisi;
         kullanan_personel_ucret = kullanan_personel_ucretGirdisi;
         hizmet_personel_ucret = hizmet_personel_ucretGirdisi;
+        setPersonelBilgileri(personelBilgileriGirdi);
     }
 
     // Parametreli Contruct
     public Bus(String arac_id_Girdisi, String yakit_turu_Girdisi, int yakit_ucreti_Girdisi , int kapasite_Girdisi,
-               Route guzergahGirdisi, int kullanan_personel_ucretGirdisi, int hizmet_personel_ucretGirdisi) {
+               Route guzergahGirdisi, int kullanan_personel_ucretGirdisi,
+               int hizmet_personel_ucretGirdisi, ArrayList<Personel> personelBilgileriGirdi) {
         arac_id = arac_id_Girdisi;
         yakit_turu = yakit_turu_Girdisi;
         yakit_ucreti = yakit_ucreti_Girdisi;
@@ -178,6 +199,7 @@ class Bus extends Vehicle {
         guzergah = guzergahGirdisi;
         kullanan_personel_ucret = kullanan_personel_ucretGirdisi;
         hizmet_personel_ucret = hizmet_personel_ucretGirdisi;
+        setPersonelBilgileri(personelBilgileriGirdi);
     }
 
 }
@@ -195,6 +217,7 @@ class Train extends Vehicle {
     Route guzergah;
     int kullanan_personel_ucret;
     int hizmet_personel_ucret;
+    ArrayList<Personel> personelBilgileri = new ArrayList<>();
 
     public String getArac_tur() {
         return arac_tur;
@@ -270,6 +293,16 @@ class Train extends Vehicle {
     @Override
     void set_hizmet_personel_ucret(int hizmet_personel_ucret_Girdisi) {
         hizmet_personel_ucret = hizmet_personel_ucret_Girdisi;
+    }
+
+    @Override
+    public ArrayList<Personel> getPersonelBilgileri() {
+        return personelBilgileri;
+    }
+
+    @Override
+    public void setPersonelBilgileri(ArrayList<Personel> personelBilgileri) {
+        this.personelBilgileri = personelBilgileri;
     }
 
     // Yakıt gideri hesaplaması yapan Metot
@@ -286,18 +319,20 @@ class Train extends Vehicle {
 
     // Güzergah parametresi olmayan Parametreli Contruct
     public Train(String arac_id_Girdisi, String yakit_turu_Girdisi, int yakit_ucreti_Girdisi, int kapasite_Girdisi,
-                 int kullanan_personel_ucretGirdisi, int hizmet_personel_ucretGirdisi) {
+                 int kullanan_personel_ucretGirdisi, int hizmet_personel_ucretGirdisi, ArrayList<Personel> personelBilgileriGirdi) {
         arac_id = arac_id_Girdisi;
         yakit_turu = yakit_turu_Girdisi;
         yakit_ucreti = yakit_ucreti_Girdisi;
         kapasite = kapasite_Girdisi;
         kullanan_personel_ucret = kullanan_personel_ucretGirdisi;
         hizmet_personel_ucret = hizmet_personel_ucretGirdisi;
+        setPersonelBilgileri(personelBilgileriGirdi);
     }
 
     // Parametreli Contruct
     public Train(String arac_id_Girdisi, String yakit_turu_Girdisi, int yakit_ucreti_Girdisi, int kapasite_Girdisi,
-                 Route guzergahGirdisi, int kullanan_personel_ucretGirdisi, int hizmet_personel_ucretGirdisi) {
+                 Route guzergahGirdisi, int kullanan_personel_ucretGirdisi,
+                 int hizmet_personel_ucretGirdisi, ArrayList<Personel> personelBilgileriGirdi) {
         arac_id = arac_id_Girdisi;
         yakit_turu = yakit_turu_Girdisi;
         yakit_ucreti = yakit_ucreti_Girdisi;
@@ -305,6 +340,7 @@ class Train extends Vehicle {
         guzergah = guzergahGirdisi;
         kullanan_personel_ucret = kullanan_personel_ucretGirdisi;
         hizmet_personel_ucret = hizmet_personel_ucretGirdisi;
+        setPersonelBilgileri(personelBilgileriGirdi);
     }
 }
 
@@ -321,6 +357,7 @@ class Airplane extends Vehicle {
     Route guzergah;
     int kullanan_personel_ucret;
     int hizmet_personel_ucret;
+    ArrayList<Personel> personelBilgileri = new ArrayList<>();
 
     public String getArac_tur() {
         return arac_tur;
@@ -398,6 +435,16 @@ class Airplane extends Vehicle {
         hizmet_personel_ucret = hizmet_personel_ucret_Girdisi;
     }
 
+    @Override
+    public ArrayList<Personel> getPersonelBilgileri() {
+        return personelBilgileri;
+    }
+
+    @Override
+    public void setPersonelBilgileri(ArrayList<Personel> personelBilgileri) {
+        this.personelBilgileri = personelBilgileri;
+    }
+
     // Yakıt gideri hesaplaması yapan Metot
     @Override
     int CalculateFuelCost() {
@@ -412,18 +459,19 @@ class Airplane extends Vehicle {
 
     // Güzergah parametresi olmayan Parametreli Contruct
     public Airplane(String arac_id_Girdisi, String yakit_turu_Girdisi, int yakit_ucreti_Girdisi, int kapasite_Girdisi,
-                    int kullanan_personel_ucretGirdisi, int hizmet_personel_ucretGirdisi) {
+                    int kullanan_personel_ucretGirdisi, int hizmet_personel_ucretGirdisi, ArrayList<Personel> personelBilgileriGirdi) {
         arac_id = arac_id_Girdisi;
         yakit_turu = yakit_turu_Girdisi;
         yakit_ucreti = yakit_ucreti_Girdisi;
         kapasite = kapasite_Girdisi;
         kullanan_personel_ucret = kullanan_personel_ucretGirdisi;
         hizmet_personel_ucret = hizmet_personel_ucretGirdisi;
+        setPersonelBilgileri(personelBilgileriGirdi);
     }
 
     // Parametreli Contruct
     public Airplane(String arac_id_Girdisi, String yakit_turu_Girdisi, int yakit_ucreti_Girdisi, int kapasite_Girdisi,
-                    Route guzergahGirdisi, int kullanan_personel_ucretGirdisi, int hizmet_personel_ucretGirdisi) {
+                    Route guzergahGirdisi, int kullanan_personel_ucretGirdisi, int hizmet_personel_ucretGirdisi, ArrayList<Personel> personelBilgileriGirdi) {
         arac_id = arac_id_Girdisi;
         yakit_turu = yakit_turu_Girdisi;
         yakit_ucreti = yakit_ucreti_Girdisi;
@@ -431,5 +479,6 @@ class Airplane extends Vehicle {
         guzergah = guzergahGirdisi;
         kullanan_personel_ucret = kullanan_personel_ucretGirdisi;
         hizmet_personel_ucret = hizmet_personel_ucretGirdisi;
+        setPersonelBilgileri(personelBilgileriGirdi);
     }
 }

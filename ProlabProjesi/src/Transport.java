@@ -67,12 +67,163 @@ public class Transport implements Ireservable {
         hazirBilgiler.GuzergahListesineEkle(guzergah_1, guzergah_2, guzergah_3, guzergah_4, guzergah_5, guzergah_6);
 
 
+        // Personel Bilgilerinin Oluşturulması
+        // A Firmasının Personel Bilgileri
+        // Araç 1
+        Personel A_arac1_personel_1 = new Personel("Selim", "Kaya", "Araç");
+        Personel A_arac1_personel_2 = new Personel("Melih", "Kaya", "Araç");
+        Personel A_arac1_personel_3 = new Personel("Bilge", "Kaya", "Hizmet");
+        Personel A_arac1_personel_4 = new Personel("Anil", "Kaya", "Hizmet");
+
+        ArrayList<Personel> A_arac1_personel = new ArrayList<>();
+        A_arac1_personel.add(A_arac1_personel_1);
+        A_arac1_personel.add(A_arac1_personel_2);
+        A_arac1_personel.add(A_arac1_personel_3);
+        A_arac1_personel.add(A_arac1_personel_4);
+
+        // Araç 2
+        Personel A_arac2_personel_1 = new Personel("Selim", "Kaya", "Araç");
+        Personel A_arac2_personel_2 = new Personel("Melih", "Kaya", "Araç");
+        Personel A_arac2_personel_3 = new Personel("Bilge", "Kaya", "Hizmet");
+        Personel A_arac2_personel_4 = new Personel("Anil", "Kaya", "Hizmet");
+
+        ArrayList<Personel> A_arac2_personel = new ArrayList<>();
+        A_arac2_personel.add(A_arac2_personel_1);
+        A_arac2_personel.add(A_arac2_personel_2);
+        A_arac2_personel.add(A_arac2_personel_3);
+        A_arac2_personel.add(A_arac2_personel_4);
+
+        // B Firmasının Personel Bilgileri
+        // Araç 1
+        Personel B_arac1_personel_1 = new Personel("Selim", "Kaya", "Araç");
+        Personel B_arac1_personel_2 = new Personel("Melih", "Kaya", "Araç");
+        Personel B_arac1_personel_3 = new Personel("Bilge", "Kaya", "Hizmet");
+        Personel B_arac1_personel_4 = new Personel("Anil", "Kaya", "Hizmet");
+
+        ArrayList<Personel> B_arac1_personel = new ArrayList<>();
+        B_arac1_personel.add(B_arac1_personel_1);
+        B_arac1_personel.add(B_arac1_personel_2);
+        B_arac1_personel.add(B_arac1_personel_3);
+        B_arac1_personel.add(B_arac1_personel_4);
+
+        // Araç 2
+        Personel B_arac2_personel_1 = new Personel("Selim", "Kaya", "Araç");
+        Personel B_arac2_personel_2 = new Personel("Melih", "Kaya", "Araç");
+        Personel B_arac2_personel_3 = new Personel("Bilge", "Kaya", "Hizmet");
+        Personel B_arac2_personel_4 = new Personel("Anil", "Kaya", "Hizmet");
+
+        ArrayList<Personel> B_arac2_personel = new ArrayList<>();
+        B_arac2_personel.add(B_arac2_personel_1);
+        B_arac2_personel.add(B_arac2_personel_2);
+        B_arac2_personel.add(B_arac2_personel_3);
+        B_arac2_personel.add(B_arac2_personel_4);
+
+        // C Firmasının Personel Bilgileri
+        // Araç 1
+        Personel C_arac1_personel_1 = new Personel("Selim", "Kaya", "Araç");
+        Personel C_arac1_personel_2 = new Personel("Melih", "Kaya", "Araç");
+        Personel C_arac1_personel_3 = new Personel("Bilge", "Kaya", "Hizmet");
+        Personel C_arac1_personel_4 = new Personel("Anil", "Kaya", "Hizmet");
+
+        ArrayList<Personel> C_arac1_personel = new ArrayList<>();
+        C_arac1_personel.add(C_arac1_personel_1);
+        C_arac1_personel.add(C_arac1_personel_2);
+        C_arac1_personel.add(C_arac1_personel_3);
+        C_arac1_personel.add(C_arac1_personel_4);
+
+        // Araç 2
+        Personel C_arac2_personel_1 = new Personel("Selim", "Kaya", "Araç");
+        Personel C_arac2_personel_2 = new Personel("Melih", "Kaya", "Araç");
+        Personel C_arac2_personel_3 = new Personel("Bilge", "Kaya", "Hizmet");
+        Personel C_arac2_personel_4 = new Personel("Anil", "Kaya", "Hizmet");
+
+        ArrayList<Personel> C_arac2_personel = new ArrayList<>();
+        C_arac2_personel.add(C_arac2_personel_1);
+        C_arac2_personel.add(C_arac2_personel_2);
+        C_arac2_personel.add(C_arac2_personel_3);
+        C_arac2_personel.add(C_arac2_personel_4);
+
+        // Araç 3
+        Personel C_arac3_personel_1 = new Personel("Selim", "Kaya", "Araç");
+        Personel C_arac3_personel_2 = new Personel("Melih", "Kaya", "Araç");
+        Personel C_arac3_personel_3 = new Personel("Bilge", "Kaya", "Hizmet");
+        Personel C_arac3_personel_4 = new Personel("Anil", "Kaya", "Hizmet");
+
+        ArrayList<Personel> C_arac3_personel = new ArrayList<>();
+        C_arac3_personel.add(C_arac3_personel_1);
+        C_arac3_personel.add(C_arac3_personel_2);
+        C_arac3_personel.add(C_arac3_personel_3);
+        C_arac3_personel.add(C_arac3_personel_4);
+
+        // D Firmasının Personel Bilgileri
+        // Araç 1
+        Personel D_arac1_personel_1 = new Personel("Selim", "Kaya", "Araç");
+        Personel D_arac1_personel_2 = new Personel("Melih", "Kaya", "Araç");
+        Personel D_arac1_personel_3 = new Personel("Bilge", "Kaya", "Hizmet");
+        Personel D_arac1_personel_4 = new Personel("Anil", "Kaya", "Hizmet");
+
+        ArrayList<Personel> D_arac1_personel = new ArrayList<>();
+        D_arac1_personel.add(D_arac1_personel_1);
+        D_arac1_personel.add(D_arac1_personel_2);
+        D_arac1_personel.add(D_arac1_personel_3);
+        D_arac1_personel.add(D_arac1_personel_4);
+
+        // Araç 2
+        Personel D_arac2_personel_1 = new Personel("Selim", "Kaya", "Araç");
+        Personel D_arac2_personel_2 = new Personel("Melih", "Kaya", "Araç");
+        Personel D_arac2_personel_3 = new Personel("Bilge", "Kaya", "Hizmet");
+        Personel D_arac2_personel_4 = new Personel("Anil", "Kaya", "Hizmet");
+
+        ArrayList<Personel> D_arac2_personel = new ArrayList<>();
+        D_arac2_personel.add(D_arac2_personel_1);
+        D_arac2_personel.add(D_arac2_personel_2);
+        D_arac2_personel.add(D_arac2_personel_3);
+        D_arac2_personel.add(D_arac2_personel_4);
+
+        // Araç 3
+        Personel D_arac3_personel_1 = new Personel("Selim", "Kaya", "Araç");
+        Personel D_arac3_personel_2 = new Personel("Melih", "Kaya", "Araç");
+        Personel D_arac3_personel_3 = new Personel("Bilge", "Kaya", "Hizmet");
+        Personel D_arac3_personel_4 = new Personel("Anil", "Kaya", "Hizmet");
+
+        ArrayList<Personel> D_arac3_personel = new ArrayList<>();
+        D_arac3_personel.add(D_arac3_personel_1);
+        D_arac3_personel.add(D_arac3_personel_2);
+        D_arac3_personel.add(D_arac3_personel_3);
+        D_arac3_personel.add(D_arac3_personel_4);
+
+        // F Firmasının Personel Bilgileri
+        // Araç 1
+        Personel F_arac1_personel_1 = new Personel("Selim", "Kaya", "Araç");
+        Personel F_arac1_personel_2 = new Personel("Melih", "Kaya", "Araç");
+        Personel F_arac1_personel_3 = new Personel("Bilge", "Kaya", "Hizmet");
+        Personel F_arac1_personel_4 = new Personel("Anil", "Kaya", "Hizmet");
+
+        ArrayList<Personel> F_arac1_personel = new ArrayList<>();
+        F_arac1_personel.add(F_arac1_personel_1);
+        F_arac1_personel.add(F_arac1_personel_2);
+        F_arac1_personel.add(F_arac1_personel_3);
+        F_arac1_personel.add(F_arac1_personel_4);
+
+        // Araç 2
+        Personel F_arac2_personel_1 = new Personel("Selim", "Kaya", "Araç");
+        Personel F_arac2_personel_2 = new Personel("Melih", "Kaya", "Araç");
+        Personel F_arac2_personel_3 = new Personel("Bilge", "Kaya", "Hizmet");
+        Personel F_arac2_personel_4 = new Personel("Anil", "Kaya", "Hizmet");
+
+        ArrayList<Personel> F_arac2_personel = new ArrayList<>();
+        F_arac2_personel.add(F_arac2_personel_1);
+        F_arac2_personel.add(F_arac2_personel_2);
+        F_arac2_personel.add(F_arac2_personel_3);
+        F_arac2_personel.add(F_arac2_personel_4);
+
+
         // Araçların Oluşturulması
         // A firmasının Araçları
         Bus A_arac_1 = new Bus("Otobüs 1", "Benzin", 10,
-                20, 5000, 2000);
+                20, 5000, 2000, A_arac1_personel);
         Bus A_arac_2 = new Bus("Otobüs 2", "Benzin", 10,
-                15, 5000, 2000);
+                15, 5000, 2000, A_arac2_personel);
         // Araç Bilgilerini Tutan ArrayList
         ArrayList<Object> A_aracListesi = new ArrayList<>();
         A_aracListesi.add(A_arac_1);
@@ -81,9 +232,9 @@ public class Transport implements Ireservable {
 
         // B firmasının Araçları
         Bus B_arac_1 = new Bus("Otobüs 1", "Motorin", 5,
-                15, 3000, 1500);
+                15, 3000, 1500, B_arac1_personel);
         Bus B_arac_2 = new Bus("Otobüs 2", "Motorin", 5,
-                20, 3000, 1500);
+                20, 3000, 1500, B_arac2_personel);
         // Araç Bilgilerini Tutan ArrayList
         ArrayList<Object> B_aracListesi = new ArrayList<>();
         B_aracListesi.add(B_arac_1);
@@ -92,11 +243,11 @@ public class Transport implements Ireservable {
 
         // C firmasının Araçları
         Bus C_arac_1 = new Bus("Otobüs 1", "Motorin", 6,
-                20, 4000, 2000);
+                20, 4000, 2000, C_arac1_personel);
         Airplane C_arac_2 = new Airplane("Uçak 1", "Gaz", 25,
-                30, 10000, 6000);
+                30, 10000, 6000, C_arac2_personel);
         Airplane C_arac_3 = new Airplane("Uçak 2", "Gaz", 25,
-                30, 10000, 6000);
+                30, 10000, 6000, C_arac3_personel);
         // Araç Bilgilerini Tutan ArrayList
         ArrayList<Object> C_aracListesi = new ArrayList<>();
         C_aracListesi.add(C_arac_1);
@@ -106,11 +257,11 @@ public class Transport implements Ireservable {
 
         // D firmasının Araçları
         Train D_arac_1 = new Train("Tren 1", "Elektrik", 3,
-                25, 2000, 1000);
+                25, 2000, 1000, D_arac1_personel);
         Train D_arac_2 = new Train("Tren 2", "Elektrik", 3,
-                25, 2000, 1000);
+                25, 2000, 1000, D_arac2_personel);
         Train D_arac_3 = new Train("Tren 3", "Elektrik", 3,
-                25, 2000, 1000);
+                25, 2000, 1000, D_arac3_personel);
         // Araç Bilgilerini Tutan ArrayList
         ArrayList<Object> D_aracListesi = new ArrayList<>();
         D_aracListesi.add(D_arac_1);
@@ -118,11 +269,12 @@ public class Transport implements Ireservable {
         D_aracListesi.add(D_arac_3);
 
 
+
         // F firmasının Araçları
         Airplane F_arac_1 = new Airplane("Uçak 1", "Gaz", 20,
-                30, 7500, 4000);
+                30, 7500, 4000, F_arac1_personel);
         Airplane F_arac_2 = new Airplane("Uçak 2", "Gaz", 20,
-                30, 7500, 4000);
+                30, 7500, 4000, F_arac2_personel);
         // Araç Bilgilerini Tutan ArrayList
         ArrayList<Object> F_aracListesi = new ArrayList<>();
         F_aracListesi.add(F_arac_1);

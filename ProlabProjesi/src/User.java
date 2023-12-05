@@ -340,6 +340,7 @@ class Company extends User implements Iprofitable {
         seferBilgileri = seferBilgileriGirdisi;
     }
 
+
     // Firma Girişlerini kontrol eden fonksiyon
     @Override
     public boolean Giris(String kullaniciAdiGirdisi, String sifreGirdisi) {
@@ -1013,7 +1014,7 @@ class Company extends User implements Iprofitable {
             firma = firmaGirdisi;
             //Arayüz Ayarları
             setTitle(firma.get_firma_isim() + " Firmasının Araç Ekleme Menüsü");
-            setSize(800, 600);
+            setSize(1300, 600);
 
             // 1- Panel
             JPanel panel = new JPanel();
@@ -1098,14 +1099,14 @@ class Company extends User implements Iprofitable {
             JLabel geri_bildirim = new JLabel();
             Font geri_bildirim_font = geri_bildirim.getFont();
             geri_bildirim.setFont(geri_bildirim_font.deriveFont(geri_bildirim_font.getStyle() | Font.BOLD, 16));
-            geri_bildirim.setBounds(200, 490, 300, 50);
+            geri_bildirim.setBounds(800, 490, 300, 50);
 
             geri_bildirim.setVisible(false);
             panel.add(geri_bildirim);
 
             // 16- Araç Eklenmesini onaylayan buton
             JButton onayla_butonu = new JButton("Onayla ve Ekle");
-            onayla_butonu.setBounds(20, 500, 150, 30);
+            onayla_butonu.setBounds(620, 500, 150, 30);
             onayla_butonu.setBackground(new Color(130, 85, 240));
             // Butona basınca çalışacak kısım
             onayla_butonu.addActionListener(e -> {
@@ -1174,11 +1175,13 @@ class Company extends User implements Iprofitable {
                                 switch (eklenecek_arac_tur.getText()) {
                                     case "Otobüs" -> {
                                         if (eklenecek_arac_yakit_turu.getText().equals("Benzin") || eklenecek_arac_yakit_turu.getText().equals("Motorin")) {
+                                            ArrayList<Personel> personelBilgiler= new ArrayList<>();
                                             Bus arac = new Bus(eklenecek_arac_id.getText(), eklenecek_arac_yakit_turu.getText(),
                                                     Integer.parseInt(eklenecek_arac_yakit_ucret.getText()),
                                                     Integer.parseInt(eklenecek_arac_kapasite.getText()),
                                                     Integer.parseInt(eklenecek_arac_kullanan_personel_ucret.getText()),
-                                                    Integer.parseInt(eklenecek_arac_hizmet_personel_ucret.getText()));
+                                                    Integer.parseInt(eklenecek_arac_hizmet_personel_ucret.getText()),
+                                                    personelBilgiler);
                                             firma.aracBilgileri.add(arac);
                                             geri_bildirim.setText("Başarıyla Eklendi!");
                                             geri_bildirim.setForeground(Color.GREEN);
@@ -1191,11 +1194,13 @@ class Company extends User implements Iprofitable {
                                     }
                                     case "Tren" -> {
                                         if (eklenecek_arac_yakit_turu.getText().equals("Elektrik")) {
+                                            ArrayList<Personel> personelBilgiler= new ArrayList<>();
                                             Train arac = new Train(eklenecek_arac_id.getText(), eklenecek_arac_yakit_turu.getText(),
                                                     Integer.parseInt(eklenecek_arac_yakit_ucret.getText()),
                                                     Integer.parseInt(eklenecek_arac_kapasite.getText()),
                                                     Integer.parseInt(eklenecek_arac_kullanan_personel_ucret.getText()),
-                                                    Integer.parseInt(eklenecek_arac_hizmet_personel_ucret.getText()));
+                                                    Integer.parseInt(eklenecek_arac_hizmet_personel_ucret.getText()),
+                                                    personelBilgiler);
                                             firma.aracBilgileri.add(arac);
                                             geri_bildirim.setText("Başarıyla Eklendi!");
                                             geri_bildirim.setForeground(Color.GREEN);
@@ -1209,11 +1214,13 @@ class Company extends User implements Iprofitable {
                                     }
                                     case "Uçak" -> {
                                         if (eklenecek_arac_yakit_turu.getText().equals("Gaz")) {
+                                            ArrayList<Personel> personelBilgiler= new ArrayList<>();
                                             Airplane arac = new Airplane(eklenecek_arac_id.getText(), eklenecek_arac_yakit_turu.getText(),
                                                     Integer.parseInt(eklenecek_arac_yakit_ucret.getText()),
                                                     Integer.parseInt(eklenecek_arac_kapasite.getText()),
                                                     Integer.parseInt(eklenecek_arac_kullanan_personel_ucret.getText()),
-                                                    Integer.parseInt(eklenecek_arac_hizmet_personel_ucret.getText()));
+                                                    Integer.parseInt(eklenecek_arac_hizmet_personel_ucret.getText()),
+                                                    personelBilgiler);
                                             firma.aracBilgileri.add(arac);
                                             geri_bildirim.setText("Başarıyla Eklendi!");
                                             geri_bildirim.setForeground(Color.GREEN);
