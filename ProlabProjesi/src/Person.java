@@ -4,41 +4,62 @@
 //1. passenger
 //2.personel
 abstract class Person {
-    String personAdi;
-    String personSoyadi;
+    String Ad;
+    String Soyad;
 
-    public String getPersonAdi() {
-        return personAdi;
-    }
+    abstract String getAd();
 
-    public void setPersonAdi(String personAdi) {
-        this.personAdi = personAdi;
-    }
+    abstract void setAd(String AdGirdisi);
 
-    public String getPersonSoyadi() {
-        return personSoyadi;
-    }
+    abstract String getSoyad();
 
-    public void setPersonSoyadi(String personSoyadi) {
-        this.personSoyadi = personSoyadi;
-    }
+    abstract void setSoyad(String SoyadGirdisi);
 
     Person() {
 
     }
 
-    Person(String personAdiGirdi, String personSoyadiGirdi) {
-        setPersonAdi(personAdiGirdi);
-        setPersonSoyadi(personSoyadiGirdi);
+    Person(String AdGirdi, String SoyadGirdi) {
+        setAd(AdGirdi);
+        setSoyad(SoyadGirdi);
     }
 }
 
 class Passenger extends Person{
+
+    @Override
+    public String getAd() {
+        return Ad;
+    }
+
+    @Override
+    public void setAd(String AdGirdisi) {
+        this.Ad = AdGirdisi;
+    }
+
+    @Override
+    public String getSoyad() {
+        return Soyad;
+    }
+
+    @Override
+    public void setSoyad(String SoyadGirdisi) {
+        this.Soyad = SoyadGirdisi;
+    }
+
+    Passenger() {
+
+    }
+
+    Passenger(String AdGirdi, String SoyadGirdi) {
+        super(AdGirdi, SoyadGirdi);
+    }
+
 }
 
-//4 personel var 2 driver 2 hostes
+// Her Araçta 4 Personel vardır. 2 Araç Kullanan, 2 Hizmet Veren personel.
 class Personel extends Person{
-    String is_durum; // Personelin nerede çalıştığını belirten değişken
+    String is_durum; // Personelin nerede çalıştığını belirten değişken - Araç ise Araç Kullanan, Hizmet ise Hizmet Veren
 
     public String getIs_durum() {
         return is_durum;
@@ -48,12 +69,33 @@ class Personel extends Person{
         this.is_durum = is_durum;
     }
 
+    @Override
+    public String getAd() {
+        return Ad;
+    }
+
+    @Override
+    public void setAd(String AdGirdisi) {
+        this.Ad = AdGirdisi;
+    }
+
+    @Override
+    public String getSoyad() {
+        return Soyad;
+    }
+
+    @Override
+    public void setSoyad(String SoyadGirdisi) {
+        this.Soyad = SoyadGirdisi;
+    }
+
+
     Personel() {
 
     }
 
-    Personel(String personAdiGirdi, String personSoyadiGirdi, String is_durum) {
-        super(personAdiGirdi, personSoyadiGirdi);
+    Personel(String AdGirdi, String SoyadGirdi, String is_durum) {
+        super(AdGirdi, SoyadGirdi);
         setIs_durum(is_durum);
     }
 }

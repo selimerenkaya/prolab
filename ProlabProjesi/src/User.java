@@ -244,7 +244,7 @@ class Admin extends User {
 
             // 4- Ana Menüye Geri Döndüren Buton
             JButton ana_menu_butonu = new JButton("Çıkış Yap");
-            ana_menu_butonu.setBounds(50, 220, 180, 40);
+            ana_menu_butonu.setBounds(50, 220, 190, 40);
             ana_menu_butonu.setBackground(Color.white);
 
             // Butona tıklanınca çalışacak kısım
@@ -280,6 +280,7 @@ class Company extends User implements Iprofitable {
     String sifre;
     ArrayList<Object> aracBilgileri = new ArrayList<>();
     ArrayList<Trip> seferBilgileri = new ArrayList<>();
+    ArrayList<Reservation> rezervasyonlar = new ArrayList<>(); // Firmanın sefer rezervasyonlarını tutan arraylist
 
 
     // Hizmet bedeli değişkeni için Get/Set metotları
@@ -340,6 +341,15 @@ class Company extends User implements Iprofitable {
         seferBilgileri = seferBilgileriGirdisi;
     }
 
+
+    // Rezervasyonlar Değişkeni için Get/Set Metotları
+    public ArrayList<Reservation> getRezervasyonlar() {
+        return rezervasyonlar;
+    }
+
+    public void setRezervasyonlar(ArrayList<Reservation> rezervasyonlarGirdisi) {
+        rezervasyonlar = rezervasyonlarGirdisi;
+    }
 
     // Firma Girişlerini kontrol eden fonksiyon
     @Override

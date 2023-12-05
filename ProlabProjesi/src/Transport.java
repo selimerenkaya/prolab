@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Random;
 
 interface Ireservable{
 
@@ -511,6 +512,84 @@ public class Transport implements Ireservable {
         // Şirket Listesine eklenmeleri
         hazirBilgiler.FirmaListesineEkle(A, B, C, D, F);
 
+        // Sefer Rezervasyonları Oluşturan Kısım
+
+        // Rezervasyon için rastgele adlar
+        String[] ad_listesi = {"Ahmet", "Mehmet", "Faruk", "Hüseyin", "Buse", "Nergiz", "Bilge", "Begüm", "Selim",
+        "Buğra", "Anıl", "Melih", "Gülsüm", "Gözdenur", "Barış", "Fırat", "Elanur", "Seda", "Sude", "Simge", "Yağmur",
+        "Fikret", "Hikmetcan", "Mustafa", "Yusuf", "Umut", "Recep", "Tarık", "Beyza", "Eylül", "Ece", "Seçil", "İhsan",
+        "Dilara", "Ada", "Aycan", "Salim", "Hülya", "Eda", "Nur", "Buket", "Elif", "Pelin", "Leyla"};
+
+        // Rezervasyon için rastgele soyadlar
+        String[] soyad_listesi = {"Kaya", "Çal", "Öztürk", "Kurt", "Sayar", "Kavak", "Meşe", "Çeşme", "Yılmaz", "Bilgili",
+        "Türkyılmaz", "Çiçek", "Atay", "Güler", "Erdoğan", "Kılıçdaroğlu", "Tekin"};
+
+        // Rezervasyon için Passenger listesi
+        ArrayList<Passenger> yolcuListesi = new ArrayList<>();
+        for (String ad : ad_listesi){
+            for (String soyad : soyad_listesi) {
+                Passenger yeni_yolcu = new Passenger(ad, soyad);
+                yolcuListesi.add(yeni_yolcu);
+            }
+        }
+
+        // Rezervasyon için zaman değerleri
+        String[] zamanDegerleri = {"04/12/2023", "05/12/2023", "06/12/2023", "07/12/2023",
+                "08/12/2023", "09/12/2023", "10/12/2023"};
+
+        // Rezervasyon için ortalama koltuk kapasitesi
+        int ortalama_koltuk_kapasite = 20;
+
+        // Rezervasyon için araç listesi
+        ArrayList<Object> aracListesi = new ArrayList<>();
+        aracListesi.add(A_arac_1);
+        aracListesi.add(A_arac_2);
+        aracListesi.add(B_arac_1);
+        aracListesi.add(B_arac_2);
+        aracListesi.add(C_arac_1);
+        aracListesi.add(C_arac_2);
+        aracListesi.add(C_arac_3);
+        aracListesi.add(D_arac_1);
+        aracListesi.add(D_arac_2);
+        aracListesi.add(D_arac_3);
+        aracListesi.add(F_arac_1);
+        aracListesi.add(F_arac_2);
+
+
+        // Random Rezervasyonları tutacak liste
+        ArrayList<Reservation> random_rezervasyonlar = new ArrayList<>();
+
+        // Random Rezervasyonların oluşturulup listeye atanması
+        Random rastgele = new Random();
+        for(int i = 0; i < 400; i++){
+            // Rastgele koltuk numarası belirleyen kısım
+            int rezerv_koltuk_no = rastgele.nextInt(ortalama_koltuk_kapasite) + 1;
+
+            // Rastgele yolcu bilgisi seçen kısım
+            int rezerv_yolcu_index = rastgele.nextInt(yolcuListesi.size() - 1);
+            Passenger rezerv_yolcu = yolcuListesi.get(rezerv_yolcu_index);
+
+            // Rastgele zaman seçen kısım
+            int rezerv_zaman_index = rastgele.nextInt(zamanDegerleri.length - 1);
+            String rezerv_zaman = zamanDegerleri[rezerv_zaman_index];
+
+            // Rastgele arac seçen kısım
+            int rezerv_arac_index = rastgele.nextInt(aracListesi.size() - 1);
+            Object rezerv_arac = aracListesi.get(rezerv_arac_index);
+
+            Reservation yeni_rezerv = new Reservation(rezerv_yolcu, rezerv_arac, rezerv_koltuk_no, rezerv_zaman);
+            random_rezervasyonlar.add(yeni_rezerv);
+
+        }
+
+
+        // Rastgele rezervasyonların yapılması
+        for(Reservation rezervasyon : random_rezervasyonlar) {
+            int rezerv_sirket_index = rastgele.nextInt(hazirBilgiler.FirmaBilgileriniDondur().size() - 1);
+            Company rezerv_sirket = hazirBilgiler.FirmaBilgileriniDondur().get(rezerv_sirket_index);
+            hazirBilgiler.koltuk_rezervasyon(rezerv_sirket, rezervasyon);
+        }
+
 
 
     }
@@ -553,12 +632,305 @@ public class Transport implements Ireservable {
 
 
     // Koltuk Durum Bilgisi Fonksiyonu
-    public void koltuk_durum_bilgi() {
-
+    public String koltuk_durum_bilgi(Koltuk koltuk) {
+        return koltuk.getKoltuk_durumu();
     }
 
-    // Koltuk Rezervasyon Fonksiyonu
-    public void koltuk_rezervasyon() {
+    // Koltuk Rezervasyon Etme Fonksiyonu
+    public boolean koltuk_rezervasyon(Company firmaGirdisi, Reservation rezervasyonGirdisi) {
+        boolean rezervasyon_basari = false;
+
+        Object rezervasyon_araci = rezervasyonGirdisi.getArac();
+        Class arac_sinif = rezervasyon_araci.getClass();
+        switch (arac_sinif.getName()) {
+            case "Bus" -> {
+                Bus rezervArac = (Bus) rezervasyon_araci;
+                String sefer_zamani;
+                ArrayList<Trip> seferListesi = firmaGirdisi.get_seferBilgileri();
+                for (Trip temp_sefer : seferListesi){
+
+                    Class arac_sinifi = temp_sefer.get_arac().getClass();
+                    switch (arac_sinifi.getName()) {
+                        case "Bus" -> {
+                            Bus sefer_arac = (Bus) temp_sefer.get_arac();
+                            sefer_zamani = temp_sefer.get_zaman();
+                            if (sefer_arac.get_arac_id().equals(rezervArac.get_arac_id())
+                            && sefer_zamani.equals(rezervasyonGirdisi.getZaman()) )
+                            {
+                                ArrayList<Koltuk> sefer_koltuklari = temp_sefer.getKoltuklar();
+                                for(Koltuk sefer_koltugu : sefer_koltuklari) {
+                                    if (sefer_koltugu.getKoltuk_numarasi() == rezervasyonGirdisi.getKoltukNumara() ) {
+                                        if (sefer_koltugu.getKoltuk_durumu().equals("Boş")) {
+                                            System.out.println("Rezervasyon başarıyla yapıldı.");
+                                            // REZERVE EDİLEN KOLTUĞU DOLU DURUMA GETİRME
+                                            sefer_koltugu.setKoltuk_durumu("Dolu");
+
+                                            firmaGirdisi.getRezervasyonlar().add(rezervasyonGirdisi);
+                                            rezervasyon_basari = true;
+                                        }
+
+                                    }
+                                }
+
+                            }
+
+                        }
+                        case "Train" -> {
+                            Train sefer_arac = (Train) temp_sefer.get_arac();
+                            sefer_zamani = temp_sefer.get_zaman();
+                            if (sefer_arac.get_arac_id().equals(rezervArac.get_arac_id())
+                                    && sefer_zamani.equals(rezervasyonGirdisi.getZaman()) )
+                            {
+                                ArrayList<Koltuk> sefer_koltuklari = temp_sefer.getKoltuklar();
+                                for(Koltuk sefer_koltugu : sefer_koltuklari) {
+                                    if (sefer_koltugu.getKoltuk_numarasi() == rezervasyonGirdisi.getKoltukNumara() ) {
+                                        if (sefer_koltugu.getKoltuk_durumu().equals("Boş")) {
+                                            System.out.println("Rezervasyon başarıyla yapıldı.");
+                                            // REZERVE EDİLEN KOLTUĞU DOLU DURUMA GETİRME
+                                            sefer_koltugu.setKoltuk_durumu("Dolu");
+
+                                            firmaGirdisi.getRezervasyonlar().add(rezervasyonGirdisi);
+                                            rezervasyon_basari = true;
+                                        }
+
+                                    }
+
+                                }
+
+                            }
+
+
+                        }
+                        case "Airplane" -> {
+                            Airplane sefer_arac = (Airplane) temp_sefer.get_arac();
+                            sefer_zamani = temp_sefer.get_zaman();
+                            if (sefer_arac.get_arac_id().equals(rezervArac.get_arac_id())
+                                    && sefer_zamani.equals(rezervasyonGirdisi.getZaman()) )
+                            {
+                                ArrayList<Koltuk> sefer_koltuklari = temp_sefer.getKoltuklar();
+                                for(Koltuk sefer_koltugu : sefer_koltuklari) {
+                                    if (sefer_koltugu.getKoltuk_numarasi() == rezervasyonGirdisi.getKoltukNumara() ) {
+                                        if (sefer_koltugu.getKoltuk_durumu().equals("Boş")) {
+                                            System.out.println("Rezervasyon başarıyla yapıldı.");
+                                            // REZERVE EDİLEN KOLTUĞU DOLU DURUMA GETİRME
+                                            sefer_koltugu.setKoltuk_durumu("Dolu");
+
+                                            firmaGirdisi.getRezervasyonlar().add(rezervasyonGirdisi);
+                                            rezervasyon_basari = true;
+                                        }
+
+
+                                    }
+
+                                }
+
+                            }
+
+                        }
+                    }
+
+
+                }
+
+            }
+            case "Train" -> {
+                Train rezervArac = (Train) rezervasyon_araci;
+                String sefer_zamani;
+                ArrayList<Trip> seferListesi = firmaGirdisi.get_seferBilgileri();
+                for (Trip temp_sefer : seferListesi){
+
+                    Class arac_sinifi = temp_sefer.get_arac().getClass();
+                    switch (arac_sinifi.getName()) {
+                        case "Bus" -> {
+                            Bus sefer_arac = (Bus) temp_sefer.get_arac();
+                            sefer_zamani = temp_sefer.get_zaman();
+                            if (sefer_arac.get_arac_id().equals(rezervArac.get_arac_id())
+                                    && sefer_zamani.equals(rezervasyonGirdisi.getZaman()) )
+                            {
+                                ArrayList<Koltuk> sefer_koltuklari = temp_sefer.getKoltuklar();
+                                for(Koltuk sefer_koltugu : sefer_koltuklari) {
+                                    if (sefer_koltugu.getKoltuk_numarasi() == rezervasyonGirdisi.getKoltukNumara() ) {
+                                        if (sefer_koltugu.getKoltuk_durumu().equals("Boş")) {
+                                            System.out.println("Rezervasyon başarıyla yapıldı.");
+                                            // REZERVE EDİLEN KOLTUĞU DOLU DURUMA GETİRME
+                                            sefer_koltugu.setKoltuk_durumu("Dolu");
+
+                                            firmaGirdisi.getRezervasyonlar().add(rezervasyonGirdisi);
+                                            rezervasyon_basari = true;
+                                        }
+
+                                    }
+
+                                }
+
+                            }
+
+
+                        }
+                        case "Train" -> {
+                            Train sefer_arac = (Train) temp_sefer.get_arac();
+                            sefer_zamani = temp_sefer.get_zaman();
+                            if (sefer_arac.get_arac_id().equals(rezervArac.get_arac_id())
+                                    && sefer_zamani.equals(rezervasyonGirdisi.getZaman()) )
+                            {
+                                ArrayList<Koltuk> sefer_koltuklari = temp_sefer.getKoltuklar();
+                                for(Koltuk sefer_koltugu : sefer_koltuklari) {
+                                    if (sefer_koltugu.getKoltuk_numarasi() == rezervasyonGirdisi.getKoltukNumara() ) {
+                                        if (sefer_koltugu.getKoltuk_durumu().equals("Boş")) {
+                                            System.out.println("Rezervasyon başarıyla yapıldı.");
+                                            // REZERVE EDİLEN KOLTUĞU DOLU DURUMA GETİRME
+                                            sefer_koltugu.setKoltuk_durumu("Dolu");
+
+                                            firmaGirdisi.getRezervasyonlar().add(rezervasyonGirdisi);
+                                            rezervasyon_basari = true;
+                                        }
+
+
+                                    }
+
+                                }
+
+                            }
+
+
+                        }
+                        case "Airplane" -> {
+                            Airplane sefer_arac = (Airplane) temp_sefer.get_arac();
+                            sefer_zamani = temp_sefer.get_zaman();
+                            if (sefer_arac.get_arac_id().equals(rezervArac.get_arac_id())
+                                    && sefer_zamani.equals(rezervasyonGirdisi.getZaman()) )
+                            {
+                                ArrayList<Koltuk> sefer_koltuklari = temp_sefer.getKoltuklar();
+                                for(Koltuk sefer_koltugu : sefer_koltuklari) {
+                                    if (sefer_koltugu.getKoltuk_numarasi() == rezervasyonGirdisi.getKoltukNumara() ) {
+                                        if (sefer_koltugu.getKoltuk_durumu().equals("Boş")) {
+                                            System.out.println("Rezervasyon başarıyla yapıldı.");
+                                            // REZERVE EDİLEN KOLTUĞU DOLU DURUMA GETİRME
+                                            sefer_koltugu.setKoltuk_durumu("Dolu");
+
+                                            firmaGirdisi.getRezervasyonlar().add(rezervasyonGirdisi);
+                                            rezervasyon_basari = true;
+                                        }
+
+
+                                    }
+
+                                }
+
+                            }
+
+
+                        }
+                    }
+
+
+                }
+
+            }
+            case "Airplane" -> {
+                Airplane rezervArac = (Airplane) rezervasyon_araci;
+                String sefer_zamani;
+                ArrayList<Trip> seferListesi = firmaGirdisi.get_seferBilgileri();
+                for (Trip temp_sefer : seferListesi){
+
+                    Class arac_sinifi = temp_sefer.get_arac().getClass();
+                    switch (arac_sinifi.getName()) {
+                        case "Bus" -> {
+                            Bus sefer_arac = (Bus) temp_sefer.get_arac();
+                            sefer_zamani = temp_sefer.get_zaman();
+                            if (sefer_arac.get_arac_id().equals(rezervArac.get_arac_id())
+                                    && sefer_zamani.equals(rezervasyonGirdisi.getZaman()) )
+                            {
+                                ArrayList<Koltuk> sefer_koltuklari = temp_sefer.getKoltuklar();
+                                for(Koltuk sefer_koltugu : sefer_koltuklari) {
+                                    if (sefer_koltugu.getKoltuk_numarasi() == rezervasyonGirdisi.getKoltukNumara() ) {
+                                        if (sefer_koltugu.getKoltuk_durumu().equals("Boş")) {
+                                            System.out.println("Rezervasyon başarıyla yapıldı.");
+                                            // REZERVE EDİLEN KOLTUĞU DOLU DURUMA GETİRME
+                                            sefer_koltugu.setKoltuk_durumu("Dolu");
+
+                                            firmaGirdisi.getRezervasyonlar().add(rezervasyonGirdisi);
+                                            rezervasyon_basari = true;
+                                        }
+
+
+                                    }
+
+                                }
+
+                            }
+
+
+                        }
+                        case "Train" -> {
+                            Train sefer_arac = (Train) temp_sefer.get_arac();
+                            sefer_zamani = temp_sefer.get_zaman();
+                            if (sefer_arac.get_arac_id().equals(rezervArac.get_arac_id())
+                                    && sefer_zamani.equals(rezervasyonGirdisi.getZaman()) )
+                            {
+                                ArrayList<Koltuk> sefer_koltuklari = temp_sefer.getKoltuklar();
+                                for(Koltuk sefer_koltugu : sefer_koltuklari) {
+                                    if (sefer_koltugu.getKoltuk_numarasi() == rezervasyonGirdisi.getKoltukNumara() ) {
+                                        if (sefer_koltugu.getKoltuk_durumu().equals("Boş")) {
+                                            System.out.println("Rezervasyon başarıyla yapıldı.");
+                                            // REZERVE EDİLEN KOLTUĞU DOLU DURUMA GETİRME
+                                            sefer_koltugu.setKoltuk_durumu("Dolu");
+
+                                            firmaGirdisi.getRezervasyonlar().add(rezervasyonGirdisi);
+                                            rezervasyon_basari = true;
+                                        }
+
+
+                                    }
+
+                                }
+
+                            }
+
+
+                        }
+                        case "Airplane" -> {
+                            Airplane sefer_arac = (Airplane) temp_sefer.get_arac();
+                            sefer_zamani = temp_sefer.get_zaman();
+                            if (sefer_arac.get_arac_id().equals(rezervArac.get_arac_id())
+                                    && sefer_zamani.equals(rezervasyonGirdisi.getZaman()) )
+                            {
+                                ArrayList<Koltuk> sefer_koltuklari = temp_sefer.getKoltuklar();
+                                for(Koltuk sefer_koltugu : sefer_koltuklari) {
+                                    if (sefer_koltugu.getKoltuk_numarasi() == rezervasyonGirdisi.getKoltukNumara() ) {
+                                        if (sefer_koltugu.getKoltuk_durumu().equals("Boş")) {
+                                            System.out.println("Rezervasyon başarıyla yapıldı.");
+                                            // REZERVE EDİLEN KOLTUĞU DOLU DURUMA GETİRME
+                                            sefer_koltugu.setKoltuk_durumu("Dolu");
+
+                                            firmaGirdisi.getRezervasyonlar().add(rezervasyonGirdisi);
+                                            rezervasyon_basari = true;
+                                        }
+
+
+                                    }
+
+                                }
+
+                            }
+
+
+                        }
+                    }
+
+
+                }
+
+            }
+        }
+
+        if (rezervasyon_basari){
+            return true;
+        }
+        else {
+            return false;
+        }
+
 
     }
 
