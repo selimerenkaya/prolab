@@ -1103,7 +1103,7 @@ class Company extends User implements Iprofitable {
             geri_bildirim.setVisible(false);
             panel.add(geri_bildirim);
 
-            // 16- Firmanın silinmesini onaylayan buton
+            // 16- Araç Eklenmesini onaylayan buton
             JButton onayla_butonu = new JButton("Onayla ve Ekle");
             onayla_butonu.setBounds(20, 500, 150, 30);
             onayla_butonu.setBackground(new Color(130, 85, 240));
@@ -1305,7 +1305,7 @@ class Company extends User implements Iprofitable {
             geri_bildirim.setVisible(false);
             panel.add(geri_bildirim);
 
-            // 4- Firmanın silinmesini onaylayan buton
+            // 4- Aracın silinmesini onaylayan buton
             JButton onayla_butonu = new JButton("Onayla ve Sil");
             onayla_butonu.setBounds(20, 80, 150, 30);
             onayla_butonu.setBackground(new Color(130, 85, 240));
@@ -1423,8 +1423,9 @@ class Company extends User implements Iprofitable {
             sefer_ekle.setBounds(width/ 2 - 135, 90, 250, 30);
             sefer_ekle.setBackground(new Color(130, 85, 240));
             // Butona tıklanınca çalışacak kısım
-            sefer_ekle.addActionListener(e -> new Company.Firma_Islem_Sefer_Goruntule(firma)
-                    // SEFER EKLEME ARAYÜZÜ EKLENECEK
+            sefer_ekle.addActionListener(e ->
+                    new Company.Firma_Islem_Sefer_Ekle(firma)
+
             );
             panel.add(sefer_ekle);
 
@@ -1544,6 +1545,262 @@ class Company extends User implements Iprofitable {
             scroll.setPreferredSize(new Dimension(1350, 400));
             panel.add(scroll);
 
+
+            this.getContentPane().add(panel); // Oluşturulan içeriklerin panele ekleyen kısım
+            setVisible(true);
+        }
+    }
+
+
+    // Firma İşlemlerinden Sefer Ekleme Panelinin Arayüzü
+    static class Firma_Islem_Sefer_Ekle extends JFrame {
+        // Firma İşlemlerinden Araç Ekleme Panelinde kullanılacak olan firmayı tutan nesne
+        Company firma;
+
+        // Firma İşlemlerinden Sefer Ekleme Paneli oluşturulduğunda çalışacak kod
+        public Firma_Islem_Sefer_Ekle(Company firmaGirdisi) {
+            firma = firmaGirdisi;
+            //Arayüz Ayarları
+            setTitle(firma.get_firma_isim() + " Firmasının Sefer Ekleme Menüsü");
+            setSize(800, 600);
+
+            // 1- Panel
+            JPanel panel = new JPanel();
+            panel.setLayout(null);
+            panel.setBackground(Color.white);
+
+            // Firmanın Araç Bilgilerini Alan kısım
+            ArrayList<Object> aracBilgileri = firma.get_aracBilgileri();
+
+            // 1- Sefere Atanacak Aracın İD'sinin Başlığı
+            JLabel sefere_atanacak_arac_id_baslik = new JLabel("Sefere Atanacak Aracın İD'sini giriniz");
+            sefere_atanacak_arac_id_baslik.setBounds(20, 10, 350, 30);
+            panel.add(sefere_atanacak_arac_id_baslik);
+
+            // 2- Sefere Atanacak Aracın İD'sini alan kısım
+            JTextField sefere_atanacak_arac_id = new JTextField();
+            sefere_atanacak_arac_id.setBounds(20, 40, 150, 30);
+            panel.add(sefere_atanacak_arac_id);
+
+
+            // 3- Sefere atanacak Güzergah Bilgisini Alan Kısmın Başlığı
+            JLabel sefer_guzergah_baslik = new JLabel("Seferin Güzergahını Giriniz (Kalkış,Varış,Ulaşım Türü Şeklinde)");
+            sefer_guzergah_baslik.setBounds(20, 80, 450, 30);
+            panel.add(sefer_guzergah_baslik);
+
+            // 4- Sefere atanacak Güzergah Bilgisini Alan Kısım
+            JTextField sefer_guzergah = new JTextField();
+            sefer_guzergah.setBounds(20, 110, 150, 30);
+            panel.add(sefer_guzergah);
+
+
+            // 5- Sefere Ait Zaman Bilgisini Alan Kısmın Başlığı
+            JLabel sefer_zaman_baslik = new JLabel("Seferin Zamanını Giriniz");
+            sefer_zaman_baslik.setBounds(20, 150, 450, 30);
+            panel.add(sefer_zaman_baslik);
+
+            // 6- Sefere Ait Zaman Bilgisini Alan Kısım
+            JTextField sefer_zaman = new JTextField();
+            sefer_zaman.setBounds(20, 180, 150, 30);
+            panel.add(sefer_zaman);
+
+
+            // 7- Geri Bildirim Yazısı
+            JLabel geri_bildirim = new JLabel();
+            Font geri_bildirim_font = geri_bildirim.getFont();
+            geri_bildirim.setFont(geri_bildirim_font.deriveFont(geri_bildirim_font.getStyle() | Font.BOLD, 16));
+            geri_bildirim.setBounds(200, 240, 300, 50);
+
+            geri_bildirim.setVisible(false);
+            panel.add(geri_bildirim);
+
+            // 8- Seferin Eklenmesini onaylayan buton
+            JButton onayla_butonu = new JButton("Onayla ve Ekle");
+            onayla_butonu.setBounds(20, 250, 150, 30);
+            onayla_butonu.setBackground(new Color(130, 85, 240));
+            // Butona basınca çalışacak kısım
+            onayla_butonu.addActionListener(e -> {
+                try {
+                    if (!sefere_atanacak_arac_id.getText().isEmpty() && !sefer_guzergah.getText().isEmpty()
+                    && !sefer_zaman.getText().isEmpty()) {
+
+                        // Girilen Araç İD'si mevcut mu diye kontrol eden kısım
+                        boolean arac_id_mevcut = false;
+                        for(Object bilgiler : aracBilgileri) {
+                            Class arac_sinifi = bilgiler.getClass();
+                            switch (arac_sinifi.getName()) {
+                                case "Bus" -> {
+                                    Bus temp_arac = (Bus) bilgiler;
+                                    if (sefere_atanacak_arac_id.getText().equals(temp_arac.get_arac_id())) {
+                                        arac_id_mevcut = true;
+                                    }
+
+                                }
+                                case "Train" -> {
+                                    Train temp_arac = (Train) bilgiler;
+                                    if (sefere_atanacak_arac_id.getText().equals(temp_arac.get_arac_id())) {
+                                        arac_id_mevcut = true;
+                                    }
+
+                                }
+                                case "Airplane" -> {
+                                    Airplane temp_arac = (Airplane) bilgiler;
+                                    if (sefere_atanacak_arac_id.getText().equals(temp_arac.get_arac_id())) {
+                                        arac_id_mevcut = true;
+                                    }
+
+                                }
+                            }
+                        }
+
+                        // Araç İD'si Mevcutsa çalışacak kısım
+                        if (arac_id_mevcut)
+                        {
+                            // Girilen Araç İD'sinin seferi var mı kontrol eden kısım
+                            boolean arac_sefer_mevcut = false;
+                            for(Trip seferBilgi : firma.get_seferBilgileri()) {
+                                Object bilgiler = seferBilgi.get_arac();
+                                Class arac_sinifi = bilgiler.getClass();
+                                switch (arac_sinifi.getName()) {
+                                    case "Bus" -> {
+                                        Bus temp_arac = (Bus) bilgiler;
+                                        if (sefere_atanacak_arac_id.getText().equals(temp_arac.get_arac_id())) {
+                                            arac_sefer_mevcut = true;
+                                        }
+
+                                    }
+                                    case "Train" -> {
+                                        Train temp_arac = (Train) bilgiler;
+                                        if (sefere_atanacak_arac_id.getText().equals(temp_arac.get_arac_id())) {
+                                            arac_sefer_mevcut = true;
+                                        }
+
+                                    }
+                                    case "Airplane" -> {
+                                        Airplane temp_arac = (Airplane) bilgiler;
+                                        if (sefere_atanacak_arac_id.getText().equals(temp_arac.get_arac_id())) {
+                                            arac_sefer_mevcut = true;
+                                        }
+
+                                    }
+                                }
+
+                            }
+
+                            // Aracın Seferi Yoksa Çalışacak Kısım
+                            if (!arac_sefer_mevcut)
+                            {
+
+                                // Sefer Geçerli Zaman aralığında mı girilmiş diye kontrol eden kısım
+                                boolean gecerli_zaman = false;
+                                String[] zaman_araligi = {"04/12/2023", "05/12/2023", "06/12/2023",
+                                        "07/12/2023", "08/12/2023", "09/12/2023", "10/12/2023"};
+                                for(String aralik : zaman_araligi) {
+                                    if (aralik.equals(sefer_zaman.getText())){
+                                        gecerli_zaman = true;
+                                    }
+                                }
+
+                                // Geçerli zaman aralığı girildiyse çalışacak kısım
+                                if (gecerli_zaman)
+                                {
+                                    String[] girilenGuzergahBilgileri = sefer_guzergah.getText().split(",");
+                                    // GÜZERGAH KONTROLÜ
+                                    boolean guzergah_mevcut = false;
+                                    Route guzergah = new Route();
+                                    for(Route guzergahBilgisi : new Transport().GuzergahBilgileriniDondur()  ) {
+
+                                        if (guzergahBilgisi.get_guzergah()[0].equals(girilenGuzergahBilgileri[0])
+                                        && guzergahBilgisi.get_guzergah()[guzergahBilgisi.get_guzergah().length - 1].equals(girilenGuzergahBilgileri[1])
+                                        && guzergahBilgisi.get_ulasim_turu().equals(girilenGuzergahBilgileri[2])) {
+                                            guzergah = guzergahBilgisi;
+                                            guzergah_mevcut = true;
+                                        }
+                                    }
+
+                                    // Girilen Güzergah mevcut ise çalışacak kısım
+                                    if (guzergah_mevcut) {
+
+                                        Object arac;
+                                        for(Object bilgiler : aracBilgileri) {
+                                            Class arac_sinifi = bilgiler.getClass();
+                                            switch (arac_sinifi.getName()) {
+                                                case "Bus" -> {
+                                                    Bus temp_arac = (Bus) bilgiler;
+                                                    if (sefere_atanacak_arac_id.getText().equals(temp_arac.get_arac_id())) {
+                                                        arac = bilgiler;
+                                                        Trip yeni_sefer = new Trip(arac, guzergah, sefer_zaman.getText());
+                                                        firma.get_seferBilgileri().add(yeni_sefer);
+                                                        geri_bildirim.setText("Başarıyla Eklendi!");
+                                                        geri_bildirim.setVisible(true);
+                                                    }
+
+                                                }
+                                                case "Train" -> {
+                                                    Train temp_arac = (Train) bilgiler;
+                                                    if (sefere_atanacak_arac_id.getText().equals(temp_arac.get_arac_id())) {
+                                                        arac = bilgiler;
+                                                        Trip yeni_sefer = new Trip(arac, guzergah, sefer_zaman.getText());
+                                                        firma.get_seferBilgileri().add(yeni_sefer);
+                                                        geri_bildirim.setText("Başarıyla Eklendi!");
+                                                        geri_bildirim.setVisible(true);
+                                                    }
+
+                                                }
+                                                case "Airplane" -> {
+                                                    Airplane temp_arac = (Airplane) bilgiler;
+                                                    if (sefere_atanacak_arac_id.getText().equals(temp_arac.get_arac_id())) {
+                                                        arac = bilgiler;
+                                                        Trip yeni_sefer = new Trip(arac, guzergah, sefer_zaman.getText());
+                                                        firma.get_seferBilgileri().add(yeni_sefer);
+                                                        geri_bildirim.setText("Başarıyla Eklendi!");
+                                                        geri_bildirim.setVisible(true);
+                                                    }
+
+                                                }
+                                            }
+                                        }
+
+                                    }
+                                    else {
+                                        geri_bildirim.setText("Geçersiz Güzergah Bilgileri");
+                                        throw new Exception("Geçersiz Güzergah Bilgileri");
+                                    }
+                                }
+                                else {
+                                    geri_bildirim.setText("Geçersiz Zaman Aralığı!");
+                                    throw new Exception("Geçersiz Zaman Aralığı!");
+                                }
+
+                            }
+                            else {
+                                geri_bildirim.setText("Aracın Seferi Mevcut!");
+                                throw new Exception("Aracın Seferi Mevcut!");
+                            }
+
+                        }
+                        else {
+                            geri_bildirim.setText("Geçersiz Araç İD'si!");
+                            throw new Exception("Geçersiz Araç İD'si!");
+                        }
+
+                    }
+                    else {
+                        geri_bildirim.setText("Girdilerde Boşluk Var!");
+                        throw new Exception("Girdilerde Boşluk Var!");
+                    }
+
+                }
+                catch (Exception ex) {
+                    System.out.println("Hata Alındı! " + ex);
+                    geri_bildirim.setForeground(Color.red);
+                    geri_bildirim.setVisible(true);
+                }
+
+            });
+
+            panel.add(onayla_butonu);
+            
 
             this.getContentPane().add(panel); // Oluşturulan içeriklerin panele ekleyen kısım
             setVisible(true);
