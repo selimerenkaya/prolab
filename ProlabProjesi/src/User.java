@@ -1435,8 +1435,7 @@ class Company extends User implements Iprofitable {
             sefer_cikar.setBackground(new Color(130, 85, 240));
             // Butona tıklanınca çalışacak kısım
             sefer_cikar.addActionListener(e ->
-                            new Company.Firma_Islem_Sefer_Goruntule(firma)
-                    // SEFER SİLME ARAYÜZÜ EKLENECEK
+                    new Company.Firma_Islem_Sefer_Sil(firma)
             );
             panel.add(sefer_cikar);
 
@@ -1732,6 +1731,7 @@ class Company extends User implements Iprofitable {
                                                         Trip yeni_sefer = new Trip(arac, guzergah, sefer_zaman.getText());
                                                         firma.get_seferBilgileri().add(yeni_sefer);
                                                         geri_bildirim.setText("Başarıyla Eklendi!");
+                                                        geri_bildirim.setForeground(Color.GREEN);
                                                         geri_bildirim.setVisible(true);
                                                     }
 
@@ -1743,6 +1743,7 @@ class Company extends User implements Iprofitable {
                                                         Trip yeni_sefer = new Trip(arac, guzergah, sefer_zaman.getText());
                                                         firma.get_seferBilgileri().add(yeni_sefer);
                                                         geri_bildirim.setText("Başarıyla Eklendi!");
+                                                        geri_bildirim.setForeground(Color.GREEN);
                                                         geri_bildirim.setVisible(true);
                                                     }
 
@@ -1754,6 +1755,7 @@ class Company extends User implements Iprofitable {
                                                         Trip yeni_sefer = new Trip(arac, guzergah, sefer_zaman.getText());
                                                         firma.get_seferBilgileri().add(yeni_sefer);
                                                         geri_bildirim.setText("Başarıyla Eklendi!");
+                                                        geri_bildirim.setForeground(Color.GREEN);
                                                         geri_bildirim.setVisible(true);
                                                     }
 
@@ -1800,7 +1802,185 @@ class Company extends User implements Iprofitable {
             });
 
             panel.add(onayla_butonu);
-            
+
+
+            this.getContentPane().add(panel); // Oluşturulan içeriklerin panele ekleyen kısım
+            setVisible(true);
+        }
+    }
+
+
+    // Firma İşlemlerinden Sefer Silme Panelinin Arayüzü
+    static class Firma_Islem_Sefer_Sil extends JFrame {
+        // Firma İşlemlerinden Araç Ekleme Panelinde kullanılacak olan firmayı tutan nesne
+        Company firma;
+
+        // Firma İşlemlerinden Sefer Silme Paneli oluşturulduğunda çalışacak kod
+        public Firma_Islem_Sefer_Sil(Company firmaGirdisi) {
+            firma = firmaGirdisi;
+            //Arayüz Ayarları
+            setTitle(firma.get_firma_isim() + " Firmasının Sefer Silme Menüsü");
+            setSize(800, 600);
+
+            // 1- Panel
+            JPanel panel = new JPanel();
+            panel.setLayout(null);
+            panel.setBackground(Color.white);
+
+            // Firmanın Araç Bilgilerini Alan kısım
+            ArrayList<Object> aracBilgileri = firma.get_aracBilgileri();
+
+            // 1- Silinecek Seferin Araç İD'sinin Başlığı
+            JLabel silinecek_sefer_arac_id_baslik = new JLabel("Silinecek Seferin Aracın İD'sini giriniz");
+            silinecek_sefer_arac_id_baslik.setBounds(20, 10, 350, 30);
+            panel.add(silinecek_sefer_arac_id_baslik);
+
+            // 2- Silinecek Seferin Araç İD'sini alan kısım
+            JTextField silinecek_sefer_arac_id = new JTextField();
+            silinecek_sefer_arac_id.setBounds(20, 40, 150, 30);
+            panel.add(silinecek_sefer_arac_id);
+
+
+            // 3- Silinecek Seferin Güzergah Bilgisini Alan Kısmın Başlığı
+            JLabel silinecek_sefer_guzergah_baslik = new JLabel("Seferin Güzergahını Giriniz (Kalkış,Varış,Ulaşım Türü Şeklinde)");
+            silinecek_sefer_guzergah_baslik.setBounds(20, 80, 450, 30);
+            panel.add(silinecek_sefer_guzergah_baslik);
+
+            // 4- Silinecek Seferin Güzergah Bilgisini Alan Kısım
+            JTextField silinecek_sefer_guzergah = new JTextField();
+            silinecek_sefer_guzergah.setBounds(20, 110, 150, 30);
+            panel.add(silinecek_sefer_guzergah);
+
+
+            // 5- Silinecek Sefere Ait Zaman Bilgisini Alan Kısmın Başlığı
+            JLabel silinecek_sefer_zaman_baslik = new JLabel("Seferin Zamanını Giriniz");
+            silinecek_sefer_zaman_baslik.setBounds(20, 150, 450, 30);
+            panel.add(silinecek_sefer_zaman_baslik);
+
+            // 6- Silinecek Sefere Ait Zaman Bilgisini Alan Kısım
+            JTextField silinecek_sefer_zaman = new JTextField();
+            silinecek_sefer_zaman.setBounds(20, 180, 150, 30);
+            panel.add(silinecek_sefer_zaman);
+
+
+            // 7- Geri Bildirim Yazısı
+            JLabel geri_bildirim = new JLabel();
+            Font geri_bildirim_font = geri_bildirim.getFont();
+            geri_bildirim.setFont(geri_bildirim_font.deriveFont(geri_bildirim_font.getStyle() | Font.BOLD, 16));
+            geri_bildirim.setBounds(200, 240, 300, 50);
+
+            geri_bildirim.setVisible(false);
+            panel.add(geri_bildirim);
+
+            // 8- Seferin Silinnmesini onaylayan buton
+            JButton onayla_butonu = new JButton("Onayla ve Sil");
+            onayla_butonu.setBounds(20, 250, 150, 30);
+            onayla_butonu.setBackground(new Color(130, 85, 240));
+            // Butona basınca çalışacak kısım
+            onayla_butonu.addActionListener(e -> {
+                try {
+                    geri_bildirim.setText("Hata Alındı!");
+                    // Girdilerde boşluk yoksa çalışan kısım
+                    if (!silinecek_sefer_arac_id.getText().isEmpty() && !silinecek_sefer_guzergah.getText().isEmpty()
+                    && !silinecek_sefer_zaman.getText().isEmpty() )
+                    {
+                        // Silinecek Seferin Güzergah Bilgilerini tutan array
+                        String[] silGuzBilgileri = silinecek_sefer_guzergah.getText().split(",");
+
+                        // Silinecek seferi bulup silen kısım
+                        label:
+                        for(Trip seferBilgi : firma.get_seferBilgileri()) {
+                            Object bilgiler = seferBilgi.get_arac();
+                            Class arac_sinifi = bilgiler.getClass();
+                            switch (arac_sinifi.getName()) {
+                                case "Bus" -> {
+                                    Bus temp_arac = (Bus) bilgiler;
+                                    if (silinecek_sefer_arac_id.getText().equals(temp_arac.get_arac_id())) {
+
+                                        // Güzergah Bilgisin Aracın Sefer Bilgisiyle Aynı mı kontrol eden kısım
+                                        if (seferBilgi.get_guzergah().get_guzergah()[0].equals(silGuzBilgileri[0])
+                                        && seferBilgi.get_guzergah().get_guzergah()[seferBilgi.get_guzergah().get_guzergah().length -1].equals(silGuzBilgileri[1])
+                                        && seferBilgi.get_guzergah().get_ulasim_turu().equals(silGuzBilgileri[2]))
+                                        {
+
+                                            if (seferBilgi.get_zaman().equals(silinecek_sefer_zaman.getText())) {
+                                                firma.get_seferBilgileri().remove(seferBilgi);
+                                                geri_bildirim.setText("Başarıyla Silindi!");
+                                                geri_bildirim.setForeground(Color.green);
+                                                geri_bildirim.setVisible(true);
+                                                break label;
+
+                                            }
+
+                                        }
+                                    }
+
+                                }
+                                case "Train" -> {
+                                    Train temp_arac = (Train) bilgiler;
+                                    if (silinecek_sefer_arac_id.getText().equals(temp_arac.get_arac_id())) {
+
+                                        // Güzergah Bilgisin Aracın Sefer Bilgisiyle Aynı mı kontrol eden kısım
+                                        if (seferBilgi.get_guzergah().get_guzergah()[0].equals(silGuzBilgileri[0])
+                                                && seferBilgi.get_guzergah().get_guzergah()[seferBilgi.get_guzergah().get_guzergah().length -1].equals(silGuzBilgileri[1])
+                                                && seferBilgi.get_guzergah().get_ulasim_turu().equals(silGuzBilgileri[2]))
+                                        {
+
+                                            if (seferBilgi.get_zaman().equals(silinecek_sefer_zaman.getText())) {
+                                                firma.get_seferBilgileri().remove(seferBilgi);
+                                                geri_bildirim.setText("Başarıyla Silindi!");
+                                                geri_bildirim.setForeground(Color.green);
+                                                geri_bildirim.setVisible(true);
+                                                break label;
+                                            }
+
+                                        }
+                                    }
+
+                                }
+                                case "Airplane" -> {
+                                    Airplane temp_arac = (Airplane) bilgiler;
+                                    if (silinecek_sefer_arac_id.getText().equals(temp_arac.get_arac_id())) {
+
+                                        // Güzergah Bilgisin Aracın Sefer Bilgisiyle Aynı mı kontrol eden kısım
+                                        if (seferBilgi.get_guzergah().get_guzergah()[0].equals(silGuzBilgileri[0])
+                                                && seferBilgi.get_guzergah().get_guzergah()[seferBilgi.get_guzergah().get_guzergah().length -1].equals(silGuzBilgileri[1])
+                                                && seferBilgi.get_guzergah().get_ulasim_turu().equals(silGuzBilgileri[2]))
+                                        {
+
+                                            if (seferBilgi.get_zaman().equals(silinecek_sefer_zaman.getText())) {
+                                                firma.get_seferBilgileri().remove(seferBilgi);
+                                                geri_bildirim.setText("Başarıyla Silindi!");
+                                                geri_bildirim.setForeground(Color.green);
+                                                geri_bildirim.setVisible(true);
+                                                break label;
+                                            }
+
+                                        }
+                                    }
+
+                                }
+                            }
+
+                        }
+
+                    }
+                    else {
+                        geri_bildirim.setText("Girdilerde Boşluk Var!");
+                        throw new Exception("Girdilerde Boşluk Var!");
+                    }
+
+                }
+                catch (Exception ex) {
+                    System.out.println("Hata Alındı! " + ex);
+                    geri_bildirim.setForeground(Color.red);
+                    geri_bildirim.setVisible(true);
+                }
+
+            });
+
+            panel.add(onayla_butonu);
+
 
             this.getContentPane().add(panel); // Oluşturulan içeriklerin panele ekleyen kısım
             setVisible(true);
