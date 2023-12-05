@@ -1095,18 +1095,82 @@ class Company extends User implements Iprofitable {
             eklenecek_arac_hizmet_personel_ucret.setBounds(20, 460, 150, 30);
             panel.add(eklenecek_arac_hizmet_personel_ucret);
 
-            // 15- Geri Bildirim Yazısı
+
+            // Personel Bilgisi Kısmı
+            // 1- Araç Personel 1
+            JLabel arac_personel_1_baslik = new JLabel("Araç Kullanan Personel 1 Ad/Soyad Giriniz");
+            arac_personel_1_baslik.setBounds(650, 30, 450, 30);
+            panel.add(arac_personel_1_baslik);
+
+            // Ad
+            JTextField arac_personel_1_ad = new JTextField();
+            arac_personel_1_ad.setBounds(650, 60, 150, 30);
+            panel.add(arac_personel_1_ad);
+
+            // Soyad
+            JTextField arac_personel_1_soyad = new JTextField();
+            arac_personel_1_soyad.setBounds(850, 60, 150, 30);
+            panel.add(arac_personel_1_soyad);
+
+
+            // 2- Araç Personel 2
+            JLabel arac_personel_2_baslik = new JLabel("Araç Kullanan Personel 2 Ad/Soyad Giriniz");
+            arac_personel_2_baslik.setBounds(650, 100, 450, 30);
+            panel.add(arac_personel_2_baslik);
+
+            // Ad
+            JTextField arac_personel_2_ad = new JTextField();
+            arac_personel_2_ad.setBounds(650, 130, 150, 30);
+            panel.add(arac_personel_2_ad);
+
+            // Soyad
+            JTextField arac_personel_2_soyad = new JTextField();
+            arac_personel_2_soyad.setBounds(850, 130, 150, 30);
+            panel.add(arac_personel_2_soyad);
+
+            // 3- Hizmet Personel 1
+            JLabel hizmet_personel_1_baslik = new JLabel("Hizmet Veren Personel 1 Ad/Soyad Giriniz");
+            hizmet_personel_1_baslik.setBounds(650, 170, 450, 30);
+            panel.add(hizmet_personel_1_baslik);
+
+            // Ad
+            JTextField hizmet_personel_1_ad = new JTextField();
+            hizmet_personel_1_ad.setBounds(650, 200, 150, 30);
+            panel.add(hizmet_personel_1_ad);
+
+            // Soyad
+            JTextField hizmet_personel_1_soyad = new JTextField();
+            hizmet_personel_1_soyad.setBounds(850, 200, 150, 30);
+            panel.add(hizmet_personel_1_soyad);
+
+            // 4- Hizmet Personel 2
+            JLabel hizmet_personel_2_baslik = new JLabel("Hizmet Veren Personel 2 Ad/Soyad Giriniz");
+            hizmet_personel_2_baslik.setBounds(650, 240, 450, 30);
+            panel.add(hizmet_personel_2_baslik);
+
+            // Ad
+            JTextField hizmet_personel_2_ad = new JTextField();
+            hizmet_personel_2_ad.setBounds(650, 270, 150, 30);
+            panel.add(hizmet_personel_2_ad);
+
+            // Soyad
+            JTextField hizmet_personel_2_soyad = new JTextField();
+            hizmet_personel_2_soyad.setBounds(850, 270, 150, 30);
+            panel.add(hizmet_personel_2_soyad);
+
+
+            // Geri Bildirim Yazısı
             JLabel geri_bildirim = new JLabel();
             Font geri_bildirim_font = geri_bildirim.getFont();
             geri_bildirim.setFont(geri_bildirim_font.deriveFont(geri_bildirim_font.getStyle() | Font.BOLD, 16));
-            geri_bildirim.setBounds(800, 490, 300, 50);
+            geri_bildirim.setBounds(850, 450, 300, 50);
 
             geri_bildirim.setVisible(false);
             panel.add(geri_bildirim);
 
-            // 16- Araç Eklenmesini onaylayan buton
+            // Araç Eklenmesini onaylayan buton
             JButton onayla_butonu = new JButton("Onayla ve Ekle");
-            onayla_butonu.setBounds(620, 500, 150, 30);
+            onayla_butonu.setBounds(670, 460, 150, 30);
             onayla_butonu.setBackground(new Color(130, 85, 240));
             // Butona basınca çalışacak kısım
             onayla_butonu.addActionListener(e -> {
@@ -1116,8 +1180,25 @@ class Company extends User implements Iprofitable {
                     // Girdilerin Hepsi Doluysa çalışacak kısım
                     if (!eklenecek_arac_id.getText().isEmpty() && !eklenecek_arac_tur.getText().isEmpty()  && !eklenecek_arac_kapasite.getText().isEmpty()
                             && !eklenecek_arac_yakit_turu.getText().isEmpty() && !eklenecek_arac_yakit_ucret.getText().isEmpty()
-                            && !eklenecek_arac_kullanan_personel_ucret.getText().isEmpty() && !eklenecek_arac_hizmet_personel_ucret.getText().isEmpty())
+                            && !eklenecek_arac_kullanan_personel_ucret.getText().isEmpty() && !eklenecek_arac_hizmet_personel_ucret.getText().isEmpty()
+                            && !arac_personel_1_ad.getText().isEmpty() && !arac_personel_1_soyad.getText().isEmpty()
+                            && !arac_personel_2_ad.getText().isEmpty() && !arac_personel_2_soyad.getText().isEmpty()
+                            && !hizmet_personel_1_ad.getText().isEmpty() && !hizmet_personel_1_soyad.getText().isEmpty()
+                            && !hizmet_personel_2_ad.getText().isEmpty() && !hizmet_personel_2_soyad.getText().isEmpty())
                     {
+                        // Personel Bilgilerinin Oluşturulması
+                        Personel arac_personel_1 = new Personel(arac_personel_1_ad.getText(), arac_personel_1_soyad.getText(), "Araç");
+                        Personel arac_personel_2 = new Personel(arac_personel_2_ad.getText(), arac_personel_2_soyad.getText(), "Araç");
+                        Personel hizmet_personel_1 = new Personel(hizmet_personel_1_ad.getText(), hizmet_personel_1_soyad.getText(), "Hizmet");
+                        Personel hizmet_personel_2 = new Personel(hizmet_personel_2_ad.getText(), hizmet_personel_2_soyad.getText(), "Hizmet");
+
+                        ArrayList<Personel> personeller = new ArrayList<>();
+                        personeller.add(arac_personel_1);
+                        personeller.add(arac_personel_2);
+                        personeller.add(hizmet_personel_1);
+                        personeller.add(hizmet_personel_2);
+
+
                         // Girilen bilgiler doğru türde mi diye kontrol eden kısım
                         int girdi_1 = Integer.parseInt(eklenecek_arac_yakit_ucret.getText());
                         int girdi_2 = Integer.parseInt(eklenecek_arac_kapasite.getText());
@@ -1175,13 +1256,12 @@ class Company extends User implements Iprofitable {
                                 switch (eklenecek_arac_tur.getText()) {
                                     case "Otobüs" -> {
                                         if (eklenecek_arac_yakit_turu.getText().equals("Benzin") || eklenecek_arac_yakit_turu.getText().equals("Motorin")) {
-                                            ArrayList<Personel> personelBilgiler= new ArrayList<>();
                                             Bus arac = new Bus(eklenecek_arac_id.getText(), eklenecek_arac_yakit_turu.getText(),
                                                     Integer.parseInt(eklenecek_arac_yakit_ucret.getText()),
                                                     Integer.parseInt(eklenecek_arac_kapasite.getText()),
                                                     Integer.parseInt(eklenecek_arac_kullanan_personel_ucret.getText()),
                                                     Integer.parseInt(eklenecek_arac_hizmet_personel_ucret.getText()),
-                                                    personelBilgiler);
+                                                    personeller);
                                             firma.aracBilgileri.add(arac);
                                             geri_bildirim.setText("Başarıyla Eklendi!");
                                             geri_bildirim.setForeground(Color.GREEN);
@@ -1194,13 +1274,12 @@ class Company extends User implements Iprofitable {
                                     }
                                     case "Tren" -> {
                                         if (eklenecek_arac_yakit_turu.getText().equals("Elektrik")) {
-                                            ArrayList<Personel> personelBilgiler= new ArrayList<>();
                                             Train arac = new Train(eklenecek_arac_id.getText(), eklenecek_arac_yakit_turu.getText(),
                                                     Integer.parseInt(eklenecek_arac_yakit_ucret.getText()),
                                                     Integer.parseInt(eklenecek_arac_kapasite.getText()),
                                                     Integer.parseInt(eklenecek_arac_kullanan_personel_ucret.getText()),
                                                     Integer.parseInt(eklenecek_arac_hizmet_personel_ucret.getText()),
-                                                    personelBilgiler);
+                                                    personeller);
                                             firma.aracBilgileri.add(arac);
                                             geri_bildirim.setText("Başarıyla Eklendi!");
                                             geri_bildirim.setForeground(Color.GREEN);
@@ -1214,13 +1293,12 @@ class Company extends User implements Iprofitable {
                                     }
                                     case "Uçak" -> {
                                         if (eklenecek_arac_yakit_turu.getText().equals("Gaz")) {
-                                            ArrayList<Personel> personelBilgiler= new ArrayList<>();
                                             Airplane arac = new Airplane(eklenecek_arac_id.getText(), eklenecek_arac_yakit_turu.getText(),
                                                     Integer.parseInt(eklenecek_arac_yakit_ucret.getText()),
                                                     Integer.parseInt(eklenecek_arac_kapasite.getText()),
                                                     Integer.parseInt(eklenecek_arac_kullanan_personel_ucret.getText()),
                                                     Integer.parseInt(eklenecek_arac_hizmet_personel_ucret.getText()),
-                                                    personelBilgiler);
+                                                    personeller);
                                             firma.aracBilgileri.add(arac);
                                             geri_bildirim.setText("Başarıyla Eklendi!");
                                             geri_bildirim.setForeground(Color.GREEN);
