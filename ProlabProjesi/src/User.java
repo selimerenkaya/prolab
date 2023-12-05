@@ -279,6 +279,7 @@ class Company extends User implements Iprofitable {
     String kullaniciAdi;
     String sifre;
     ArrayList<Object> aracBilgileri = new ArrayList<>();
+    ArrayList<Trip> seferBilgileri = new ArrayList<>();
 
 
     // Hizmet bedeli değişkeni için Get/Set metotları
@@ -330,6 +331,15 @@ class Company extends User implements Iprofitable {
         aracBilgileri = aracBilgileriGirdisi;
     }
 
+    // Sefer Bilgileri değişkeni için Get/Set Metotları
+    public ArrayList<Trip> get_seferBilgileri() {
+        return seferBilgileri;
+    }
+
+    public void set_seferBilgileri(ArrayList<Trip> seferBilgileriGirdisi) {
+        seferBilgileri = seferBilgileriGirdisi;
+    }
+
     // Firma Girişlerini kontrol eden fonksiyon
     @Override
     public boolean Giris(String kullaniciAdiGirdisi, String sifreGirdisi) {
@@ -350,17 +360,20 @@ class Company extends User implements Iprofitable {
         kullaniciAdi = kullaniciAdi_girdisi;
         sifre = sifre_girdisi;
         aracBilgileri = new ArrayList<>(); // Firma Paneli - Araç Ekle kısmından düzenlenecek
+        seferBilgileri = new ArrayList<>(); // Firma Paneli - Sefer Ekle kısmından düzenlenecek
     }
 
     // Company Classı Contruct Edilirken kullanılacak metot - 4 Parametreli
     // Kod ilk çalıştığında önceden verilen şirketler
     // oluşturulurken kullanılır
-    Company(String firma_isim_girdisi, String kullaniciAdi_girdisi, String sifre_girdisi, ArrayList<Object> aracBilgileriGirdisi) {
+    Company(String firma_isim_girdisi, String kullaniciAdi_girdisi, String sifre_girdisi,
+            ArrayList<Object> aracBilgileriGirdisi, ArrayList<Trip> seferBilgileriGirdisi) {
         // Araç Bilgileri random bir şekilde hazırlanacak ve eklenecektir
         firma_isim = firma_isim_girdisi;
         kullaniciAdi = kullaniciAdi_girdisi;
         sifre = sifre_girdisi;
         aracBilgileri = aracBilgileriGirdisi;
+        seferBilgileri = seferBilgileriGirdisi;
     }
 
 
@@ -819,6 +832,10 @@ class Company extends User implements Iprofitable {
             JButton sefer_ekle_cikar = new JButton("Sefer Ekle/Çıkar");
             sefer_ekle_cikar.setBounds(width/ 2 - 135, 90, 250, 30);
             sefer_ekle_cikar.setBackground(Color.PINK);
+            // Butona tıklanınca çalışacak kısım
+            sefer_ekle_cikar.addActionListener(e -> {
+                new Company.Firma_Islem_Sefer_Ekle_Cikar(firma);
+            });
             panel.add(sefer_ekle_cikar);
 
             // 4- Günlük Kar Hesabı Butonu
@@ -1354,6 +1371,178 @@ class Company extends User implements Iprofitable {
             });
 
             panel.add(onayla_butonu);
+
+
+            this.getContentPane().add(panel); // Oluşturulan içeriklerin panele ekleyen kısım
+            setVisible(true);
+        }
+    }
+
+
+    // Firma İşlemlerinden Sefer Ekle/Çıkar Panelinin Arayüzü
+    static class Firma_Islem_Sefer_Ekle_Cikar extends JFrame {
+        // Firma Panelinde kullanılacak olan firmayı tutan nesne
+        Company firma;
+
+        // Firma İşlemlerinden Sefer Ekle/Çıkar Paneli oluşturulduğunda çalışacak kod
+        public Firma_Islem_Sefer_Ekle_Cikar(Company firmaGirdisi) {
+            firma = firmaGirdisi; // İşlemleri yapılacak firmanın, firma nesnesine atanması
+
+            // Firma İşlem Arayüzünün genel özellikleri
+            setTitle(firma.get_firma_isim() + " Adlı Firmanın Sefer İşlemleri");
+            int width = 800, height = 600;
+            setSize(width, height);
+
+
+            // Panel ve Butonların oluşturulması
+            // 1- Panel
+            JPanel panel = new JPanel();
+            panel.setLayout(null);
+            panel.setBackground(Color.white);
+
+            // 2- Firmanın Sefer İşlemleri Başlığı
+            JLabel firma_basligi = new JLabel(firma.get_firma_isim() + " Adlı Firmanın Sefer İşlemleri");
+            firma_basligi.setBounds(width / 2 - 120, 20, 400, 30);
+            firma_basligi.setForeground(Color.BLACK);
+            Font firma_basligi_font = firma_basligi.getFont();
+            firma_basligi.setFont(firma_basligi_font.deriveFont(firma_basligi_font.getStyle() | Font.BOLD, 16));
+            panel.add(firma_basligi);
+
+            // 3- Seferleri Görüntüleme Butonu
+            JButton sefer_goruntule = new JButton("Seferleri Görüntüle");
+            sefer_goruntule.setBounds(width/ 2 - 135, 50, 250, 30);
+            sefer_goruntule.setBackground(new Color(130, 85, 240));
+            // Butona tıklanınca çalışacak kısım
+            sefer_goruntule.addActionListener(e ->
+                    new Company.Firma_Islem_Sefer_Goruntule(firma)
+            );
+            panel.add(sefer_goruntule);
+
+            // 3- Sefer Ekleme Butonu
+            JButton sefer_ekle = new JButton("Sefer Ekle");
+            sefer_ekle.setBounds(width/ 2 - 135, 90, 250, 30);
+            sefer_ekle.setBackground(new Color(130, 85, 240));
+            // Butona tıklanınca çalışacak kısım
+            sefer_ekle.addActionListener(e -> new Company.Firma_Islem_Sefer_Goruntule(firma)
+                    // SEFER EKLEME ARAYÜZÜ EKLENECEK
+            );
+            panel.add(sefer_ekle);
+
+            // 3- Araçları Çıkarma Butonu
+            JButton sefer_cikar = new JButton("Sefer Çıkar");
+            sefer_cikar.setBounds(width/ 2 - 135, 130, 250, 30);
+            sefer_cikar.setBackground(new Color(130, 85, 240));
+            // Butona tıklanınca çalışacak kısım
+            sefer_cikar.addActionListener(e ->
+                            new Company.Firma_Islem_Sefer_Goruntule(firma)
+                    // SEFER SİLME ARAYÜZÜ EKLENECEK
+            );
+            panel.add(sefer_cikar);
+
+
+            this.getContentPane().add(panel); // Oluşturulan içeriklerin panele ekleyen kısım
+
+            setVisible(true);
+        }
+    }
+
+
+    // Firma İşlemlerinden Seferleri Görüntüle Panelinin Arayüzü
+    static class Firma_Islem_Sefer_Goruntule extends JFrame {
+        // Firma İşlemlerinin Sefer Görüntüle Panelinde kullanılacak olan firmayı tutan nesne
+        Company firma;
+
+        // Firma İşlemlerinden Seferleri Görüntüle Paneli oluşturulduğunda çalışacak kod
+        public Firma_Islem_Sefer_Goruntule(Company firmaGirdisi) {
+            firma = firmaGirdisi;
+            //Arayüz Ayarları
+            setTitle(firma.get_firma_isim() + " Firmasının Sefer Bilgileri");
+            setSize(1400, 620);
+
+            // 1- Panel
+            JPanel panel = new JPanel();
+            panel.setBackground(Color.white);
+
+            // Firmanın Sefer Bilgilerini Alan kısım
+            ArrayList<Trip> seferler = firma.get_seferBilgileri();
+
+            // Firma Bilgilerini Bilgi Listine atayan kısım
+            String[][] bilgi = {};
+            for (Trip bilgiler : seferler)
+            {
+                int mesafe = 0;
+                for(int i=1; i < bilgiler.get_guzergah().get_guzergah().length; i = i + 2) {
+                    mesafe += Integer.parseInt(bilgiler.get_guzergah().get_guzergah()[i]);
+                }
+
+                String arac_turu;
+                String arac_id;
+                String yolcu_kapasite;
+                Class arac_sinifi = bilgiler.get_arac().getClass();
+                switch (arac_sinifi.getName()) {
+                    case "Bus" -> {
+                        arac_turu = "Otobüs";
+                        Bus temp_arac = (Bus) bilgiler.get_arac();
+                        arac_id = temp_arac.get_arac_id();
+                        yolcu_kapasite = Integer.toString(temp_arac.get_kapasite());
+
+                        String[] seferBilgisi = {bilgiler.get_guzergah().get_guzergah()[0],
+                                bilgiler.get_guzergah().get_guzergah()[bilgiler.get_guzergah().get_guzergah().length - 1],
+                                Integer.toString(mesafe), bilgiler.get_zaman(), arac_turu, arac_id, yolcu_kapasite};
+                        bilgi = Arrays.copyOf(bilgi, bilgi.length + 1);
+                        bilgi[bilgi.length - 1] = seferBilgisi;
+
+                    }
+                    case "Train" -> {
+                        arac_turu = "Tren";
+                        Train temp_arac = (Train) bilgiler.get_arac();
+                        arac_id = temp_arac.get_arac_id();
+                        yolcu_kapasite = Integer.toString(temp_arac.get_kapasite());
+
+                        String[] seferBilgisi = {bilgiler.get_guzergah().get_guzergah()[0],
+                                bilgiler.get_guzergah().get_guzergah()[bilgiler.get_guzergah().get_guzergah().length - 1],
+                                Integer.toString(mesafe), bilgiler.get_zaman(), arac_turu, arac_id, yolcu_kapasite};
+                        bilgi = Arrays.copyOf(bilgi, bilgi.length + 1);
+                        bilgi[bilgi.length - 1] = seferBilgisi;
+
+                    }
+                    case "Airplane" -> {
+                        arac_turu = "Uçak";
+                        Airplane temp_arac = (Airplane) bilgiler.get_arac();
+                        arac_id = temp_arac.get_arac_id();
+                        yolcu_kapasite = Integer.toString(temp_arac.get_kapasite());
+
+                        String[] seferBilgisi = {bilgiler.get_guzergah().get_guzergah()[0],
+                                bilgiler.get_guzergah().get_guzergah()[bilgiler.get_guzergah().get_guzergah().length - 1],
+                                Integer.toString(mesafe), bilgiler.get_zaman(), arac_turu, arac_id, yolcu_kapasite};
+                        bilgi = Arrays.copyOf(bilgi, bilgi.length + 1);
+                        bilgi[bilgi.length - 1] = seferBilgisi;
+
+                    }
+                }
+
+            }
+
+
+            // Sütün adları
+            String[] sutunAdlari = {"Kalkış Noktası", "Varış Noktası", "Mesafe",
+                    "Zamanı", "Araç Türü", "Araç İD'si", "Yolcu Kapasitesi"};
+
+            // Bilgi Tablosunun oluşturulması
+            JTable BilgiTablosu = new JTable(bilgi, sutunAdlari);
+            BilgiTablosu.setBounds(0, 40, 1350, 300);
+            BilgiTablosu.setFocusable(false);
+            BilgiTablosu.setRowSelectionAllowed(false);
+            BilgiTablosu.setBackground(Color.white);
+            BilgiTablosu.setRowHeight(30);
+
+            BilgiTablosu.setPreferredScrollableViewportSize(BilgiTablosu.getPreferredSize());
+            BilgiTablosu.setFillsViewportHeight(true);
+
+            // Bilgi Tablosuna scroll eklenmesi
+            JScrollPane scroll = new JScrollPane(BilgiTablosu);
+            scroll.setPreferredSize(new Dimension(1350, 400));
+            panel.add(scroll);
 
 
             this.getContentPane().add(panel); // Oluşturulan içeriklerin panele ekleyen kısım
