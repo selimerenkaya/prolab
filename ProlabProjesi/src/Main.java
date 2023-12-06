@@ -58,7 +58,7 @@ class Arayuz extends JFrame {
         // Butona tıklanınca çalışacak kısım
         bilet_ara_butonu.addActionListener(e -> {
             dispose(); // Butona tıklanınca Giriş Ekranını kapatan komut
-            new Kullanici_Arayuz(); // Kullanıcı Panelinin gözükmesini sağlayan komut
+            new Customer.Kullanici_Arayuz(); // Kullanıcı Panelinin gözükmesini sağlayan komut
         });
         panel.add(bilet_ara_butonu); // Panele eklenmesi
 
@@ -71,32 +71,6 @@ class Arayuz extends JFrame {
 
     }
 }
-
-// Kullanıcı Panelinin Arayüzü
-class Kullanici_Arayuz extends JFrame {
-
-    // Admin Panel ekranı oluşturulduğunda çalışacak kod
-    public Kullanici_Arayuz() {
-        // Ana Menünün Arayüzünün oluşturulması
-        setTitle("Kullanıcı Paneli");
-        setSize(800, 600);
-
-
-        // Panel ve Butonların oluşturulması
-        // Panel
-        JPanel panel = new JPanel();
-        panel.setLayout(null);
-
-
-        this.getContentPane().add(panel); // Oluşturulan içeriklerin panele ekleyen kısım
-
-
-
-        setVisible(true); // Arayüzü görünür kılan metot
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // Arayüzden çıkış yapmayı sağlayan metot
-    }
-}
-
 
 public class Main {
     public static void main(String[] args) {

@@ -561,7 +561,7 @@ public class Transport implements Ireservable {
 
         // Random Rezervasyonların oluşturulup listeye atanması
         Random rastgele = new Random();
-        for(int i = 0; i < 400; i++){
+        for(int i = 0; i < 1500; i++){
             // Rastgele koltuk numarası belirleyen kısım
             int rezerv_koltuk_no = rastgele.nextInt(ortalama_koltuk_kapasite) + 1;
 
@@ -585,7 +585,7 @@ public class Transport implements Ireservable {
 
         // Rastgele rezervasyonların yapılması
         for(Reservation rezervasyon : random_rezervasyonlar) {
-            int rezerv_sirket_index = rastgele.nextInt(hazirBilgiler.FirmaBilgileriniDondur().size() - 1);
+            int rezerv_sirket_index = rastgele.nextInt(hazirBilgiler.FirmaBilgileriniDondur().size());
             Company rezerv_sirket = hazirBilgiler.FirmaBilgileriniDondur().get(rezerv_sirket_index);
             hazirBilgiler.koltuk_rezervasyon(rezerv_sirket, rezervasyon);
         }

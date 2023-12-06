@@ -1513,7 +1513,7 @@ class Company extends User implements Iprofitable {
             );
             panel.add(sefer_goruntule);
 
-            // 3- Sefer Ekleme Butonu
+            // 4- Sefer Ekleme Butonu
             JButton sefer_ekle = new JButton("Sefer Ekle");
             sefer_ekle.setBounds(width/ 2 - 135, 90, 250, 30);
             sefer_ekle.setBackground(new Color(130, 85, 240));
@@ -1524,7 +1524,7 @@ class Company extends User implements Iprofitable {
             );
             panel.add(sefer_ekle);
 
-            // 3- Araçları Çıkarma Butonu
+            // 5- Sefer Çıkarma Butonu
             JButton sefer_cikar = new JButton("Sefer Çıkar");
             sefer_cikar.setBounds(width/ 2 - 135, 130, 250, 30);
             sefer_cikar.setBackground(new Color(130, 85, 240));
@@ -1565,6 +1565,16 @@ class Company extends User implements Iprofitable {
             String[][] bilgi = {};
             for (Trip bilgiler : seferler)
             {
+                // Seferdeki Koltukların Doluluk Oranını hesaplayan kısım
+                ArrayList<Koltuk> koltukBilgi = bilgiler.getKoltuklar();
+                int koltuk_doluluk = 0;
+                for(Koltuk sefer_koltuk : koltukBilgi){
+                    if(sefer_koltuk.getKoltuk_durumu().equals("Dolu")) {
+                        koltuk_doluluk++;
+                    }
+                }
+                String koltuk_doluluk_oran = Integer.toString(koltuk_doluluk);
+
                 int mesafe = 0;
                 for(int i=1; i < bilgiler.get_guzergah().get_guzergah().length; i = i + 2) {
                     mesafe += Integer.parseInt(bilgiler.get_guzergah().get_guzergah()[i]);
@@ -1583,7 +1593,8 @@ class Company extends User implements Iprofitable {
 
                         String[] seferBilgisi = {bilgiler.get_guzergah().get_guzergah()[0],
                                 bilgiler.get_guzergah().get_guzergah()[bilgiler.get_guzergah().get_guzergah().length - 1],
-                                Integer.toString(mesafe), bilgiler.get_zaman(), arac_turu, arac_id, yolcu_kapasite};
+                                Integer.toString(mesafe), bilgiler.get_zaman(), arac_turu, arac_id,
+                                koltuk_doluluk_oran + " / " + yolcu_kapasite};
                         bilgi = Arrays.copyOf(bilgi, bilgi.length + 1);
                         bilgi[bilgi.length - 1] = seferBilgisi;
 
@@ -1596,7 +1607,8 @@ class Company extends User implements Iprofitable {
 
                         String[] seferBilgisi = {bilgiler.get_guzergah().get_guzergah()[0],
                                 bilgiler.get_guzergah().get_guzergah()[bilgiler.get_guzergah().get_guzergah().length - 1],
-                                Integer.toString(mesafe), bilgiler.get_zaman(), arac_turu, arac_id, yolcu_kapasite};
+                                Integer.toString(mesafe), bilgiler.get_zaman(), arac_turu, arac_id,
+                                koltuk_doluluk_oran + " / " + yolcu_kapasite};
                         bilgi = Arrays.copyOf(bilgi, bilgi.length + 1);
                         bilgi[bilgi.length - 1] = seferBilgisi;
 
@@ -1609,7 +1621,8 @@ class Company extends User implements Iprofitable {
 
                         String[] seferBilgisi = {bilgiler.get_guzergah().get_guzergah()[0],
                                 bilgiler.get_guzergah().get_guzergah()[bilgiler.get_guzergah().get_guzergah().length - 1],
-                                Integer.toString(mesafe), bilgiler.get_zaman(), arac_turu, arac_id, yolcu_kapasite};
+                                Integer.toString(mesafe), bilgiler.get_zaman(), arac_turu, arac_id,
+                                koltuk_doluluk_oran + " / " + yolcu_kapasite};
                         bilgi = Arrays.copyOf(bilgi, bilgi.length + 1);
                         bilgi[bilgi.length - 1] = seferBilgisi;
 
@@ -1621,7 +1634,7 @@ class Company extends User implements Iprofitable {
 
             // Sütün adları
             String[] sutunAdlari = {"Kalkış Noktası", "Varış Noktası", "Mesafe",
-                    "Zamanı", "Araç Türü", "Araç İD'si", "Yolcu Kapasitesi"};
+                    "Zamanı", "Araç Türü", "Araç İD'si", "Doluluk Oranı"};
 
             // Bilgi Tablosunun oluşturulması
             JTable BilgiTablosu = new JTable(bilgi, sutunAdlari);
