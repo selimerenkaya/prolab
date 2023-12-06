@@ -55,7 +55,7 @@ abstract class Vehicle {
     abstract void setPersonelBilgileri(ArrayList<Personel> personelBilgileri);
 
     // Yakıt gideri hesaplaması yapan Metot
-    abstract int CalculateFuelCost();
+    abstract int CalculateFuelCost(Route guzergah);
 
 
 }
@@ -166,8 +166,15 @@ class Bus extends Vehicle {
 
     // Yakıt gideri hesaplaması yapan Metot
     @Override
-    int CalculateFuelCost() {
-        return 0;
+    int CalculateFuelCost(Route guzergah) {
+        Route guzer = guzergah;
+        int mesafe = 0;
+        for(int i = 1; i < guzer.get_guzergah().length; i += 2){
+            mesafe +=  Integer.parseInt(guzer.get_guzergah()[i]);
+        }
+
+        int yakitMasraf = mesafe * this.get_yakit_ucreti();
+        return yakitMasraf;
     }
 
     // Construct Metotları
@@ -307,8 +314,15 @@ class Train extends Vehicle {
 
     // Yakıt gideri hesaplaması yapan Metot
     @Override
-    int CalculateFuelCost() {
-        return 0;
+    int CalculateFuelCost(Route guzergah) {
+        Route guzer = guzergah;
+        int mesafe = 0;
+        for(int i = 1; i < guzer.get_guzergah().length; i += 2){
+            mesafe +=  Integer.parseInt(guzer.get_guzergah()[i]);
+        }
+
+        int yakitMasraf = mesafe * this.get_yakit_ucreti();
+        return yakitMasraf;
     }
 
     // Construct Metotları
@@ -447,8 +461,15 @@ class Airplane extends Vehicle {
 
     // Yakıt gideri hesaplaması yapan Metot
     @Override
-    int CalculateFuelCost() {
-        return 0;
+    int CalculateFuelCost(Route guzergah) {
+        Route guzer = guzergah;
+        int mesafe = 0;
+        for(int i = 1; i < guzer.get_guzergah().length; i += 2){
+            mesafe +=  Integer.parseInt(guzer.get_guzergah()[i]);
+        }
+
+        int yakitMasraf = mesafe * this.get_yakit_ucreti();
+        return yakitMasraf;
     }
 
     // Construct Metotları

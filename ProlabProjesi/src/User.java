@@ -853,6 +853,10 @@ class Company extends User implements Iprofitable {
             JButton gunluk_kar_hesabi = new JButton("Günlük Kar Hesabı");
             gunluk_kar_hesabi.setBounds(width/ 2 - 135, 130, 250, 30);
             gunluk_kar_hesabi.setBackground(Color.PINK);
+            // Butona tıklanınca çalışacak kısım
+            gunluk_kar_hesabi.addActionListener(e -> {
+                new Company.Gunluk_Kar(firma);
+            });
             panel.add(gunluk_kar_hesabi);
 
 
@@ -2088,6 +2092,147 @@ class Company extends User implements Iprofitable {
             });
 
             panel.add(onayla_butonu);
+
+
+            this.getContentPane().add(panel); // Oluşturulan içeriklerin panele ekleyen kısım
+            setVisible(true);
+        }
+    }
+
+
+    // Firma İşlemlerinden Günlük Kar Panelinin Arayüzü
+    static class Gunluk_Kar extends JFrame {
+        // Firma İşlemlerinden Günlük Kar Panelinde kullanılacak olan firmayı tutan nesne
+        Company firma;
+
+        // Firma İşlemlerinden Günlük Kar Paneli oluşturulduğunda çalışacak kod
+        public Gunluk_Kar(Company firmaGirdisi) {
+            firma = firmaGirdisi;
+            // Arayüz Ayarları
+            setTitle(firma.get_firma_isim() + " Adlı Firmanın Günlük Kar Menüsü");
+            setSize(1400, 600);
+
+            // 1- Panel
+            JPanel panel = new JPanel();
+            panel.setBackground(Color.white);
+
+            // Tablo oluşturulurken kullanılacak Liste
+            String[][] tabloBilgiler = {};
+
+            // Firmanın sefer bilgileri
+            ArrayList<Trip> butunSeferler = firma.get_seferBilgileri();
+
+            // Tarih Bilgileri
+            String[] tarihBilgileri = {"04/12/2023", "05/12/2023", "06/12/2023", "07/12/2023", "08/12/2023",
+                    "09/12/2023", "10/12/2023"};
+
+            // Her bir tarih için hesaplama yapan yer
+            for (String tarih : tarihBilgileri) {
+                // Tabloya bilgi eklerken kullanılacak elemanlar
+                int kazanilanPara = 0;
+                int harcananPara = 0;
+                int karMiktari = 0;
+                String tabloTarih = tarih;
+
+                // Her seferi sırasıyla çağıran kısım
+                for(Trip sefer : butunSeferler)
+                {
+                    // Seferin tarihi işlemleri yapılan tarih ile uyuşuyorsa işlem yapacak kısım
+                    if (sefer.get_zaman().equals(tarih))
+                    {
+                        // Seferde Kazanılan paranın hesaplandığı kısım
+                        // Yol Ücretinin bulunduğu kısım
+                        int biletUcreti = 0;
+                        int doluKoltukSayisi = 0;
+                        Route guzergah = sefer.get_guzergah();
+                        String[] guzergahListe = guzergah.get_guzergah();
+                        String kalkisNoktasi = guzergahListe[0];
+                        String varisNoktasi = guzergahListe[guzergahListe.length - 1];
+
+                        String[][] guzergahFiyatListe = guzergah.get_guzergahFiyatBilgileri();
+                        // Güzergah Fiyat Listesinden kalkış ve varış noktalarına göre fiyatı belirleyen kısım
+                        for(String[] yol : guzergahFiyatListe){
+                            if (yol[0].equals(kalkisNoktasi) && yol[yol.length - 1].equals(varisNoktasi)) {
+                                biletUcreti = Integer.parseInt(yol[1]);
+                            }
+                        }
+
+                        // Otobüsteki dolu koltuk sayısına göre kazanılan parayı belirleyen kısım
+                        ArrayList<Koltuk> koltuklar = sefer.getKoltuklar();
+                        for (Koltuk seferKoltuk : koltuklar){
+                            if (seferKoltuk.getKoltuk_durumu().equals("Dolu")) {
+                                doluKoltukSayisi++;
+                            }
+                        }
+
+                        int seferdeKazanilanPara = biletUcreti * doluKoltukSayisi;
+                        kazanilanPara += seferdeKazanilanPara;
+
+
+                        // Seferde harcanan paranın hesaplandığı kısım
+
+                        // Benzin Hesaplaması ve Personel Ücreti Hesaplaması yapan kısım
+                        Object arac = sefer.get_arac();
+                        Class arac_sinif = arac.getClass();
+                        switch (arac_sinif.getName()) {
+                            case "Bus" -> {
+                                Bus temp_arac = (Bus) arac;
+                                int yakitGideri = temp_arac.CalculateFuelCost(guzergah);
+                                int aracPersonelUcret = temp_arac.get_kullanan_personel_ucret() * 2;
+                                int hizmetPersonelUcret = temp_arac.get_hizmet_personel_ucret() * 2;
+                                harcananPara += yakitGideri + aracPersonelUcret + hizmetPersonelUcret;
+                            }
+                            case "Train" -> {
+                                Train temp_arac = (Train) arac;
+                                int yakitGideri = temp_arac.CalculateFuelCost(guzergah);
+                                int aracPersonelUcret = temp_arac.get_kullanan_personel_ucret() * 2;
+                                int hizmetPersonelUcret = temp_arac.get_hizmet_personel_ucret() * 2;
+                                harcananPara += yakitGideri + aracPersonelUcret + hizmetPersonelUcret;
+
+                            }
+                            case "Airplane" -> {
+                                Airplane temp_arac = (Airplane) arac;
+                                int yakitGideri = temp_arac.CalculateFuelCost(guzergah);
+                                int aracPersonelUcret = temp_arac.get_kullanan_personel_ucret() * 2;
+                                int hizmetPersonelUcret = temp_arac.get_hizmet_personel_ucret() * 2;
+                                harcananPara += yakitGideri + aracPersonelUcret + hizmetPersonelUcret;
+
+                            }
+                        }
+
+                    }
+                }
+
+                harcananPara += firma.get_hizmet_bedeli();
+                karMiktari = kazanilanPara - harcananPara;
+
+
+
+                String[] gunlukKarBilgisi = {Integer.toString(kazanilanPara), Integer.toString(harcananPara),
+                        Integer.toString(karMiktari), tarih};
+                tabloBilgiler = Arrays.copyOf(tabloBilgiler, tabloBilgiler.length + 1);
+                tabloBilgiler[tabloBilgiler.length - 1] = gunlukKarBilgisi;
+            }
+
+            // Sütün adları
+            String[] sutunAdlari = {"Kazanılan Para", "Harcanan Para", "Kar/Zarar Miktarı", "Tarih"};
+
+            // Bilgi Tablosunun oluşturulması
+            JTable BilgiTablosu = new JTable(tabloBilgiler, sutunAdlari);
+            BilgiTablosu.setBounds(0, 40, 1350, 300);
+            BilgiTablosu.setFocusable(false);
+            BilgiTablosu.setRowSelectionAllowed(false);
+            BilgiTablosu.setBackground(Color.white);
+            BilgiTablosu.setRowHeight(30);
+
+            BilgiTablosu.setPreferredScrollableViewportSize(BilgiTablosu.getPreferredSize());
+            BilgiTablosu.setFillsViewportHeight(true);
+
+            // Bilgi Tablosuna scroll eklenmesi
+            JScrollPane scroll = new JScrollPane(BilgiTablosu);
+            scroll.setPreferredSize(new Dimension(1350, 400));
+            panel.add(scroll);
+
 
 
             this.getContentPane().add(panel); // Oluşturulan içeriklerin panele ekleyen kısım

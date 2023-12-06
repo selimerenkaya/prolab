@@ -561,7 +561,7 @@ public class Transport implements Ireservable {
 
         // Random Rezervasyonların oluşturulup listeye atanması
         Random rastgele = new Random();
-        for(int i = 0; i < 1500; i++){
+        for(int i = 0; i < 3000; i++){
             // Rastgele koltuk numarası belirleyen kısım
             int rezerv_koltuk_no = rastgele.nextInt(ortalama_koltuk_kapasite) + 1;
 
@@ -570,7 +570,7 @@ public class Transport implements Ireservable {
             Passenger rezerv_yolcu = yolcuListesi.get(rezerv_yolcu_index);
 
             // Rastgele zaman seçen kısım
-            int rezerv_zaman_index = rastgele.nextInt(zamanDegerleri.length - 1);
+            int rezerv_zaman_index = rastgele.nextInt(zamanDegerleri.length);
             String rezerv_zaman = zamanDegerleri[rezerv_zaman_index];
 
             // Rastgele arac seçen kısım
