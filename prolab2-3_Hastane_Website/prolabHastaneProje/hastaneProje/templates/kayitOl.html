@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <!-- Basic -->
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <!-- Mobile Metas -->
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <!-- Site Metas -->
+  <meta name="keywords" content="" />
+  <meta name="description" content="" />
+  <meta name="author" content="" />
+
+  <title>Kayit Ol - Sante Medikal</title>
+    <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='images/santeIcon.ico') }}">
+
+
+  <!-- bootstrap core css -->
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/bootstrap.css') }}" />
+
+  <!-- fonts style -->
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap" rel="stylesheet">
+
+  <!--owl slider stylesheet -->
+  <link rel="stylesheet" type="text/css"
+    href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" />
+
+  <!-- font awesome style -->
+  <link href="{{ url_for('static', filename='css/font-awesome.min.css') }}" rel="stylesheet" />
+  <!-- nice select -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-nice-select/1.1.0/css/nice-select.min.css"
+    integrity="sha256-mLBIhmBvigTFWPSCtvdu6a76T+3Xyt+K571hupeFLg4=" crossorigin="anonymous" />
+  <!-- datepicker -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/css/datepicker.css">
+  <!-- Custom styles for this template -->
+  <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet" />
+  <!-- responsive style -->
+  <link href="{{ url_for('static', filename='css/responsive.css') }}" rel="stylesheet" />
+  <link href="{{ url_for('static', filename='css/home.css') }}" rel="stylesheet" />
+    <link href="{{ url_for('static', filename='css/kayitOl.css') }}" rel="stylesheet" />
+
+
+</head>
+
+<body class="sub_page">
+
+  <div class="hero_area">
+    <!-- navbar section -->
+    {% include 'navbar.html' %}
+    <!-- end navbar section -->
+  </div>
+
+
+  <!-- sign up section -->
+
+    <section class="layout_padding" style="background: #77a6ff">
+        <h2 id="kayitBaslik">
+            <label for=""> Kayıt </label>
+            <label for="" style="color: #ffffff"> Oluştur </label>
+        </h2>
+            <div class="kayit-geriBildirim shadow" id="kayit-Bildirim">
+
+            </div>
+        <div class="shadow" id="kayitBolum">
+            <form action="/kayitOl" id="kayitOl" method="POST">
+                <div class="row">
+                    <div class="kayıt-col" id="kayit-col-1">
+                        <h2 class="kayit-col-baslik">Genel Bilgiler</h2>
+                        <div class="form-row ">
+                          <div class="form-group kayit-kisim">
+                            <label for="ad">Ad</label>
+                            <input type="text" class="form-control" id="ad" name="ad"
+                                   placeholder="" style="border-color: #5295e8">
+                          </div>
+                        </div>
+                        <div class="form-row ">
+                          <div class="form-group kayit-kisim">
+                            <label for="soyad">Soyad</label>
+                            <input type="text" class="form-control" id="soyad" name="soyad"
+                                   placeholder="" style="border-color: #5295e8">
+                          </div>
+                        </div>
+                        <div class="form-row ">
+                          <div class="form-group kayit-kisim">
+                            <label for="eposta">Eposta</label>
+                            <input type="email" class="form-control" id="eposta" name="eposta"
+                                   placeholder="" style="border-color: #5295e8">
+                          </div>
+                        </div>
+                        <div class="form-row ">
+                          <div class="form-group kayit-kisim">
+                            <label for="parola">Parola</label>
+                            <input type="password" class="form-control" id="parola" name="parola"
+                                   placeholder="" style="border-color: #5295e8">
+                          </div>
+                        </div>
+                        <div class="form-row ">
+                          <div class="form-group kayit-kisim">
+                            <label for="parolaOnay">Parola Onay</label>
+                            <input type="password" class="form-control" id="parolaOnay" name="parolaOnay"
+                                   placeholder="" style="border-color: #5295e8">
+                          </div>
+                        </div>
+                        <div class="form-row ">
+                          <div class="form-group kayit-kisim">
+                            <label for="cinsiyet">Cinsiyet</label>
+                            <select class="form-control wide" id="cinsiyet" style="border-color: #5295e8" name="cinsiyet">
+                                <option value="Secilmemis">Seçiniz</option>
+                              <option value="Erkek">Erkek</option>
+                              <option value="Kadin">Kadın</option>
+                            </select>
+                          </div>
+                        </div>
+                    </div>
+
+                    <div class="kayıt-col" id="kayit-col-2">
+                        <h2 class="kayit-col-baslik">Özel Bilgiler</h2>
+                        <div class="form-row ">
+                          <div class="form-group kayit-kisim">
+                            <label for="tcKimlikNo">T.C Kimlik Numarası</label>
+                            <input type="number" class="form-control" id="tcKimlikNo" name="tcKimlikNo"
+                                   size="11" placeholder="" style="border-color: #5295e8">
+                          </div>
+                        </div>
+                        <div class="form-row ">
+                          <div class="form-group kayit-kisim">
+                            <label for="dogumTarih">Doğum Tarihi</label>
+                            <input type="date" min="1950-01-01" max="2023-12-31"
+                                   class="form-control" id="dogumTarih" name="dogumTarih"
+                                   placeholder="" style="border-color: #5295e8">
+                          </div>
+                        </div>
+                        <div class="form-row ">
+                          <div class="form-group kayit-kisim">
+                            <label for="saglikSigorta">Sağlık Sigortası</label>
+                            <select class="form-control wide" id="saglikSigorta" style="border-color: #5295e8"  name="saglikSigorta">
+                                <option value="Secilmemis">Seçiniz</option>
+                              <option value="Allianz">Allianz Sigorta</option>
+                              <option value="Anadolu">Anadolu Sigorta</option>
+                              <option value="Doga">Doğa Sigorta</option>
+                                <option value="Ak">Ak Sigorta</option>
+                                <option value="Axa">Axa Sigorta</option>
+                                <option value="Güneş">Güneş Sigorta</option>
+                                <option value="Diger">Diğer</option>
+                            </select>
+                          </div>
+                        </div>
+                        <div class="form-row ">
+                          <div class="form-group kayit-kisim">
+                            <label for="adres">Adres</label>
+                            <input type="text" class="form-control" id="adres" name="adres"
+                                   placeholder="" style="border-color: #5295e8">
+                          </div>
+                        </div>
+                        <div class="form-row ">
+                          <div class="form-group kayit-kisim">
+                            <label for="telefonNumara">Telefon Numarası</label>
+                            <input type="number" class="form-control" id="telefonNumara" name="telefonNumara"
+                                   size="10" placeholder="XXXXXXXXXX" style="border-color: #5295e8">
+                          </div>
+                        </div>
+
+                        <div class="form-row">
+                            <label class="custom-checkbox">
+                                <input type="checkbox" id="kosulOnayla" name="kosulOnayla">
+                                <span class="checkmark"></span>
+                            </label>
+                            <label class="kayit-bilgilendirme-onaylama">
+                                Sitenizin
+                                <a href="#" class="text" style="color: white; text-decoration: underline">
+                                Şartlar ve Koşullarını</a> kabul ediyorum.
+                            </label>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="kayit-buton-row">
+                                <div class="buttons">
+                                      <button class="blob-btn shadow" id="kayitOl-butonu">
+                                        Kayıt Ol
+                                        <span class="blob-btn__inner">
+                                          <span class="blob-btn__blobs">
+                                            <span class="blob-btn__blob"></span>
+                                            <span class="blob-btn__blob"></span>
+                                            <span class="blob-btn__blob"></span>
+                                            <span class="blob-btn__blob"></span>
+                                          </span>
+                                        </span>
+                                      </button>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </form>
+        </div>
+    </section>
+
+  <!-- end sign up section -->
+
+  <!-- custom button content -->
+  <svg xmlns="http://www.w3.org/2000/svg" version="1.1" style="display: none">
+    <defs>
+      <filter id="goo">
+        <feGaussianBlur in="SourceGraphic" result="blur" stdDeviation="10"></feGaussianBlur>
+        <feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 21 -7" result="goo"></feColorMatrix>
+        <feBlend in2="goo" in="SourceGraphic" result="mix"></feBlend>
+      </filter>
+    </defs>
+  </svg>
+  <!-- end custom button content -->
+
+  <!--  footer section -->
+  {% block content %}
+      {% include 'footer.html' %}
+  {% endblock %}
+
+  <!-- jQery -->
+<script src="{{ url_for('static', filename='js/jquery-3.4.1.min.js') }}"></script>
+<!-- bootstrap js -->
+<script src="{{ url_for('static', filename='js/bootstrap.js') }}"></script>
+<!-- nice select -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-nice-select/1.1.0/js/jquery.nice-select.min.js"
+  integrity="sha256-Zr3vByTlMGQhvMfgkQ5BtWRSKBGa2QlspKYJnkjZTmo=" crossorigin="anonymous"></script>
+<!-- owl slider -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+<!-- datepicker -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/bootstrap-datepicker.js"></script>
+<!-- custom js -->
+<script src="{{ url_for('static', filename='js/custom.js') }}"></script>
+
+  <script>
+      $("form").submit(function () {
+
+        var this_master = $(this);
+
+        this_master.find('input[type="checkbox"]').each( function () {
+            var checkbox_this = $(this);
+
+
+            if( checkbox_this.is(":checked")) {
+                checkbox_this.attr('value','Onayli');
+            } else {
+                checkbox_this.prop('checked',true);
+                checkbox_this.attr('value','Onaysiz');
+            }
+        });
+      });
+
+      $(document).ready(function() {
+          $('#kayitOl-butonu').click(function (event) {
+              event.preventDefault(); // Formun normal submit işlemini durdur
+              $.ajax({
+                  url: '/kayitOl',
+                  type: 'POST',
+                  data: {
+                      'hastaID': document.getElementById('tcKimlikNo').value,
+                      'ad': document.getElementById('ad').value,
+                      'soyad': document.getElementById('soyad').value,
+                      'eposta': document.getElementById('eposta').value,
+                      'parola': document.getElementById('parola').value,
+                      'parola_onay': document.getElementById('parolaOnay').value,
+                      'cinsiyet': document.getElementById('cinsiyet').value,
+                      'sigorta': document.getElementById('saglikSigorta').value,
+                      'dogumTarih': document.getElementById('dogumTarih').value,
+                      'adres': document.getElementById('adres').value,
+                      'telefonNo': document.getElementById('telefonNumara').value,
+                      'kosulOnayla': document.getElementById('kosulOnayla').value
+                  },
+                  success: function (data) {
+                      $('#kayit-Bildirim')
+                          .css({
+                              'display': 'block',
+                              'background-color': '#96ff99',
+                              'border-color': '#ceeec3',
+                              'color': '#37c53d'
+                          })
+                          .html('<p class="kayit-Mesaj">' + '<strong>' + 'Başarılı! ' + '</strong>'
+                              + 'Başarıyla kayıt olundu' + '</p>');
+                  },
+
+                  error: function (error) {
+                      const errorMessage = error.responseJSON ? error.responseJSON.error : "Bilinmeyen hata";
+                      $('#kayit-Bildirim')
+                          .css({
+                              'display': 'block',
+                              'background-color': '#f2dede',
+                              'border-color': '#ebccd1',
+                              'color': '#a94442'
+                          })
+                          .html('<p class="kayit-Mesaj">' + '<strong>' + 'HATA! ' + '</strong>'
+                              + errorMessage + '</p>');
+                  }
+
+              });
+          });
+      });
+  </script>
+
+</body>
+
+</html>

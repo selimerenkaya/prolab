@@ -1,0 +1,181 @@
+.navbar-logo {
+    background-color: #ffffff;
+    padding: 1px 15px;
+}
+
+.navbar-logo img {
+    width: 85px;
+}
+
+.slider_section .oynatmaButon::before {
+    content: "";
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    background-color: #5295e8;
+    opacity: 1;
+    border-radius: 100%;
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    z-index: 2;
+    -webkit-animation: before-animation 1500ms infinite;
+    animation: before-animation 1500ms infinite;
+}
+
+.slider_section .oynatmaButon button {
+    background-color: #5295e8;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    border-radius: 100%;
+    width: 100%;
+    height: 100%;
+    border: none;
+    position: relative;
+    z-index: 5;
+    color: #ffffff;
+    outline: none;
+}
+
+.slider_section .oynatmaButon {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    border-radius: 100%;
+    width: 65px;
+    height: 65px;
+    position: relative;
+    z-index: 3;
+    margin-top: 15px;
+    margin-bottom: 45px;
+}
+
+.slider_section .detail-box .carouselYazi {
+    color: #5295e8;
+}
+
+.carousel-control-prev, .carousel-control-next {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    z-index: 1;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-align: center;
+    align-items: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    width: 15%;
+    color: #fff;
+    text-align: center;
+    opacity: 0.5;
+    transition: opacity 0.15s ease;
+}
+
+.slider_section .carousel_butonKutu {
+    position: absolute;
+    bottom: 0;
+    right: 10%;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+    width: 110px;
+    height: 50px;
+    -webkit-transform: translateY(50%);
+    transform: translateY(50%);
+    z-index: 3;
+}
+
+.slider_section .carousel_butonKutu .carousel-control-prev, .slider_section .carousel_butonKutu .carousel-control-next {
+    position: unset;
+    width: 50px;
+    height: 50px;
+    background-color: #5295e8;
+    opacity: 1;
+    transition: background-color 0.3s ease;
+}
+
+.slider_section .carousel_butonKutu .carousel-control-prev:hover,
+.slider_section .carousel_butonKutu .carousel-control-next:hover {
+    background-color: #000000;
+}
+
+
+.slider_section .carousel_butonKutu .carousel-control-prev img, .slider_section .carousel_butonKutu .carousel-control-next img {
+    width: 10px;
+}
+
+
+.info_section .info_top .info_logo .footer-logo {
+    display: block;
+    background-color: #ffffff;
+    padding: 10px 15px;
+}
+
+.info_section .info_top .info_logo .footer-logo img{
+    width: 105px;
+}
+
+.carousel-gecis-prev, .carousel-gecis-next {
+    transition: background-color 0.3s ease;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    z-index: 1;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-align: center;
+    align-items: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    width: 15%;
+    color: #fff;
+    text-align: center;
+    opacity: 0.5;
+}
+
+.client_section .carousel-gecis-prev {
+    left: 0;
+}
+
+.client_section .carousel-gecis-next {
+    right: 0;
+}
+
+.client_section .carousel-gecis-prev, .client_section .carousel-gecis-next {
+    width: 45px;
+    height: 125px;
+    background-color: #5295e8;
+    opacity: 1;
+    font-size: 28px;
+    font-weight: bold;
+    top: 50%;
+    -webkit-transform: translateY(-50%);
+    transform: translateY(-50%);
+}
+
+.carousel-gecis-prev:hover, .carousel-gecis-next:hover {
+    background-color: black;
+    color: white;
+}
+
+#inputTelefon::placeholder {
+    color: #5295e8;
+}

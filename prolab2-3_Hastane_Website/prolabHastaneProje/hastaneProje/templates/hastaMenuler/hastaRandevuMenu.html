@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Basic -->
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <!-- Mobile Metas -->
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <!-- Site Metas -->
+  <meta name="keywords" content="" />
+  <meta name="description" content="" />
+  <meta name="author" content="" />
+
+  <title>Hasta Randevu Bilgileri - Sante Medikal</title>
+    <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='images/santeIcon.ico') }}">
+
+
+  <!-- bootstrap core css -->
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/bootstrap.css') }}" />
+
+  <!-- fonts style -->
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap" rel="stylesheet">
+
+  <!--owl slider stylesheet -->
+  <link rel="stylesheet" type="text/css"
+    href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" />
+
+  <!-- font awesome style -->
+  <link href="{{ url_for('static', filename='css/font-awesome.min.css') }}" rel="stylesheet" />
+  <!-- nice select -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-nice-select/1.1.0/css/nice-select.min.css"
+    integrity="sha256-mLBIhmBvigTFWPSCtvdu6a76T+3Xyt+K571hupeFLg4=" crossorigin="anonymous" />
+  <!-- datepicker -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/css/datepicker.css">
+  <!-- Custom styles for this template -->
+  <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet" />
+  <!-- responsive style -->
+  <link href="{{ url_for('static', filename='css/responsive.css') }}" rel="stylesheet" />
+    <link href="{{ url_for('static', filename='css/home.css') }}" rel="stylesheet" />
+    <link href="{{ url_for('static', filename='css/hastaMenuler.css') }}" rel="stylesheet" />
+    <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+
+</head>
+<body>
+    <div class="hero_area">
+    <!-- navbar section -->
+    {% include 'hastaMenuler/navbarHasta.html' %}
+    <!-- end navbar section -->
+    </div>
+
+    <section id="randevu-sayfalar">
+        <div class="randevuContainer">
+            <h2>Randevu
+                <label class="randevuBaslik2">Listesi</label>
+            </h2>
+            <table class="table table-striped table-hover shadow-sm" id="randevuTablo">
+                <thead>
+                    <tr style="background: #77A6FF; color: white" >
+                        <th style="width: 120px">Randevu No</th>
+                        <th style="width: 120px">RandevuID</th>
+                        <th style="width: 120px">HastaID</th>
+                        <th style="width: 120px">Tarih</th>
+                        <th style="width: 60px">Saat</th>
+                        <th style="width: 240px">Doktor İsim</th>
+                        <th style="width: 190px">Şube</th>
+                        <th>Bölüm</th>
+                    </tr>
+                </thead>
+                <tbody id="randevuTableBody" style="height: 500px">
+                </tbody>
+            </table>
+
+            <nav aria-label="Page navigation">
+                <ul class="sayfaGecis">
+                    <li class="page-item" id="prevPage"><a class="sayfaGecis-link" href="#">&laquo;</a></li>
+                    <li class="pageNumber" id="sayfaNumara">1</li>
+                    <li class="page-item" id="nextPage"><a class="sayfaGecis-link" href="#">&raquo;</a></li>
+                </ul>
+            </nav>
+        </div>
+    </section>
+
+    <!-- book section -->
+
+  <section class="book_section layout_padding" style="background: #379cff;;">
+    <div class="container" >
+        <div class="randevu-geriBildirim shadow" id="randevu-Bildirim" style="display: none">
+
+        </div>
+      <div class="row">
+        <div class="col">
+          <form style="background: #ffffff;">
+            <h4>
+              Randevu <span style="color: #5295e8">Alın</span>
+            </h4>
+            <div class="form-row ">
+              <div class="form-group col-lg-4">
+                <label for="randevu-girdi-sube">Şube</label>
+                <select name="randevu-girdi-sube" class="form-control wide" id="randevu-girdi-sube" style="border-color: #5295e8">
+                  <option value="Secilmemis">Seçiniz</option>
+                </select>
+              </div>
+                <div class="form-group col-lg-4">
+                <label for="randevu-girdi-uzmanlik">Departman Adı</label>
+                <select name="randevu-girdi-uzmanlik" class="form-control wide" id="randevu-girdi-uzmanlik" style="border-color: #5295e8">
+                  <option value="Secilmemis">Seçiniz</option>
+                </select>
+              </div>
+              <div class="form-group col-lg-4">
+                <label for="randevu-girdi-doktor">Doktorun Adı</label>
+                <select name="randevu-girdi-doktor" class="form-control wide" id="randevu-girdi-doktor" style="border-color: #5295e8">
+                  <option value="Secilmemis">Seçiniz</option>
+                </select>
+              </div>
+
+            </div>
+            <div class="form-row ">
+                <div class="form-group col-lg-4">
+                <label for="inputDate">Tarih</label>
+                <div class="input-group date" id="inputDate"
+                     style="border-color: #5295e8">
+                    <input type="date" min="2024-01-01" max="2027-12-31"
+                                   class="form-control" id="randevu-girdi-tarih" name="randevu-girdi-tarih"
+                                    style="border-color: #5295e8">
+                </div>
+              </div>
+              <div class="form-group col-lg-4">
+                <label for="randevu-girdi-saat">Saat</label>
+                <input type="time" class="form-control" id="randevu-girdi-saat" min="08:00" max="21:00" step="300"
+                       style="border-color: #5295e8">
+              </div>
+
+            </div>
+            <div class="btn-box" id="randevuAlmaButon">
+              <button type="submit" class="blob-btn shadow" id="onayla-butonu">
+                  Randevu Al
+                  <span class="blob-btn__inner">
+                      <span class="blob-btn__blobs">
+                          <span class="blob-btn__blob"></span>
+                          <span class="blob-btn__blob"></span>
+                          <span class="blob-btn__blob"></span>
+                          <span class="blob-btn__blob"></span>
+                      </span>
+                  </span>
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- end book section -->
+
+
+    <section class="book_section layout_padding" style="background: #93DFFF;;">
+    <div class="container" >
+        <div class="randevu-geriBildirim shadow" id="randevu-sil-Bildirim" style="display: none">
+
+        </div>
+      <div class="row">
+        <div class="col">
+          <form style="background: #ffffff;">
+            <h4>
+              Randevu <span style="color: #5295e8">Silin</span>
+            </h4>
+            <div class="form-row ">
+              <div class="form-group col-lg-4">
+                <label for="inputDoctorName">RandevuID</label>
+                <input type="number" class="form-control" id="sil-randevuID" name="sil-randevuID"
+                                   placeholder="" style="border-color: #5295e8">
+                  </div>
+                </div>
+
+            <div class="btn-box" id="randevuAlmaButon">
+              <button type="submit" class="blob-btn shadow" id="silme-butonu">
+                  Randevu Sil
+                  <span class="blob-btn__inner">
+                      <span class="blob-btn__blobs">
+                          <span class="blob-btn__blob"></span>
+                          <span class="blob-btn__blob"></span>
+                          <span class="blob-btn__blob"></span>
+                          <span class="blob-btn__blob"></span>
+                      </span>
+                  </span>
+              </button>
+            </div>
+
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- end book section -->
+
+    <section class="book_section layout_padding" style="background: #93f6ff;;">
+    <div class="container" >
+        <div class="randevu-geriBildirim shadow" id="randevu-guncelle-Bildirim" style="display: none">
+
+        </div>
+      <div class="row">
+        <div class="col">
+          <form style="background: #ffffff;">
+            <h4>
+              Randevu <span style="color: #52b4e8">Güncelleyin</span>
+            </h4>
+            <div class="form-row ">
+              <div class="form-group col-lg-4">
+                <label for="inputDoctorName">RandevuID</label>
+                <input type="number" class="form-control" id="guncelle-randevuID" name="guncelle-randevuID"
+                                   placeholder="" style="border-color: #52aee8">
+              </div>
+                 <div class="form-group col-lg-4">
+                <label for="inputDate">Tarih</label>
+                <div class="input-group date" id="inputDate"
+                     style="border-color: #52aae8">
+                    <input type="date" min="2024-01-01" max="2027-12-31"
+                                   class="form-control" id="guncelle-tarih" name="randevu-girdi-tarih"
+                                    style="border-color: #52aae8">
+                </div>
+              </div>
+              <div class="form-group col-lg-4">
+                <label for="inputPhone">Saat</label>
+                <input type="time" class="form-control" id="guncelle-saat" min="08:00" max="21:00" step="300"
+                       style="border-color: #52aae8">
+              </div>
+            </div>
+
+
+            <div class="btn-box" id="randevuAlmaButon">
+              <button type="submit" class="blob-btn shadow" id="guncelleme-butonu">
+                  Randevu Güncelle
+                  <span class="blob-btn__inner">
+                      <span class="blob-btn__blobs">
+                          <span class="blob-btn__blob"></span>
+                          <span class="blob-btn__blob"></span>
+                          <span class="blob-btn__blob"></span>
+                          <span class="blob-btn__blob"></span>
+                      </span>
+                  </span>
+              </button>
+            </div>
+
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- end book section -->
+
+
+
+  <!-- custom button content -->
+  <svg xmlns="http://www.w3.org/2000/svg" version="1.1" style="display: none">
+    <defs>
+      <filter id="goo">
+        <feGaussianBlur in="SourceGraphic" result="blur" stdDeviation="10"></feGaussianBlur>
+        <feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 21 -7" result="goo"></feColorMatrix>
+        <feBlend in2="goo" in="SourceGraphic" result="mix"></feBlend>
+      </filter>
+    </defs>
+  </svg>
+  <!-- end custom button content -->
+
+    <!-- footer section -->
+    {% include 'hastaMenuler/footerHasta.html' %}
+    <!-- end footer section -->
+
+
+    <script>
+        let currentPage = 1;
+
+        function loadRandevular(page) {
+            $.ajax({
+                url: '/hastaMenu/hastaRandevuMenu',
+                type: 'POST',
+                data: {page: page,
+                    islem: 0},
+                success: function(response) {
+                    if (respons) {
+                        let no = 1;
+                        $('#randevuTableBody').empty();
+                        $('#sayfaNumara').text(currentPage);
+                        response.forEach(function(randevu) {
+                            let date = randevu.randevu_tarih;
+                            const myArray = date.split("/");
+                            let year = myArray[0];
+                            let month = myArray[1];
+                            let day = myArray[2];
+                            let dateTime = day + "/" + month + "/" + year;
+                            let randevu_no = no + (10 * (currentPage - 1))
+                            $('#randevuTableBody').append(
+                                `<tr class="randevuSatir">
+                                    <td class="randevuSutun1">${randevu_no}</td>
+                                    <td class="randevuSutun2">${randevu.randevuID}</td>
+                                    <td class="randevuSutun1">${randevu.hastaID}</td>
+                                    <td class="randevuSutun2">${dateTime}</td>
+                                    <td class="randevuSutun1">${randevu.randevu_saat}</td>
+                                    <td class="randevuSutun2">${randevu.doktor_isim}</td>
+                                    <td class="randevuSutun1">${randevu.hastane_sube}</td>
+                                    <td class="randevuSutun2">${randevu.doktor_uzmanlik}</td>
+                                </tr>`
+                            );
+                            no++;
+                        });
+                    } else {
+                        currentPage--;
+                    }
+
+
+                }
+            });
+        }
+
+        function subeYukle() {
+             // Şubeleri yükle
+            $.ajax({
+                url: '/yoneticiMenu/yoneticiDoktorMenu',
+                type: 'POST',
+                data: {islem: 1},
+                success: function(response) {
+                    $.each(response, function(index, value) {
+                        $('#randevu-girdi-sube').append('<option value="' + value + '">' + value + '</option>');
+                    });
+                }
+            });
+        }
+
+        $(document).ready(function() {
+            loadRandevular(currentPage);
+            subeYukle();
+
+            $('#nextPage').click(function(e) {
+                e.preventDefault();
+                currentPage++;
+                loadRandevular(currentPage);
+            });
+
+            $('#prevPage').click(function(e) {
+                e.preventDefault();
+                if (currentPage > 1) {
+                    currentPage--;
+                    loadRandevular(currentPage);
+                }
+            });
+
+            // Şube seçildiğinde departmanları yükle
+            $('#randevu-girdi-sube').change(function() {
+                $('#randevu-girdi-uzmanlik').empty().append('<option value="Secilmemis">Seçiniz</option>');
+                $('#randevu-girdi-doktor').empty().append('<option value="Secilmemis">Seçiniz</option>');
+
+                if (document.getElementById('randevu-girdi-sube').value !== "Secilmemis") {
+                    console.log(document.getElementById('randevu-girdi-sube').value)
+                    $.ajax({
+                        url: '/hastaMenu/hastaRandevuMenu',
+                        type: 'POST',
+                        data: { 'sube': document.getElementById('randevu-girdi-sube').value,
+                            islem: 2},
+                        success: function(data) {
+                            $.each(data, function(index, value) {
+                                console.log(index)
+                                console.log(value)
+                                $('#randevu-girdi-uzmanlik').append('<option value="' + value + '">' + value + '</option>');
+                            });
+                        }
+                    });
+                }
+            });
+
+            // Departman seçildiğinde doktorları yükle
+            $('#randevu-girdi-uzmanlik').change(function() {
+                $('#randevu-girdi-doktor').empty().append('<option value="Secilmemis">Seçiniz</option>');
+
+                if (document.getElementById('randevu-girdi-uzmanlik').value !== "Secilmemis") {
+                    $.ajax({
+                        url: '/hastaMenu/hastaRandevuMenu',
+                        type: 'POST',
+                        data: { 'sube': document.getElementById('randevu-girdi-sube').value,
+                            'department': document.getElementById('randevu-girdi-uzmanlik').value,
+                            islem: 3},
+                        success: function(data) {
+                            $.each(data, function(index, value) {
+                                $('#randevu-girdi-doktor').append('<option value="' + value + '">' + index + '</option>');
+                            });
+                        }
+                    });
+                }
+            });
+
+            $('#onayla-butonu').click( function(event) {
+                event.preventDefault(); // Formun normal submit işlemini durdur
+                $.ajax({
+                        url: '/hastaMenu/hastaRandevuMenu',
+                        type: 'POST',
+                        data: { 'islem': 4,
+                            'sube': document.getElementById('randevu-girdi-sube').value,
+                            'uzmanlik': document.getElementById('randevu-girdi-uzmanlik').value,
+                            'doktorID': document.getElementById('randevu-girdi-doktor').value,
+                            'tarih': document.getElementById('randevu-girdi-tarih').value,
+                            'saat': document.getElementById('randevu-girdi-saat').value},
+                        success: function(data) {
+                            console.log("Basariyla eklendi")
+                            loadRandevular(currentPage);
+                            $('#randevu-Bildirim')
+                            .css({
+                                'display': 'block',
+                                'background-color': '#96ff99',
+                                'border-color': '#ceeec3',
+                                'color': '#37c53d'
+                            })
+                            .html('<p class="profil-Mesaj">' + '<strong>' + 'Başarılı! ' + '</strong>'
+                            + 'Randevu Alındı' + '</p>');
+                        },
+                        error: function (error) {
+                            const errorMessage = error.responseJSON ? error.responseJSON.error : "Bilinmeyen hata";
+                            $('#randevu-Bildirim')
+                            .css({
+                                'display': 'block',
+                                'background-color': '#f2dede',
+                                'border-color': '#ebccd1',
+                                'color': '#a94442'
+                            })
+                            .html('<p class="profil-Mesaj">' + '<strong>' + 'HATA! ' + '</strong>'
+                                + errorMessage + '</p>');
+                        }
+                    });
+
+            });
+
+            $('#silme-butonu').click( function(event) {
+                event.preventDefault(); // Formun normal submit işlemini durdur
+                $.ajax({
+                    url: '/hastaMenu/hastaRandevuMenu',
+                    type: 'POST',
+                    data: {
+                        'islem': 5,
+                        'randevuID': document.getElementById('sil-randevuID').value},
+                    success: function(data) {
+                            console.log("Basariyla eklendi")
+                            loadRandevular(currentPage);
+                            $('#randevu-sil-Bildirim')
+                            .css({
+                                'display': 'block',
+                                'background-color': '#96ff99',
+                                'border-color': '#ceeec3',
+                                'color': '#37c53d'
+                            })
+                            .html('<p class="profil-Mesaj">' + '<strong>' + 'Başarılı! ' + '</strong>'
+                            + 'Randevu Silindi' + '</p>');
+                    },
+
+                    error: function (error) {
+                        const errorMessage = error.responseJSON ? error.responseJSON.error : "Bilinmeyen hata";
+                        $('#randevu-sil-Bildirim')
+                            .css({
+                                'display': 'block',
+                                'background-color': '#f2dede',
+                                'border-color': '#ebccd1',
+                                'color': '#a94442'
+                            })
+                                .html('<p class="profil-Mesaj">' + '<strong>' + 'HATA! ' + '</strong>'
+                                    + errorMessage + '</p>');
+                    }
+
+                });
+            });
+
+            $('#guncelleme-butonu').click( function(event) {
+                event.preventDefault(); // Formun normal submit işlemini durdur
+                $.ajax({
+                    url: '/hastaMenu/hastaRandevuMenu',
+                    type: 'POST',
+                    data: {
+                        islem: 6,
+                        'randevuID': document.getElementById('guncelle-randevuID').value,
+                        'tarih': document.getElementById('guncelle-tarih').value,
+                        'saat': document.getElementById('guncelle-saat').value},
+                    success: function(data) {
+                            console.log("Basariyla güncellendi")
+                            loadRandevular(currentPage);
+                            $('#randevu-guncelle-Bildirim')
+                            .css({
+                                'display': 'block',
+                                'background-color': '#96ff99',
+                                'border-color': '#ceeec3',
+                                'color': '#37c53d'
+                            })
+                            .html('<p class="profil-Mesaj">' + '<strong>' + 'Başarılı! ' + '</strong>'
+                            + 'Randevu Güncellendi' + '</p>');
+                    },
+
+                    error: function (error) {
+                        const errorMessage = error.responseJSON ? error.responseJSON.error : "Bilinmeyen hata";
+                        $('#randevu-guncelle-Bildirim')
+                            .css({
+                                'display': 'block',
+                                'background-color': '#f2dede',
+                                'border-color': '#ebccd1',
+                                'color': '#a94442'
+                            })
+                                .html('<p class="profil-Mesaj">' + '<strong>' + 'HATA! ' + '</strong>'
+                                    + errorMessage + '</p>');
+                    }
+
+                });
+            });
+        });
+
+    </script>
+
+</body>
+</html>

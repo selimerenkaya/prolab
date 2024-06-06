@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Basic -->
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <!-- Mobile Metas -->
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <!-- Site Metas -->
+  <meta name="keywords" content="" />
+  <meta name="description" content="" />
+  <meta name="author" content="" />
+
+  <title>Yönetici Doktor Bilgileri - Sante Medikal</title>
+    <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='images/santeIcon.ico') }}">
+
+
+  <!-- bootstrap core css -->
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/bootstrap.css') }}" />
+
+  <!-- fonts style -->
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap" rel="stylesheet">
+
+  <!--owl slider stylesheet -->
+  <link rel="stylesheet" type="text/css"
+    href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" />
+
+  <!-- font awesome style -->
+  <link href="{{ url_for('static', filename='css/font-awesome.min.css') }}" rel="stylesheet" />
+  <!-- nice select -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-nice-select/1.1.0/css/nice-select.min.css"
+    integrity="sha256-mLBIhmBvigTFWPSCtvdu6a76T+3Xyt+K571hupeFLg4=" crossorigin="anonymous" />
+  <!-- datepicker -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/css/datepicker.css">
+  <!-- Custom styles for this template -->
+  <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet" />
+  <!-- responsive style -->
+  <link href="{{ url_for('static', filename='css/responsive.css') }}" rel="stylesheet" />
+    <link href="{{ url_for('static', filename='css/home.css') }}" rel="stylesheet" />
+    <link href="{{ url_for('static', filename='css/yoneticiMenulerDoktor.css') }}" rel="stylesheet" />
+    <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+</head>
+<body>
+    <div class="hero_area">
+    <!-- navbar section -->
+    {% include 'yoneticiMenuler/navbarYonetici.html' %}
+    <!-- end navbar section -->
+    </div>
+
+    <section id="randevu-sayfalar">
+        <div class="randevuContainer">
+            <h2>Doktor
+                <label class="randevuBaslikDoktor">Listesi</label>
+            </h2>
+            <table class="table table-striped table-hover shadow-sm" id="randevuTablo" style="height: 600px">
+                <thead>
+                    <tr style="background: #77ff89; color: white" >
+                        <th style="width: 100px">Doktor No</th>
+                        <th style="width: 110px">T.C Kimlik No</th>
+                        <th style="width: 190px">İsim</th>
+                        <th style="width: 110px">Doğum Tarih</th>
+                        <th style="width: 45px">Cinsiyet</th>
+                        <th style="width: 60px">Telefon</th>
+                        <th style="width: 120px">Adres</th>
+                        <th style="width: 220px">Uzmanlık</th>
+                        <th style="width: 130px">Hastane</th>
+                    </tr>
+                </thead>
+                <tbody id="randevuTableBody" style="height: 500px">
+                </tbody>
+            </table>
+
+            <nav aria-label="Page navigation">
+                <ul class="sayfaGecisDoktor">
+                    <li class="page-item" id="prevPage"><a class="sayfaGecisDoktor-link" href="#">&laquo;</a></li>
+                    <li class="pageNumber" id="sayfaNumara">1</li>
+                    <li class="page-item" id="nextPage"><a class="sayfaGecisDoktor-link" href="#">&raquo;</a></li>
+                </ul>
+            </nav>
+        </div>
+    </section>
+
+
+    <section class="book_section layout_padding" style="background: #93ffa5;;">
+    <div class="container" >
+        <div class="randevu-geriBildirim shadow" id="randevu-ekle-Bildirim" style="display: none">
+
+        </div>
+      <div class="row">
+        <div class="col">
+          <form style="background: #ffffff;">
+            <h4>
+              Doktor <span style="color: #93ff95">Ekle</span>
+            </h4>
+            <div class="form-row ">
+              <div class="form-group col-lg-4">
+                <label for="inputDoctorName">T.C Kimlik No</label>
+                <input type="number" class="form-control" id="ekle-doktorID" name="ekle-doktorID"
+                                   placeholder="" style="border-color: #93ff95">
+              </div>
+                <div class="form-group col-lg-4">
+                <label for="ekle-ad">Ad</label>
+                <input type="text" class="form-control" id="ekle-ad" name="ekle-ad"
+                                   placeholder="" style="border-color: #93ff95">
+              </div>
+                <div class="form-group col-lg-4">
+                <label for="ekle-soyad">Soyad</label>
+                <input type="text" class="form-control" id="ekle-soyad" name="ekle-soyad"
+                                   placeholder="" style="border-color: #93ff95">
+              </div>
+                <div class="form-group col-lg-4">
+                <label for="ekle-eposta">Eposta</label>
+                <input type="email" class="form-control" id="ekle-eposta" name="ekle-eposta"
+                                   placeholder="" style="border-color: #93ff95">
+              </div>
+                <div class="form-group col-lg-4">
+                <label for="ekle-parola">Parola</label>
+                <input type="password" class="form-control" id="ekle-parola" name="ekle-parola"
+                                   placeholder="" style="border-color: #93ff95">
+              </div>
+                <div class="form-group col-lg-4">
+                <label for="ekle-parola-onay">Parola Onay</label>
+                <input type="password" class="form-control" id="ekle-parola-onay" name="ekle-parola-onay"
+                                   placeholder="" style="border-color: #93ff95">
+              </div>
+                <div class="form-group col-lg-4">
+                <label for="ekle-cinsiyet">Cinsiyet</label>
+                            <select class="form-control wide" id="ekle-cinsiyet" style="border-color: #93ff95" name="ekle-cinsiyet">
+                                <option value="Secilmemis">Seçiniz</option>
+                              <option value="Erkek">Erkek</option>
+                              <option value="Kadin">Kadın</option>
+                            </select>
+              </div>
+                <div class="form-group col-lg-4">
+                <label for="ekle-sube">Şube</label>
+                <select name="ekle-sube" class="form-control wide" id="ekle-sube" style="border-color: #93ff95">
+                  <option value="Secilmemis">Seçiniz</option>
+                </select>
+              </div>
+                <div class="form-group col-lg-4">
+                <label for="ekle-uzmanlik">Departman Adı</label>
+                <select name="ekle-uzmanlik" class="form-control wide" id="ekle-uzmanlik" style="border-color: #93ff95">
+                  <option value="Secilmemis">Seçiniz</option>
+                </select>
+              </div>
+
+                 <div class="form-group col-lg-4">
+                <label for="inputDate">Doğum Tarihi</label>
+                <div class="input-group date" id="inputDate"
+                     style="border-color: #93ff95">
+                    <input type="date" min="1950-01-01" max="2023-12-31"
+                                   class="form-control" id="ekle-tarih" name="ekle-tarih"
+                                    style="border-color: #93ff95">
+                </div>
+              </div>
+                <div class="form-group col-lg-4">
+                <label for="ekle-adres">Adres</label>
+                <input type="text" class="form-control" id="ekle-adres" name="ekle-adres"
+                                   placeholder="" style="border-color: #93ff95">
+              </div>
+                <div class="form-group col-lg-4">
+                <label for="ekle-telefonNumara">Telefon Numarası</label>
+                            <input type="number" class="form-control" id="ekle-telefonNumara" name="ekle-telefonNumara"
+                                   size="10" placeholder="XXXXXXXXXX" style="border-color: #93ff95">
+              </div>
+                <div class="btn-box" id="randevuAlmaButon">
+              <button type="submit" class="blob-btn shadow" id="ekleme-butonu" style="margin-left: 45px; margin-top: 30px">
+                  Doktor Ekle
+                  <span class="blob-btn__inner">
+                      <span class="blob-btn__blobs">
+                          <span class="blob-btn__blob"></span>
+                          <span class="blob-btn__blob"></span>
+                          <span class="blob-btn__blob"></span>
+                          <span class="blob-btn__blob"></span>
+                      </span>
+                  </span>
+              </button>
+            </div>
+            </div>
+
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- end book section -->
+
+
+    <section class="book_section layout_padding" style="background: #93ffff;;">
+    <div class="container" >
+        <div class="randevu-geriBildirim shadow" id="randevu-sil-Bildirim" style="display: none">
+
+        </div>
+      <div class="row">
+        <div class="col">
+          <form style="background: #ffffff;">
+            <h4>
+              Doktor <span style="color: #49d8e5">Silin</span>
+            </h4>
+            <div class="form-row ">
+              <div class="form-group col-lg-4">
+                <label for="inputDoctorName">T.C Kimlik No</label>
+                <input type="number" class="form-control" id="sil-doktorID" name="sil-doktorID"
+                                   placeholder="" style="border-color: #49d8e5">
+                  </div>
+                </div>
+
+            <div class="btn-box" id="hastaSilmeButon">
+              <button type="submit" class="blob-btn shadow" id="silme-butonu">
+                  Doktor Sil
+                  <span class="blob-btn__inner">
+                      <span class="blob-btn__blobs">
+                          <span class="blob-btn__blob"></span>
+                          <span class="blob-btn__blob"></span>
+                          <span class="blob-btn__blob"></span>
+                          <span class="blob-btn__blob"></span>
+                      </span>
+                  </span>
+              </button>
+            </div>
+
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+    <section class="book_section layout_padding" style="background: #93ffe2;;">
+    <div class="container" >
+        <div class="randevu-geriBildirim shadow" id="randevu-guncelle-Bildirim" style="display: none">
+
+        </div>
+      <div class="row">
+        <div class="col">
+          <form style="background: #ffffff;">
+            <h4>
+              Doktor Bilgisi <span style="color: #52e8d7">Güncelleyin</span>
+            </h4>
+            <div class="form-row ">
+              <div class="form-group col-lg-4">
+                <label for="inputDoctorName">T.C Kimlik No</label>
+                <input type="number" class="form-control" id="guncelle-doktorID" name="guncelle-doktorID"
+                                   placeholder="" style="border-color: #52e8d7">
+              </div>
+                <div class="form-group col-lg-4">
+                <label for="guncelle-ad">Ad</label>
+                <input type="text" class="form-control" id="guncelle-ad" name="guncelle-ad"
+                                   placeholder="" style="border-color: #52e8d7">
+              </div>
+                <div class="form-group col-lg-4">
+                <label for="guncelle-soyad">Soyad</label>
+                <input type="text" class="form-control" id="guncelle-soyad" name="guncelle-soyad"
+                                   placeholder="" style="border-color: #52e8d7">
+              </div>
+                <div class="form-group col-lg-4">
+                <label for="guncelle-eposta">Eposta</label>
+                <input type="email" class="form-control" id="guncelle-eposta" name="guncelle-eposta"
+                                   placeholder="" style="border-color: #52e8d7">
+              </div>
+                <div class="form-group col-lg-4">
+                <label for="guncelle-parola">Parola</label>
+                <input type="password" class="form-control" id="guncelle-parola" name="guncelle-parola"
+                                   placeholder="" style="border-color: #52e8d7">
+              </div>
+                <div class="form-group col-lg-4">
+                <label for="guncelle-parola-onay">Parola Onay</label>
+                <input type="password" class="form-control" id="guncelle-parola-onay" name="guncelle-parola-onay"
+                                   placeholder="" style="border-color: #52e8d7">
+              </div>
+                <div class="form-group col-lg-4">
+                <label for="guncelle-cinsiyet">Cinsiyet</label>
+                            <select class="form-control wide" id="guncelle-cinsiyet" style="border-color: #52e8d7" name="guncelle-cinsiyet">
+                                <option value="Secilmemis">Seçiniz</option>
+                              <option value="Erkek">Erkek</option>
+                              <option value="Kadin">Kadın</option>
+                            </select>
+              </div>
+                <div class="form-group col-lg-4">
+                <label for="guncelle-sube">Şube</label>
+                <select name="guncelle-sube" class="form-control wide" id="guncelle-sube" style="border-color: #52e8d7">
+                  <option value="Secilmemis">Seçiniz</option>
+                </select>
+              </div>
+                <div class="form-group col-lg-4">
+                <label for="guncelle-uzmanlik">Departman Adı</label>
+                <select name="guncelle-uzmanlik" class="form-control wide" id="guncelle-uzmanlik" style="border-color: #52e8d7">
+                  <option value="Secilmemis">Seçiniz</option>
+                </select>
+              </div>
+
+                 <div class="form-group col-lg-4">
+                <label for="inputDate">Doğum Tarihi</label>
+                <div class="input-group date" id="inputDate"
+                     style="border-color: #52e8d7">
+                    <input type="date" min="1950-01-01" max="2023-12-31"
+                                   class="form-control" id="guncelle-tarih" name="guncelle-tarih"
+                                    style="border-color: #52e8d7">
+                </div>
+              </div>
+                <div class="form-group col-lg-4">
+                <label for="guncelle-adres">Adres</label>
+                <input type="text" class="form-control" id="guncelle-adres" name="guncelle-adres"
+                                   placeholder="" style="border-color: #52e8d7">
+              </div>
+                <div class="form-group col-lg-4">
+                <label for="guncelle-telefonNumara">Telefon Numarası</label>
+                            <input type="number" class="form-control" id="guncelle-telefonNumara" name="guncelle-telefonNumara"
+                                   size="10" placeholder="XXXXXXXXXX" style="border-color: #52e8d7">
+              </div>
+                <div class="btn-box" id="randevuAlmaButon">
+              <button type="submit" class="blob-btn shadow" id="guncelleme-butonu" style="margin-left: 45px; margin-top: 30px">
+                  Doktor Bilgisi Güncelle
+                  <span class="blob-btn__inner">
+                      <span class="blob-btn__blobs">
+                          <span class="blob-btn__blob"></span>
+                          <span class="blob-btn__blob"></span>
+                          <span class="blob-btn__blob"></span>
+                          <span class="blob-btn__blob"></span>
+                      </span>
+                  </span>
+              </button>
+            </div>
+            </div>
+
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- end book section -->
+
+
+    <!-- custom button content -->
+  <svg xmlns="http://www.w3.org/2000/svg" version="1.1" style="display: none">
+    <defs>
+      <filter id="goo">
+        <feGaussianBlur in="SourceGraphic" result="blur" stdDeviation="10"></feGaussianBlur>
+        <feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 21 -7" result="goo"></feColorMatrix>
+        <feBlend in2="goo" in="SourceGraphic" result="mix"></feBlend>
+      </filter>
+    </defs>
+  </svg>
+  <!-- end custom button content -->
+
+    <!-- footer section -->
+    {% include 'yoneticiMenuler/footerYonetici.html' %}
+    <!-- end footer section -->
+
+
+    <script>
+        let currentPage = 1;
+
+        function loadRandevular(page) {
+            $.ajax({
+                url: '/yoneticiMenu/yoneticiDoktorMenu',
+                type: 'POST',
+                data: {page: page,
+                    islem: 0},
+                success: function(response) {
+                    if (response.length !== 0) {
+                       let no = 1;
+                        $('#randevuTableBody').empty();
+                        $('#sayfaNumara').text(currentPage);
+                        response.forEach(function(doktor) {
+                            let date = doktor.dogumTarih;
+                            const myArray = date.split("/");
+                            let year = myArray[0];
+                            let month = myArray[1];
+                            let day = myArray[2];
+                            if (day < 10) {
+                                day = "0" + day
+                            }
+                            if (month < 10) {
+                                month = "0" + month
+                            }
+                            let dateTime = day + "/" + month + "/" + year;
+                            let doktor_no = no + (10 * (currentPage - 1))
+                            $('#randevuTableBody').append(
+                                `<tr class="randevuSatir">
+                                    <td class="randevuSutun1">${doktor_no}</td>
+                                    <td class="randevuSutun2">${doktor.doktorID}</td>
+                                    <td class="randevuSutun1">${doktor.isim}</td>
+                                    <td class="randevuSutun2">${dateTime}</td>
+                                    <td class="randevuSutun1">${doktor.cinsiyet}</td>
+                                    <td class="randevuSutun2">${doktor.telefon}</td>
+                                    <td class="randevuSutun1">${doktor.adres}</td>
+                                    <td class="randevuSutun2">${doktor.uzmanlik}</td>
+                                    <td class="randevuSutun1">${doktor.sube}</td>
+                                </tr>`
+                            );
+                            no++;
+                        }
+                    )} else {
+                        currentPage--;
+                    }
+                }
+            });
+        }
+
+        function subeYukle() {
+             // Şubeleri yükle
+            $.ajax({
+                url: '/yoneticiMenu/yoneticiDoktorMenu',
+                type: 'POST',
+                data: {islem: 10},
+                success: function(response) {
+                    $.each(response, function(index, value) {
+                        $('#ekle-sube').append('<option value="' + value + '">' + value + '</option>');
+                        $('#guncelle-sube').append('<option value="' + value + '">' + value + '</option>');
+                    });
+                }
+            });
+        }
+
+        $(document).ready(function() {
+            loadRandevular(currentPage);
+            subeYukle()
+
+            $('#nextPage').click(function(e) {
+                e.preventDefault();
+                currentPage++;
+                loadRandevular(currentPage);
+            });
+
+            $('#prevPage').click(function(e) {
+                e.preventDefault();
+                if (currentPage > 1) {
+                    currentPage--;
+                    loadRandevular(currentPage);
+                }
+            });
+
+            // Şube seçildiğinde departmanları yükle
+            $('#ekle-sube').change(function() {
+                $('#ekle-uzmanlik').empty().append('<option value="Secilmemis">Seçiniz</option>');
+
+                if (document.getElementById('ekle-sube').value !== "Secilmemis") {
+                    $.ajax({
+                        url: '/yoneticiMenu/yoneticiDoktorMenu',
+                        type: 'POST',
+                        data: { 'sube': document.getElementById('ekle-sube').value,
+                            islem: 11},
+                        success: function(data) {
+                            $.each(data, function(index, value) {
+                                console.log(index)
+                                console.log(value)
+                                $('#ekle-uzmanlik').append('<option value="' + value + '">' + value + '</option>');
+                            });
+                        }
+                    });
+                }
+            });
+
+            // Şube seçildiğinde departmanları yükle
+            $('#guncelle-sube').change(function() {
+                $('#guncelle-uzmanlik').empty().append('<option value="Secilmemis">Seçiniz</option>');
+
+                if (document.getElementById('guncelle-sube').value !== "Secilmemis") {
+                    $.ajax({
+                        url: '/yoneticiMenu/yoneticiDoktorMenu',
+                        type: 'POST',
+                        data: { 'sube': document.getElementById('guncelle-sube').value,
+                            islem: 11},
+                        success: function(data) {
+                            $.each(data, function(index, value) {
+                                console.log(index)
+                                console.log(value)
+                                $('#guncelle-uzmanlik').append('<option value="' + value + '">' + value + '</option>');
+                            });
+                        }
+                    });
+                }
+            });
+
+            $('#ekleme-butonu').click( function(event) {
+                event.preventDefault(); // Formun normal submit işlemini durdur
+                $.ajax({
+                    url: '/yoneticiMenu/yoneticiDoktorMenu',
+                    type: 'POST',
+                    data: {
+                        'islem': 1,
+                        'doktorID': document.getElementById('ekle-doktorID').value,
+                        'ad': document.getElementById('ekle-ad').value,
+                        'soyad': document.getElementById('ekle-soyad').value,
+                        'eposta': document.getElementById('ekle-eposta').value,
+                        'parola': document.getElementById('ekle-parola').value,
+                        'parola_onay': document.getElementById('ekle-parola-onay').value,
+                        'cinsiyet': document.getElementById('ekle-cinsiyet').value,
+                        'sube': document.getElementById('ekle-sube').value,
+                        'uzmanlik': document.getElementById('ekle-uzmanlik').value,
+                        'dogumTarih': document.getElementById('ekle-tarih').value,
+                        'adres': document.getElementById('ekle-adres').value,
+                        'telefonNo': document.getElementById('ekle-telefonNumara').value},
+                    success: function(data) {
+                            loadRandevular(currentPage);
+                            $('#randevu-ekle-Bildirim')
+                            .css({
+                                'display': 'block',
+                                'background-color': '#96ff99',
+                                'border-color': '#ceeec3',
+                                'color': '#37c53d'
+                            })
+                            .html('<p class="profil-Mesaj">' + '<strong>' + 'Başarılı! ' + '</strong>'
+                            + 'Doktor Eklendi' + '</p>');
+                    },
+
+                    error: function (error) {
+                        const errorMessage = error.responseJSON ? error.responseJSON.error : "Bilinmeyen hata";
+                        $('#randevu-ekle-Bildirim')
+                            .css({
+                                'display': 'block',
+                                'background-color': '#f2dede',
+                                'border-color': '#ebccd1',
+                                'color': '#a94442'
+                            })
+                                .html('<p class="profil-Mesaj">' + '<strong>' + 'HATA! ' + '</strong>'
+                                    + errorMessage + '</p>');
+                    }
+
+                });
+            });
+
+            $('#silme-butonu').click( function(event) {
+                event.preventDefault(); // Formun normal submit işlemini durdur
+                $.ajax({
+                    url: '/yoneticiMenu/yoneticiDoktorMenu',
+                    type: 'POST',
+                    data: {
+                        'islem': 2,
+                        'doktorID': document.getElementById('sil-doktorID').value},
+                    success: function(data) {
+                            console.log("Basariyla Silindi")
+                            loadRandevular(currentPage);
+                            $('#randevu-sil-Bildirim')
+                            .css({
+                                'display': 'block',
+                                'background-color': '#96ff99',
+                                'border-color': '#ceeec3',
+                                'color': '#37c53d'
+                            })
+                            .html('<p class="profil-Mesaj">' + '<strong>' + 'Başarılı! ' + '</strong>'
+                            + 'Doktor Silindi' + '</p>');
+                    },
+
+                    error: function (error) {
+                        const errorMessage = error.responseJSON ? error.responseJSON.error : "Bilinmeyen hata";
+                        $('#randevu-sil-Bildirim')
+                            .css({
+                                'display': 'block',
+                                'background-color': '#f2dede',
+                                'border-color': '#ebccd1',
+                                'color': '#a94442'
+                            })
+                                .html('<p class="profil-Mesaj">' + '<strong>' + 'HATA! ' + '</strong>'
+                                    + errorMessage + '</p>');
+                    }
+
+                });
+            });
+
+            $('#guncelleme-butonu').click( function(event) {
+                event.preventDefault(); // Formun normal submit işlemini durdur
+                $.ajax({
+                    url: '/yoneticiMenu/yoneticiDoktorMenu',
+                    type: 'POST',
+                    data: {
+                        'islem': 3,
+                        'doktorID': document.getElementById('guncelle-doktorID').value,
+                        'ad': document.getElementById('guncelle-ad').value,
+                        'soyad': document.getElementById('guncelle-soyad').value,
+                        'eposta': document.getElementById('guncelle-eposta').value,
+                        'parola': document.getElementById('guncelle-parola').value,
+                        'parola_onay': document.getElementById('guncelle-parola-onay').value,
+                        'cinsiyet': document.getElementById('guncelle-cinsiyet').value,
+                        'sube': document.getElementById('guncelle-sube').value,
+                        'uzmanlik': document.getElementById('guncelle-uzmanlik').value,
+                        'dogumTarih': document.getElementById('guncelle-tarih').value,
+                        'adres': document.getElementById('guncelle-adres').value,
+                        'telefonNo': document.getElementById('guncelle-telefonNumara').value},
+                    success: function(data) {
+                            loadRandevular(currentPage);
+                            $('#randevu-guncelle-Bildirim')
+                            .css({
+                                'display': 'block',
+                                'background-color': '#96ff99',
+                                'border-color': '#ceeec3',
+                                'color': '#37c53d'
+                            })
+                            .html('<p class="profil-Mesaj">' + '<strong>' + 'Başarılı! ' + '</strong>'
+                            + 'Bilgiler Güncellendi' + '</p>');
+                    },
+
+                    error: function (error) {
+                        const errorMessage = error.responseJSON ? error.responseJSON.error : "Bilinmeyen hata";
+                        $('#randevu-guncelle-Bildirim')
+                            .css({
+                                'display': 'block',
+                                'background-color': '#f2dede',
+                                'border-color': '#ebccd1',
+                                'color': '#a94442'
+                            })
+                                .html('<p class="profil-Mesaj">' + '<strong>' + 'HATA! ' + '</strong>'
+                                    + errorMessage + '</p>');
+                    }
+
+                });
+            });
+        });
+    </script>
+</body>
+</html>

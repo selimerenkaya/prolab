@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <!-- Basic -->
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <!-- Mobile Metas -->
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <!-- Site Metas -->
+  <meta name="keywords" content="" />
+  <meta name="description" content="" />
+  <meta name="author" content="" />
+
+  <title>Giris Yap - Sante Medikal</title>
+    <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='images/santeIcon.ico') }}">
+
+
+  <!-- bootstrap core css -->
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/bootstrap.css') }}" />
+
+  <!-- fonts style -->
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap" rel="stylesheet">
+
+  <!--owl slider stylesheet -->
+  <link rel="stylesheet" type="text/css"
+    href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" />
+
+  <!-- font awesome style -->
+  <link href="{{ url_for('static', filename='css/font-awesome.min.css') }}" rel="stylesheet" />
+  <!-- nice select -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-nice-select/1.1.0/css/nice-select.min.css"
+    integrity="sha256-mLBIhmBvigTFWPSCtvdu6a76T+3Xyt+K571hupeFLg4=" crossorigin="anonymous" />
+  <!-- datepicker -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/css/datepicker.css">
+  <!-- Custom styles for this template -->
+  <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet" />
+  <!-- responsive style -->
+  <link href="{{ url_for('static', filename='css/responsive.css') }}" rel="stylesheet" />
+  <link href="{{ url_for('static', filename='css/home.css') }}" rel="stylesheet" />
+    <link href="{{ url_for('static', filename='css/girisYap.css') }}" rel="stylesheet" />
+
+
+</head>
+
+<body class="sub_page">
+
+  <div class="hero_area">
+    <!-- navbar section -->
+    {% include 'navbar.html' %}
+    <!-- end navbar section -->
+  </div>
+
+
+  <!-- sign up section -->
+
+    <section class="layout_padding" style="background: #77a6ff">
+        <div class="giris-geriBildirim shadow" id="girisBildirim">
+
+            </div>
+
+        <div class="shadow" id="girisBolum">
+            <form action="/girisYap" id="girisYap" method="POST">
+                <div class="row">
+
+                    <div class="giris-col" id="giris-col-2">
+                        <h2 id="girisBaslik">
+                            <label for=""> Giriş </label>
+                            <label for="" style="color: #0c0c0c"> Yap </label>
+                        </h2>
+                        <div class="form-row ">
+                          <div class="form-group giris-kisim">
+                            <label for="girisTur">Giriş Türü</label>
+                            <select class="form-control wide" id="girisTur" style="border-color: #5295e8"  name="girisTur">
+                                <option value="Secilmemis">Seçiniz</option>
+                              <option value="Yonetici">Yönetici Girişi</option>
+                              <option value="Doktor">Doktor Girişi</option>
+                              <option value="Hasta">Hasta Girişi</option>
+                            </select>
+                          </div>
+                        </div>
+                        <div class="form-row ">
+                          <div class="form-group giris-kisim">
+                            <label for="tcKimlikNo">T.C Kimlik Numarası</label>
+                            <input type="number" class="form-control" id="tcKimlikNo" name="tcKimlikNo"
+                                   size="11" placeholder="" style="border-color: #5295e8">
+                          </div>
+                        </div>
+                        <div class="form-row ">
+                          <div class="form-group giris-kisim">
+                            <label for="parola">Parola</label>
+                            <input type="password" class="form-control" id="parola" name="parola"
+                                   placeholder="" style="border-color: #5295e8">
+                          </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="kayit-buton-row">
+                                <div class="buttons">
+                                      <button class="blob-btn shadow" id="girisYap-butonu">
+                                        Giriş Yap
+                                        <span class="blob-btn__inner">
+                                          <span class="blob-btn__blobs">
+                                            <span class="blob-btn__blob"></span>
+                                            <span class="blob-btn__blob"></span>
+                                            <span class="blob-btn__blob"></span>
+                                            <span class="blob-btn__blob"></span>
+                                          </span>
+                                        </span>
+                                      </button>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </form>
+        </div>
+    </section>
+
+  <!-- end sign up section -->
+
+  <!-- custom button content -->
+  <svg xmlns="http://www.w3.org/2000/svg" version="1.1" style="display: none">
+    <defs>
+      <filter id="goo">
+        <feGaussianBlur in="SourceGraphic" result="blur" stdDeviation="10"></feGaussianBlur>
+        <feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 21 -7" result="goo"></feColorMatrix>
+        <feBlend in2="goo" in="SourceGraphic" result="mix"></feBlend>
+      </filter>
+    </defs>
+  </svg>
+  <!-- end custom button content -->
+
+  <!--  footer section -->
+  {% block content %}
+      {% include 'footer.html' %}
+  {% endblock %}
+
+  <!-- jQery -->
+<script src="{{ url_for('static', filename='js/jquery-3.4.1.min.js') }}"></script>
+<!-- bootstrap js -->
+<script src="{{ url_for('static', filename='js/bootstrap.js') }}"></script>
+<!-- nice select -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-nice-select/1.1.0/js/jquery.nice-select.min.js"
+  integrity="sha256-Zr3vByTlMGQhvMfgkQ5BtWRSKBGa2QlspKYJnkjZTmo=" crossorigin="anonymous"></script>
+<!-- owl slider -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+<!-- datepicker -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/bootstrap-datepicker.js"></script>
+<!-- custom js -->
+<script src="{{ url_for('static', filename='js/custom.js') }}"></script>
+
+
+  <script>
+      $(document).ready(function() {
+          $('#girisYap-butonu').click(function (event) {
+              event.preventDefault(); // Formun normal submit işlemini durdur
+              $.ajax({
+                  url: '/girisYap',
+                  type: 'POST',
+                  data: {
+                      'girisTur': document.getElementById('girisTur').value,
+                      'tcKimlikNo': document.getElementById('tcKimlikNo').value,
+                      'parola': document.getElementById('parola').value
+                  },
+                  success: function (data) {
+                      $('#girisBildirim')
+                          .css({
+                              'display': 'block',
+                              'background-color': '#96ff99',
+                              'border-color': '#ceeec3',
+                              'color': '#37c53d'
+                          })
+                          .html('<p class="giris-Mesaj">' + '<strong>' + 'Başarılı! ' + '</strong>'
+                              + 'Başarıyla giriş yapıldı' + '</p>');
+                      console.log(data.girisTur)
+                      if (data.girisTur === "Yonetici") {
+                          window.location.href = "yoneticiMenu";
+                      } else if (data.girisTur === "Doktor") {
+                          window.location.href = 'doktorMenu';
+                      } else if (data.girisTur === "Hasta") {
+                          window.location.href = 'hastaMenu';
+                      }
+                  },
+
+                  error: function (error) {
+                      const errorMessage = error.responseJSON ? error.responseJSON.error : "Bilinmeyen hata";
+                      $('#girisBildirim')
+                          .css({
+                              'display': 'block',
+                              'background-color': '#f2dede',
+                              'border-color': '#ebccd1',
+                              'color': '#a94442'
+                          })
+                          .html('<p class="giris-Mesaj">' + '<strong>' + 'HATA! ' + '</strong>'
+                              + errorMessage + '</p>');
+                  }
+
+              });
+          });
+      });
+  </script>
+</body>
+
+</html>

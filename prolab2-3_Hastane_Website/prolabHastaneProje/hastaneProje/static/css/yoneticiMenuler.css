@@ -1,0 +1,349 @@
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+
+#hastaProfilBolum {
+    margin: 30px 280px;
+    background-color: #5699f5;
+    border-radius: 15px;
+}
+
+#hastaProfilBaslik {
+    text-align: center;
+}
+
+.profil-geriBildirim {
+     text-align: center;
+    border-radius: 30px;
+    padding: 0 2rem;
+    margin: 0.5rem auto;
+    background-color: #f2dede;
+    border-color: #ebccd1;
+    color: #a94442;
+    width: max-content;
+}
+
+.randevu-geriBildirim {
+     text-align: center;
+    border-radius: 30px;
+    padding: 0 2rem;
+    margin: 0.5rem auto;
+    background-color: #f2dede;
+    border-color: #ebccd1;
+    color: #a94442;
+    width: max-content;
+}
+
+.profil-Mesaj {
+    padding: 10px 0 10px 0;
+    font-family: sans-serif;
+    font-size: 18px;
+}
+
+.profil-col {
+    position: relative;
+    padding: 35px 45px;
+    flex-basis: 0;
+    flex-grow: 1;
+    max-width: 100%;
+}
+
+#profil-col-1 {
+    background-color: white;
+    border-top-left-radius: 15px;
+    border-bottom-left-radius: 15px;
+    color: #666666;
+}
+
+#profil-col-2 {
+    background-color: #2e45b9;
+    border-top-right-radius: 15px;
+    border-bottom-right-radius: 15px;
+    color: #F2EFF1;
+}
+
+.profil-col-baslik {
+    text-align: center;
+    padding: 5px;
+}
+
+#profil-col-1 .profil-col-baslik{
+    color: #2271DD;
+}
+
+.form-row .profil-kisim {
+    padding-right: 10px;
+    padding-left: 10px;
+    position: relative;
+    width: 100%;
+}
+
+@media (min-width: 992px)
+.profil-kisim {
+    -ms-flex: 0 0 33.333333%;
+    flex: 0 0 33.333333%;
+    max-width: 33.333333%;
+}
+
+#profil-col-1 .profil-kisim label {
+    font-size: 18px;
+    border-bottom: 1px solid #666666;
+}
+
+#profil-col-2 .profil-kisim label {
+    font-size: 18px;
+    border-bottom: 1px solid #F2EFF1;
+}
+
+.profil-buton-row {
+    margin: 0;
+    position: relative;
+    top: 50%;
+    left: 20%;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, 0%);
+}
+
+.buttons {
+  margin-top: 30px;
+  text-align: center;
+  border-radius: 30px;
+}
+
+.blob-btn {
+    width: 220px;
+  z-index: 1;
+  position: relative;
+  padding: 13.5px 10px;
+    padding-inline: 6px;
+  margin-bottom: 20px;
+    margin-top: 20px;
+    margin-left: 5%;
+  text-align: center;
+  color: #ffffff;
+  font-size: 15px;
+  font-weight: bold;
+    font-family: sans-serif;
+  background-color: transparent;
+  outline: none;
+  border: none;
+  transition: color 0.5s;
+  cursor: pointer;
+  border-radius: 30px;
+}
+.blob-btn:before {
+  content: "";
+  z-index: 1;
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  border: 0 solid #ffffff;
+  border-radius: 30px;
+}
+.blob-btn:after {
+  content: "";
+  z-index: -2;
+  position: absolute;
+  left: 3px;
+  top: 3px;
+  width: 100%;
+  height: 100%;
+  transition: all 0.3s 0.2s;
+}
+.blob-btn:hover {
+  color: #496de5;;
+}
+.blob-btn:hover:after {
+  transition: all 0.3s;
+  left: 0;
+  top: 0;
+}
+.blob-btn__inner {
+  z-index: -1;
+  overflow: hidden;
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 25px;
+  background: #5282e8;
+}
+.blob-btn__blobs {
+  position: relative;
+  display: block;
+  height: 100%;
+  filter: url("#goo");
+}
+.blob-btn__blob {
+  position: absolute;
+  top: 2px;
+  width: 25%;
+  height: 100%;
+  background: #ffffff;
+  border-radius: 100%;
+  transform: translate3d(0, 150%, 0) scale(1.7);
+  transition: transform 0.45s;
+}
+@supports (filter: url("#goo")) {
+  .blob-btn__blob {
+    transform: translate3d(0, 150%, 0) scale(1.4);
+  }
+}
+.blob-btn__blob:nth-child(1) {
+  left: 0%;
+  transition-delay: 0s;
+}
+.blob-btn__blob:nth-child(2) {
+  left: 30%;
+  transition-delay: 0.08s;
+}
+.blob-btn__blob:nth-child(3) {
+  left: 60%;
+  transition-delay: 0.16s;
+}
+.blob-btn__blob:nth-child(4) {
+  left: 90%;
+  transition-delay: 0.24s;
+}
+.blob-btn:hover .blob-btn__blob {
+  transform: translateZ(0) scale(1.7);
+}
+@supports (filter: url("#goo")) {
+  .blob-btn:hover .blob-btn__blob {
+    transform: translateZ(0) scale(1.4);
+  }
+}
+
+
+#randevu-sayfalar {
+    padding: 35px 10px;
+    background-color: white;
+}
+
+.randevuContainer {
+    width: 100%;
+    padding-right: 5px;
+    padding-left: 5px;
+    margin-right: auto;
+    margin-left: auto;
+    max-width: 1360px;
+}
+
+#randevuTablo {
+    font-size: 14px;
+}
+
+.randevuBaslik2 {
+    color: #ff77a0;
+}
+
+.randevuBaslikDoktor {
+    color: #7cff77;
+}
+
+.randevuSutun1 {
+}
+
+.randevuSutun2 {
+}
+
+.sayfaGecis, .sayfaGecisDoktor, .sayfaGecisRandevu {
+  display: -ms-flexbox;
+  display: flex;
+  padding-left: 0;
+  list-style: none;
+  border-radius: 0.25rem;
+}
+
+.sayfaGecis-link {
+  position: relative;
+  display: block;
+  padding: 0.5rem 0.75rem;
+  margin-left: -1px;
+  line-height: 1.25;
+  color: #c20044;
+  background-color: #fff;
+  border: 1px solid #dee2e6;
+}
+
+.sayfaGecis-link:hover {
+  z-index: 2;
+  color: #8d014c;
+  text-decoration: none;
+  background-color: #e9ecef;
+  border-color: #dee2e6;
+}
+
+.sayfaGecis-link:focus {
+  z-index: 2;
+  outline: 0;
+  box-shadow: 0 0 0 0.2rem rgba(255, 0, 144, 0.25);
+}
+
+
+.sayfaGecisDoktor-link {
+  position: relative;
+  display: block;
+  padding: 0.5rem 0.75rem;
+  margin-left: -1px;
+  line-height: 1.25;
+  color: #00c23d;
+  background-color: #fff;
+  border: 1px solid #dee2e6;
+}
+
+.sayfaGecisDoktor-link:hover {
+  z-index: 2;
+  color: #7af6b0;
+  text-decoration: none;
+  background-color: #e9ecef;
+  border-color: #dee2e6;
+}
+
+.sayfaGecisDoktor-link:focus {
+  z-index: 2;
+  outline: 0;
+  box-shadow: 0 0 0 0.2rem rgb(147, 255, 181);
+}
+
+
+.sayfaGecisRandevu-link {
+  position: relative;
+  display: block;
+  padding: 0.5rem 0.75rem;
+  margin-left: -1px;
+  line-height: 1.25;
+  color: #005bc2;
+  background-color: #fff;
+  border: 1px solid #dee2e6;
+}
+
+.sayfaGecisRandevu-link:hover {
+  z-index: 2;
+  color: #013e8d;
+  text-decoration: none;
+  background-color: #e9ecef;
+  border-color: #dee2e6;
+}
+
+.sayfaGecisRandevu-link:focus {
+  z-index: 2;
+  outline: 0;
+  box-shadow: 0 0 0 0.2rem rgba(0, 166, 255, 0.25);
+}
+
+
+.pageNumber {
+    padding: 7px 15px 0 15px;
+    justify-content: center;
+}
+
+.randevuSatir {
+    height: 50px;
+}

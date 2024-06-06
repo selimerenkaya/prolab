@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Basic -->
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <!-- Mobile Metas -->
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <!-- Site Metas -->
+  <meta name="keywords" content="" />
+  <meta name="description" content="" />
+  <meta name="author" content="" />
+
+  <title>Doktor Hasta Bilgileri - Sante Medikal</title>
+    <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='images/santeIcon.ico') }}">
+
+
+  <!-- bootstrap core css -->
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/bootstrap.css') }}" />
+
+  <!-- fonts style -->
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap" rel="stylesheet">
+
+  <!--owl slider stylesheet -->
+  <link rel="stylesheet" type="text/css"
+    href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" />
+
+  <!-- font awesome style -->
+  <link href="{{ url_for('static', filename='css/font-awesome.min.css') }}" rel="stylesheet" />
+  <!-- nice select -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-nice-select/1.1.0/css/nice-select.min.css"
+    integrity="sha256-mLBIhmBvigTFWPSCtvdu6a76T+3Xyt+K571hupeFLg4=" crossorigin="anonymous" />
+  <!-- datepicker -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/css/datepicker.css">
+  <!-- Custom styles for this template -->
+  <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet" />
+  <!-- responsive style -->
+  <link href="{{ url_for('static', filename='css/responsive.css') }}" rel="stylesheet" />
+    <link href="{{ url_for('static', filename='css/home.css') }}" rel="stylesheet" />
+    <link href="{{ url_for('static', filename='css/doktorMenuler.css') }}" rel="stylesheet" />
+    <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+</head>
+<body>
+    <div class="hero_area">
+    <!-- navbar section -->
+    {% include 'doktorMenuler/navbarDoktor.html' %}
+    <!-- end navbar section -->
+    </div>
+
+    <section id="randevu-sayfalar">
+        <div class="randevuContainer">
+            <h2>Hasta
+                <label class="randevuBaslik2">Listesi</label>
+            </h2>
+            <table class="table table-striped table-hover shadow-sm" id="randevuTablo">
+                <thead>
+                    <tr style="background: #77ff8e; color: white" >
+                        <th style="width: 110px">Hasta No</th>
+                        <th style="width: 120px">T.C Kimlik No</th>
+                        <th style="width: 190px">İsim</th>
+                        <th style="width: 100px">Doğum Tarih</th>
+                        <th style="width: 60px">Cinsiyet</th>
+                        <th style="width: 60px">Telefon</th>
+                        <th style="width: 130px">Adres</th>
+                        <th style="width: 110px">Sigorta</th>
+                    </tr>
+                </thead>
+                <tbody id="randevuTableBody" style="height: 500px">
+                </tbody>
+            </table>
+
+            <nav aria-label="Page navigation">
+                <ul class="sayfaGecis">
+                    <li class="page-item" id="prevPage"><a class="sayfaGecis-link" href="#">&laquo;</a></li>
+                    <li class="pageNumber" id="sayfaNumara">1</li>
+                    <li class="page-item" id="nextPage"><a class="sayfaGecis-link" href="#">&raquo;</a></li>
+                </ul>
+            </nav>
+        </div>
+    </section>
+
+    <!-- footer section -->
+    {% include 'doktorMenuler/footerDoktor.html' %}
+    <!-- end footer section -->
+
+
+    <script>
+        let currentPage = 1;
+
+        function loadRandevular(page) {
+            $.ajax({
+                url: '/doktorMenu/doktorHastaMenu',
+                type: 'POST',
+                data: {page: page,
+                    islem: 0},
+                success: function(response) {
+                    if (response.length !== 0) {
+                       let no = 1;
+                        $('#randevuTableBody').empty();
+                        $('#sayfaNumara').text(currentPage);
+                        response.forEach(function(hasta) {
+                            let date = hasta.dogumTarih;
+                            const myArray = date.split("/");
+                            let year = myArray[0];
+                            let month = myArray[1];
+                            let day = myArray[2];
+                            let dateTime = day + "/" + month + "/" + year;
+                            let hasta_no = no + (10 * (currentPage - 1))
+                            $('#randevuTableBody').append(
+                                `<tr class="randevuSatir">
+                                    <td class="randevuSutun1">${hasta_no}</td>
+                                    <td class="randevuSutun2">${hasta.hastaID}</td>
+                                    <td class="randevuSutun1">${hasta.isim}</td>
+                                    <td class="randevuSutun2">${dateTime}</td>
+                                    <td class="randevuSutun1">${hasta.cinsiyet}</td>
+                                    <td class="randevuSutun2">${hasta.telefon}</td>
+                                    <td class="randevuSutun1">${hasta.adres}</td>
+                                    <td class="randevuSutun2">${hasta.sigorta}</td>
+                                </tr>`
+                            );
+                            no++;
+                        }
+                    )} else {
+                        currentPage--;
+                    }
+                }
+            });
+        }
+
+        $(document).ready(function() {
+            loadRandevular(currentPage);
+
+            $('#nextPage').click(function(e) {
+                e.preventDefault();
+                currentPage++;
+                loadRandevular(currentPage);
+            });
+
+            $('#prevPage').click(function(e) {
+                e.preventDefault();
+                if (currentPage > 1) {
+                    currentPage--;
+                    loadRandevular(currentPage);
+                }
+            });
+        });
+    </script>
+</body>
+</html>

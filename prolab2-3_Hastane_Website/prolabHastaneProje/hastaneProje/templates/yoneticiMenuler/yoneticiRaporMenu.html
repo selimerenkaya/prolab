@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Basic -->
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <!-- Mobile Metas -->
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <!-- Site Metas -->
+  <meta name="keywords" content="" />
+  <meta name="description" content="" />
+  <meta name="author" content="" />
+
+  <title>Yönetici Rapor Menü - Sante Medikal</title>
+    <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='images/santeIcon.ico') }}">
+
+
+  <!-- bootstrap core css -->
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/bootstrap.css') }}" />
+
+  <!-- fonts style -->
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap" rel="stylesheet">
+
+  <!--owl slider stylesheet -->
+  <link rel="stylesheet" type="text/css"
+    href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" />
+
+  <!-- font awesome style -->
+  <link href="{{ url_for('static', filename='css/font-awesome.min.css') }}" rel="stylesheet" />
+  <!-- nice select -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-nice-select/1.1.0/css/nice-select.min.css"
+    integrity="sha256-mLBIhmBvigTFWPSCtvdu6a76T+3Xyt+K571hupeFLg4=" crossorigin="anonymous" />
+  <!-- datepicker -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/css/datepicker.css">
+  <!-- Custom styles for this template -->
+  <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet" />
+  <!-- responsive style -->
+  <link href="{{ url_for('static', filename='css/responsive.css') }}" rel="stylesheet" />
+    <link href="{{ url_for('static', filename='css/home.css') }}" rel="stylesheet" />
+    <link href="{{ url_for('static', filename='css/yoneticiMenuler.css') }}" rel="stylesheet" />
+    <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+</head>
+<body>
+    <div class="hero_area">
+    <!-- navbar section -->
+    {% include 'yoneticiMenuler/navbarYonetici.html' %}
+    <!-- end navbar section -->
+    </div>
+
+<section id="randevu-sayfalar" style="padding: 2px; margin: 10px 5px">
+        <div class="randevuContainer" style="padding: 5px 10px; margin: 5px auto">
+            <h2>Rapor
+                <label class="randevuBaslik2">Listesi</label>
+            </h2>
+            <table class="table table-striped table-hover shadow-sm" id="randevuTablo"
+                   style="height: 500px; margin: 10px 5px; padding-left: 5px; padding-right: 5px; width: 1300px; font-size: 13px">
+                <thead>
+                    <tr style="background: #f85656; color: white" >
+                        <th style="width: 80px">Rapor No</th>
+                        <th style="width: 60px">RaporID</th>
+                        <th style="width: 70px">HastaID</th>
+                        <th style="width: 190px">Hasta İsim</th>
+                        <th style="width: 100px">Rapor Tarih</th>
+                        <th style="width: 240px">Rapor İçerik</th>
+                        <th style="width: 400px">Rapor URL</th>
+                    </tr>
+                </thead>
+                <tbody id="randevuTableBody" style="height: 500px">
+                </tbody>
+            </table>
+
+            <nav aria-label="Page navigation">
+                <ul class="sayfaGecis">
+                    <li class="page-item" id="prevPage"><a class="sayfaGecis-link" href="#">&laquo;</a></li>
+                    <li class="pageNumber" id="sayfaNumara">1</li>
+                    <li class="page-item" id="nextPage"><a class="sayfaGecis-link" href="#">&raquo;</a></li>
+                </ul>
+            </nav>
+        </div>
+    </section>
+
+
+    <section class="book_section layout_padding" style="background: #93d9ff;;">
+    <div class="container" >
+        <div class="randevu-geriBildirim shadow" id="rapor-ekle-Bildirim" style="display: none">
+
+        </div>
+      <div class="row">
+        <div class="col">
+          <form style="background: #ffffff;">
+            <h4>
+              Rapor <span style="color: #93d9ff">Ekleyin</span>
+            </h4>
+            <div class="form-row ">
+                <div class="form-group col-lg-4">
+                <label for="inputDoctorName">HastaID</label>
+                <input type="number" class="form-control" id="ekle-hastaID" name="ekle-hastaID"
+                                   placeholder="" style="border-color: #5282e8">
+              </div>
+                <div class="form-group col-lg-4">
+                <label for="inputDoctorName">Rapor İçerik</label>
+                <input type="text" class="form-control" id="ekle-raporIcerik" name="ekle-raporIcerik"
+                                   placeholder="" style="border-color: #5282e8">
+              </div>
+                <div class="form-group col-lg-4">
+                <label for="inputDoctorName">Rapor URL</label>
+                <input type="text" class="form-control" id="ekle-raporURL" name="ekle-raporURL"
+                                   placeholder="" style="border-color: #5282e8">
+              </div>
+                 <div class="form-group col-lg-4">
+                <label for="inputDate">Tarih</label>
+                <div class="input-group date" id="inputDate"
+                     style="border-color: #5282e8">
+                    <input type="date" min="1970-01-01" max="2027-12-31"
+                                   class="form-control" id="ekle-tarih" name="randevu-girdi-tarih"
+                                    style="border-color: #5282e8">
+                </div>
+              </div>
+            </div>
+
+
+            <div class="btn-box" id="randevuAlmaButon">
+              <button type="submit" class="blob-btn shadow" id="ekleme-butonu">
+                  Rapor Ekle
+                  <span class="blob-btn__inner">
+                      <span class="blob-btn__blobs">
+                          <span class="blob-btn__blob"></span>
+                          <span class="blob-btn__blob"></span>
+                          <span class="blob-btn__blob"></span>
+                          <span class="blob-btn__blob"></span>
+                      </span>
+                  </span>
+              </button>
+            </div>
+
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- end book section -->
+
+    <section class="book_section layout_padding" style="background: #93ffce;;">
+    <div class="container" >
+        <div class="randevu-geriBildirim shadow" id="rapor-sil-Bildirim" style="display: none">
+
+        </div>
+      <div class="row">
+        <div class="col">
+          <form style="background: #ffffff;">
+            <h4>
+              Rapor <span style="color: #52e859">Silin</span>
+            </h4>
+            <div class="form-row ">
+              <div class="form-group col-lg-4">
+                <label for="inputDoctorName">RaporID</label>
+                <input type="number" class="form-control" id="sil-raporID" name="sil-raporID"
+                                   placeholder="" style="border-color: #93ffce">
+                  </div>
+                </div>
+
+            <div class="btn-box" id="randevuAlmaButon">
+              <button type="submit" class="blob-btn shadow" id="silme-butonu">
+                  Rapor Sil
+                  <span class="blob-btn__inner">
+                      <span class="blob-btn__blobs">
+                          <span class="blob-btn__blob"></span>
+                          <span class="blob-btn__blob"></span>
+                          <span class="blob-btn__blob"></span>
+                          <span class="blob-btn__blob"></span>
+                      </span>
+                  </span>
+              </button>
+            </div>
+
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+    <section class="book_section layout_padding" style="background: #93d9ff;;">
+    <div class="container" >
+        <div class="randevu-geriBildirim shadow" id="rapor-guncelle-Bildirim" style="display: none">
+
+        </div>
+      <div class="row">
+        <div class="col">
+          <form style="background: #ffffff;">
+            <h4>
+              Rapor <span style="color: #93d9ff">Güncelleyin</span>
+            </h4>
+            <div class="form-row ">
+              <div class="form-group col-lg-4">
+                <label for="inputDoctorName">RaporID</label>
+                <input type="number" class="form-control" id="guncelle-raporID" name="guncelle-raporID"
+                                   placeholder="" style="border-color: #5282e8">
+              </div>
+                <div class="form-group col-lg-4">
+                <label for="inputDoctorName">Yeni HastaID</label>
+                <input type="number" class="form-control" id="guncelle-hastaID" name="guncelle-hastaID"
+                                   placeholder="" style="border-color: #5282e8">
+              </div>
+                <div class="form-group col-lg-4">
+                <label for="inputDoctorName">Rapor İçerik</label>
+                <input type="text" class="form-control" id="guncelle-raporIcerik" name="guncelle-raporIcerik"
+                                   placeholder="" style="border-color: #5282e8">
+              </div>
+                <div class="form-group col-lg-4">
+                <label for="inputDoctorName">Rapor URL</label>
+                <input type="text" class="form-control" id="guncelle-raporURL" name="guncelle-raporURL"
+                                   placeholder="" style="border-color: #5282e8">
+              </div>
+                 <div class="form-group col-lg-4">
+                <label for="inputDate">Tarih</label>
+                <div class="input-group date" id="inputDate"
+                     style="border-color: #5282e8">
+                    <input type="date" min="1970-01-01" max="2027-12-31"
+                                   class="form-control" id="guncelle-tarih" name="randevu-girdi-tarih"
+                                    style="border-color: #5282e8">
+                </div>
+              </div>
+            </div>
+
+
+            <div class="btn-box" id="randevuAlmaButon">
+              <button type="submit" class="blob-btn shadow" id="guncelleme-butonu">
+                  Rapor Güncelle
+                  <span class="blob-btn__inner">
+                      <span class="blob-btn__blobs">
+                          <span class="blob-btn__blob"></span>
+                          <span class="blob-btn__blob"></span>
+                          <span class="blob-btn__blob"></span>
+                          <span class="blob-btn__blob"></span>
+                      </span>
+                  </span>
+              </button>
+            </div>
+
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- end book section -->
+
+
+
+  <!-- custom button content -->
+  <svg xmlns="http://www.w3.org/2000/svg" version="1.1" style="display: none">
+    <defs>
+      <filter id="goo">
+        <feGaussianBlur in="SourceGraphic" result="blur" stdDeviation="10"></feGaussianBlur>
+        <feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 21 -7" result="goo"></feColorMatrix>
+        <feBlend in2="goo" in="SourceGraphic" result="mix"></feBlend>
+      </filter>
+    </defs>
+  </svg>
+  <!-- end custom button content -->
+
+    <!-- footer section -->
+    {% include 'yoneticiMenuler/footerYonetici.html' %}
+    <!-- end footer section -->
+
+    <script>
+        let currentPage = 1;
+
+        function loadRandevular(page) {
+            $.ajax({
+                url: '/yoneticiMenu/yoneticiRaporMenu',
+                type: 'POST',
+                data: {page: page,
+                    islem: 0},
+                success: function(response) {
+                    if (response.length !== 0) {
+                        let no = 1;
+                        $('#randevuTableBody').empty();
+                        $('#sayfaNumara').text(currentPage);
+                        response.forEach(function(rapor) {
+                            let date = rapor.rapor_tarih;
+                            const myArray = date.split("/");
+                            let year = myArray[0];
+                            let month = myArray[1];
+                            let day = myArray[2];
+                            let dateTime = day + "/" + month + "/" + year;
+                            let rapor_no = no + (10 * (currentPage - 1))
+                            $('#randevuTableBody').append(
+                                `<tr class="randevuSatir">
+                                    <td class="randevuSutun1">${rapor_no}</td>
+                                    <td class="randevuSutun2">${rapor.raporID}</td>
+                                    <td class="randevuSutun2">${rapor.hastaID}</td>
+                                    <td class="randevuSutun2">${rapor.hasta_isim}</td>
+                                    <td class="randevuSutun1">${dateTime}</td>
+                                    <td class="randevuSutun1">${rapor.rapor_icerik}</td>
+                                    <td class="randevuSutun1"><a href="${rapor.raporURL}" target="_blank">${rapor.raporURL}</a></td>
+
+                                </tr>`
+                            );
+                            no++;
+                        });
+                    } else {
+                        currentPage--;
+                    }
+                }
+            });
+        }
+
+        $(document).ready(function() {
+            loadRandevular(currentPage);
+
+            $('#nextPage').click(function (e) {
+                e.preventDefault();
+                currentPage++;
+                loadRandevular(currentPage);
+            });
+
+            $('#prevPage').click(function (e) {
+                e.preventDefault();
+                if (currentPage > 1) {
+                    currentPage--;
+                    loadRandevular(currentPage);
+                }
+            });
+
+            $('#silme-butonu').click( function(event) {
+                event.preventDefault(); // Formun normal submit işlemini durdur
+                $.ajax({
+                    url: '/yoneticiMenu/yoneticiRaporMenu',
+                    type: 'POST',
+                    data: {
+                        islem: 1,
+                        'raporID': document.getElementById('sil-raporID').value},
+                    success: function(data) {
+                            loadRandevular(currentPage);
+                            $('#rapor-sil-Bildirim')
+                            .css({
+                                'display': 'block',
+                                'background-color': '#96ff99',
+                                'border-color': '#ceeec3',
+                                'color': '#37c53d'
+                            })
+                            .html('<p class="profil-Mesaj">' + '<strong>' + 'Başarılı! ' + '</strong>'
+                            + 'Rapor Silindi' + '</p>');
+                    },
+
+                    error: function (error) {
+                        const errorMessage = error.responseJSON ? error.responseJSON.error : "Bilinmeyen hata";
+                        $('#rapor-sil-Bildirim')
+                            .css({
+                                'display': 'block',
+                                'background-color': '#f2dede',
+                                'border-color': '#ebccd1',
+                                'color': '#a94442'
+                            })
+                                .html('<p class="profil-Mesaj">' + '<strong>' + 'HATA! ' + '</strong>'
+                                    + errorMessage + '</p>');
+                    }
+
+                });
+            });
+
+            $('#guncelleme-butonu').click( function(event) {
+                event.preventDefault(); // Formun normal submit işlemini durdur
+                $.ajax({
+                    url: '/yoneticiMenu/yoneticiRaporMenu',
+                    type: 'POST',
+                    data: {
+                        islem: 2,
+                        'raporID': document.getElementById('guncelle-raporID').value,
+                        'hastaID': document.getElementById('guncelle-hastaID').value,
+                        'raporIcerik': document.getElementById('guncelle-raporIcerik').value,
+                        'raporURL': document.getElementById('guncelle-raporURL').value,
+                        'raporTarih': document.getElementById('guncelle-tarih').value},
+                    success: function(data) {
+                            loadRandevular(currentPage);
+                            $('#rapor-guncelle-Bildirim')
+                            .css({
+                                'display': 'block',
+                                'background-color': '#96ff99',
+                                'border-color': '#ceeec3',
+                                'color': '#37c53d'
+                            })
+                            .html('<p class="profil-Mesaj">' + '<strong>' + 'Başarılı! ' + '</strong>'
+                            + 'Rapor Güncellendi' + '</p>');
+                    },
+
+                    error: function (error) {
+                        const errorMessage = error.responseJSON ? error.responseJSON.error : "Bilinmeyen hata";
+                        $('#rapor-guncelle-Bildirim')
+                            .css({
+                                'display': 'block',
+                                'background-color': '#f2dede',
+                                'border-color': '#ebccd1',
+                                'color': '#a94442'
+                            })
+                                .html('<p class="profil-Mesaj">' + '<strong>' + 'HATA! ' + '</strong>'
+                                    + errorMessage + '</p>');
+                    }
+
+                });
+            });
+
+            $('#ekleme-butonu').click( function(event) {
+                event.preventDefault(); // Formun normal submit işlemini durdur
+                $.ajax({
+                    url: '/yoneticiMenu/yoneticiRaporMenu',
+                    type: 'POST',
+                    data: {
+                        islem: 3,
+                        'hastaID': document.getElementById('ekle-hastaID').value,
+                        'raporIcerik': document.getElementById('ekle-raporIcerik').value,
+                        'raporURL': document.getElementById('ekle-raporURL').value,
+                        'raporTarih': document.getElementById('ekle-tarih').value},
+                    success: function(data) {
+                            loadRandevular(currentPage);
+                            $('#rapor-ekle-Bildirim')
+                            .css({
+                                'display': 'block',
+                                'background-color': '#96ff99',
+                                'border-color': '#ceeec3',
+                                'color': '#37c53d'
+                            })
+                            .html('<p class="profil-Mesaj">' + '<strong>' + 'Başarılı! ' + '</strong>'
+                            + 'Rapor Eklendi' + '</p>');
+                    },
+
+                    error: function (error) {
+                        const errorMessage = error.responseJSON ? error.responseJSON.error : "Bilinmeyen hata";
+                        $('#rapor-ekle-Bildirim')
+                            .css({
+                                'display': 'block',
+                                'background-color': '#f2dede',
+                                'border-color': '#ebccd1',
+                                'color': '#a94442'
+                            })
+                                .html('<p class="profil-Mesaj">' + '<strong>' + 'HATA! ' + '</strong>'
+                                    + errorMessage + '</p>');
+                    }
+
+                });
+            });
+        });
+    </script>
+
+</body>
+</html>

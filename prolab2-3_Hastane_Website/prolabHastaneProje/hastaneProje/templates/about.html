@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <!-- Basic -->
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <!-- Mobile Metas -->
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <!-- Site Metas -->
+  <meta name="keywords" content="" />
+  <meta name="description" content="" />
+  <meta name="author" content="" />
+
+  <title>Hakkımızda - Sante Medikal</title>
+    <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='images/santeIcon.ico') }}">
+
+
+  <!-- bootstrap core css -->
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/bootstrap.css') }}" />
+
+  <!-- fonts style -->
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap" rel="stylesheet">
+
+  <!--owl slider stylesheet -->
+  <link rel="stylesheet" type="text/css"
+    href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" />
+
+  <!-- font awesome style -->
+  <link href="{{ url_for('static', filename='css/font-awesome.min.css') }}" rel="stylesheet" />
+  <!-- nice select -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-nice-select/1.1.0/css/nice-select.min.css"
+    integrity="sha256-mLBIhmBvigTFWPSCtvdu6a76T+3Xyt+K571hupeFLg4=" crossorigin="anonymous" />
+  <!-- datepicker -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/css/datepicker.css">
+  <!-- Custom styles for this template -->
+  <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet" />
+  <!-- responsive style -->
+  <link href="{{ url_for('static', filename='css/responsive.css') }}" rel="stylesheet" />
+  <link href="{{ url_for('static', filename='css/home.css') }}" rel="stylesheet" />
+
+</head>
+
+<body class="sub_page">
+
+  <div class="hero_area">
+    <!-- navbar section -->
+    {% include 'navbar.html' %}
+    <!-- end navbar section -->
+  </div>
+
+
+  <!-- about section -->
+
+  <section class="about_section layout_padding">
+    <div class="container  ">
+      <div class="row">
+        <div class="col-md-6 ">
+          <div class="img-box">
+            <img src="{{ url_for('static', filename='images/about-img.jpg') }}" alt="">
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="detail-box">
+            <div class="heading_container">
+              <h2>
+                Sante Medikal <span style="color: #5295e8">Hakkında</span>
+              </h2>
+            </div>
+            <p>
+              Sante Medikal, köklü bir geçmişe sahip olan sağlık sektörünün öncü kuruluşlarından biridir.
+              1980'lerin başında, sağlık hizmetlerinin kalitesini artırmak ve toplum sağlığına daha etkin bir şekilde
+              katkıda bulunmak amacıyla kurulmuştur.
+              O zamanlardan bu yana, hastanemiz sürekli olarak büyümüş ve gelişmiş, teknolojik yenilikleri takip ederek
+              sağlık alanında öncü bir konuma yükselmiştir.
+              Kurulduğu günden bu yana, Sante Medikal, sağlık sektöründeki en güvenilir isimlerden biri olarak
+              tanınmaktadır.
+            </p>
+            <p>
+              Hastanemizin ilk yıllarında, temel amacımız insanlara daha iyi bir yaşam kalitesi sunmaktı.
+              Gelişen tıp teknolojilerini ve tedavi yöntemlerini yakından takip ederek, hastalarımıza en son ve en
+              etkili sağlık hizmetlerini sunma çabası içinde olduk.
+              Bu dönemde, uzman kadromuzun nitelikli çalışmaları ve hasta odaklı yaklaşımımız sayesinde, birçok kişiye
+              sağlık sorunlarıyla baş etme gücü ve umudu verdik.
+            </p>
+            <p>
+              Bugün, Sante Medikal, modern tıbbın en son teknolojileriyle donatılmış, uzman ve deneyimli kadrosuyla
+              hizmet veren bir sağlık merkezi konumundadır.
+              Hasta odaklı yaklaşımımızı koruyarak, her hastamıza bireysel olarak yaklaşmak ve onların ihtiyaçlarına en
+              uygun çözümleri sunmak için çaba gösteriyoruz.
+              Hastanemizin tıbbi ekipmanları sürekli olarak güncellenmekte ve personelimiz düzenli olarak
+              eğitilmektedir, böylece hastalarımıza en iyi sağlık hizmetini sunabilmekteyiz.
+            </p>
+            <p>
+              Günümüzde, Sante Medikal sadece tedavi odaklı bir sağlık kuruluşu olmanın ötesine geçmiştir.
+              Toplum sağlığının korunması ve hastalıkların önlenmesi konusunda da aktif rol oynamaktayız.
+              Sağlık eğitimi programları düzenleyerek ve toplumun bilinçlenmesine katkıda bulunarak, sağlıklı bir yaşam
+              tarzının teşvik edilmesini sağlıyoruz.
+            </p>
+            <p>
+              Hastanemiz, sürekli olarak kalite standartlarını yükseltmek ve daha iyi hizmet sunmak için çaba
+              göstermektedir.
+              Hasta memnuniyetini en üst seviyede tutmayı ve her zaman hastalarımızın yanında olmayı amaçlıyoruz.
+              Sante Medikal ailesi olarak, gelecekte de sağlık sektöründeki lider konumumuzu koruyarak, toplum
+              sağlığına katkıda bulunmaya devam edeceğiz.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- end about section -->
+
+
+  <!--  footer section -->
+{% block content %}
+    {% include 'footer.html' %}
+{% endblock %}
+
+<!-- jQery -->
+<script src="{{ url_for('static', filename='js/jquery-3.4.1.min.js') }}"></script>
+<!-- bootstrap js -->
+<script src="{{ url_for('static', filename='js/bootstrap.js') }}"></script>
+<!-- nice select -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-nice-select/1.1.0/js/jquery.nice-select.min.js"
+  integrity="sha256-Zr3vByTlMGQhvMfgkQ5BtWRSKBGa2QlspKYJnkjZTmo=" crossorigin="anonymous"></script>
+<!-- owl slider -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+<!-- datepicker -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/bootstrap-datepicker.js"></script>
+<!-- custom js -->
+<script src="{{ url_for('static', filename='js/custom.js') }}"></script>
+
+
+
+</body>
+
+</html>

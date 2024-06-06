@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link href="{{ url_for('static', filename='css/footer.css') }}" rel="stylesheet" />
+
+</head>
+<body>
+    <!-- info section -->
+  <section class="info_section ">
+    <div class="container">
+      <div class="info_top">
+        <div class="info_logo">
+          <a class="footer-logo" href="">
+            <img src="{{ url_for('static', filename='images/santeLogo.png') }}" alt="">
+          </a>
+        </div>
+        <div class="info_form" style="text-align: center">
+          <p style="font-size: 18px">
+              Sağlık ve mutluluk için buradayız!
+              Sizlere en iyi hizmeti sunmak için sürekli çalışıyoruz.
+              Bizimle iletişime geçmekten çekinmeyin, size yardımcı olmaktan mutluluk duyarız.
+          </p>
+        </div>
+      </div>
+      <div class="info_bottom layout_padding2">
+        <div class="row info_main_row">
+          <div class="col-md-6 col-lg-3">
+            <h5>
+              İLETİŞİM BİLGİLERİ
+            </h5>
+            <div class="info_contact">
+              <a href="">
+                <i class="fa fa-map-marker" aria-hidden="true"></i>
+                <span>
+                    Mimar Sinan, Işılay Saygın Sokağı no:23, 35000 Konak/İzmir
+                </span>
+              </a>
+              <a href="">
+                <i class="fa fa-phone" aria-hidden="true"></i>
+                <span>
+                  Ara +90 (262) 583 1479
+                </span>
+              </a>
+              <a href="">
+                <i class="fa fa-envelope"></i>
+                <span>
+                  SanteMedikal@sante.com
+                </span>
+              </a>
+            </div>
+            <div class="social_box">
+              <a href="">
+                <i class="fa fa-facebook" aria-hidden="true"></i>
+              </a>
+              <a href="">
+                <i class="fa fa-twitter" aria-hidden="true"></i>
+              </a>
+              <a href="https://www.linkedin.com/in/selim-eren-kaya-82b690252/">
+                <i class="fa fa-linkedin" aria-hidden="true"></i>
+              </a>
+              <a href="https://www.instagram.com/selim_eren_kaya/">
+                <i class="fa fa-instagram" aria-hidden="true"></i>
+              </a>
+            </div>
+          </div>
+          <div class="col-md-6 col-lg-3" style=" margin-left: 50%">
+            <div class="info_links">
+              <h5>
+                Sayfalar
+              </h5>
+              <div class="footer_links_menu">
+                <a class="deneme" href="{{ url_for('yoneticiHastaMenu') }}">
+                  Hasta Bilgileri
+                </a>
+                <a href="{{ url_for('yoneticiDoktorMenu') }}">
+                  Doktor Bilgileri
+                </a>
+                <a href="{{ url_for('yoneticiRandevuMenu') }}">
+                  Randevu Bilgileri
+                </a>
+                  <a href="{{ url_for('yoneticiRaporMenu') }}">
+                  Rapor Bilgileri
+                </a>
+                  <a href="{{ url_for('yoneticiProfil') }}">
+                  Profil
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- end info_section -->
+</body>
+</html>

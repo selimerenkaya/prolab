@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Basic -->
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <!-- Mobile Metas -->
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <!-- Site Metas -->
+  <meta name="keywords" content="" />
+  <meta name="description" content="" />
+  <meta name="author" content="" />
+
+  <title>Yönetici Profil - Sante Medikal</title>
+    <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='images/santeIcon.ico') }}">
+
+
+  <!-- bootstrap core css -->
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/bootstrap.css') }}" />
+
+  <!-- fonts style -->
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap" rel="stylesheet">
+
+  <!--owl slider stylesheet -->
+  <link rel="stylesheet" type="text/css"
+    href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" />
+
+  <!-- font awesome style -->
+  <link href="{{ url_for('static', filename='css/font-awesome.min.css') }}" rel="stylesheet" />
+  <!-- nice select -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-nice-select/1.1.0/css/nice-select.min.css"
+    integrity="sha256-mLBIhmBvigTFWPSCtvdu6a76T+3Xyt+K571hupeFLg4=" crossorigin="anonymous" />
+  <!-- datepicker -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/css/datepicker.css">
+  <!-- Custom styles for this template -->
+  <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet" />
+  <!-- responsive style -->
+  <link href="{{ url_for('static', filename='css/responsive.css') }}" rel="stylesheet" />
+    <link href="{{ url_for('static', filename='css/home.css') }}" rel="stylesheet" />
+    <link href="{{ url_for('static', filename='css/yoneticiMenuler.css') }}" rel="stylesheet" />
+    <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+</head>
+<body>
+    <div class="hero_area">
+    <!-- navbar section -->
+    {% include 'yoneticiMenuler/navbarYonetici.html' %}
+    <!-- end navbar section -->
+    </div>
+
+<!-- sign up section -->
+
+    <section class="layout_padding" style="background: #77a6ff" id="bilgiGoster">
+        <h2 id="hastaProfilBaslik">
+            <label for=""> Yönetici </label>
+            <label for="" style="color: #ffffff"> Bilgileri </label>
+        </h2>
+        <div class="shadow" id="hastaProfilBolum">
+            <form action="" id="profilBilgi" method="POST">
+                <div class="row">
+                    <div class="profil-col" id="profil-col-1">
+                        <div class="form-row ">
+                          <div class="form-group profil-kisim">
+                            <label for="ad">Ad</label>
+                              <p class="profil-bilgi" id="ad-bilgi">{{ current_user.getAd() }}</p>
+                          </div>
+                        </div>
+                        <div class="form-row ">
+                          <div class="form-group profil-kisim">
+                            <label for="soyad">Soyad</label>
+                              <p class="profil-bilgi" id="soyad-bilgi">{{ current_user.getSoyad() }}</p>
+                          </div>
+                        </div>
+                        <div class="form-row ">
+                          <div class="form-group profil-kisim">
+                            <label for="eposta">Eposta</label>
+                              <p class="profil-bilgi" id="eposta-bilgi">{{ current_user.getEposta() }}</p>
+                          </div>
+                        </div>
+                        <div class="form-row ">
+                          <div class="form-group profil-kisim">
+                            <label for="cinsiyet">Cinsiyet</label>
+                              <p class="profil-bilgi" id="cinsiyet-bilgi">{{ current_user.getCinsiyet() }}</p>
+                          </div>
+                        </div>
+                        <div class="form-row ">
+                          <div class="form-group profil-kisim">
+                            <label for="tcKimlikNo">T.C Kimlik Numarası</label>
+                              <p class="profil-bilgi">{{ current_user.getYoneticiID() }}</p>
+                          </div>
+                        </div>
+                    </div>
+
+                    <div class="profil-col" id="profil-col-2">
+                        <div class="form-row ">
+                          <div class="form-group profil-kisim">
+                            <label for="dogumTarih">Doğum Tarihi</label>
+                            <p class="profil-bilgi" id="dogumTarih-bilgi">{{ current_user.getDogumTarih() }}</p>
+                          </div>
+                        </div>
+                        <div class="form-row ">
+                          <div class="form-group profil-kisim">
+                            <label for="adres">Adres</label>
+                              <p class="profil-bilgi" id="adres-bilgi">{{ current_user.getAdres() }}</p>
+                          </div>
+                        </div>
+                        <div class="form-row ">
+                          <div class="form-group profil-kisim">
+                            <label for="telefonNumara">Telefon Numarası</label>
+                            <p class="profil-bilgi" id="telefonNo-bilgi">{{ current_user.getTelefonNo() }}</p>
+                          </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="kayit-buton-row">
+                                <div class="buttons">
+                                      <button type="submit" class="blob-btn shadow" id="guncelle-butonu">
+                                        Bilgileri Güncelle
+                                        <span class="blob-btn__inner">
+                                          <span class="blob-btn__blobs">
+                                            <span class="blob-btn__blob"></span>
+                                            <span class="blob-btn__blob"></span>
+                                            <span class="blob-btn__blob"></span>
+                                            <span class="blob-btn__blob"></span>
+                                          </span>
+                                        </span>
+                                      </button>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </form>
+        </div>
+    </section>
+
+    <section class="layout_padding" style="background: rgb(147,223,255); display: none" id="bilgiGuncelle">
+        <h2 id="hastaProfilBaslik">
+            <label for=""> Yönetici </label>
+            <label for="" style="color: #ffffff"> Bilgileri Güncelle</label>
+        </h2>
+        <div class="profil-geriBildirim shadow" id="profil-Bildirim" style="display: none">
+
+        </div>
+        <div class="shadow" id="hastaProfilBolum">
+            <form action="" id="profilBilgi" method="POST">
+                <div class="row">
+                    <div class="profil-col" id="profil-col-1">
+                        <div class="form-row ">
+                          <div class="form-group profil-kisim">
+                            <label for="ad">Ad</label>
+                              <input type="text" class="form-control" id="ad" name="guncelle-ad"
+                                   placeholder="" style="border-color: #5295e8">
+                          </div>
+                        </div>
+                        <div class="form-row ">
+                          <div class="form-group profil-kisim">
+                            <label for="soyad">Soyad</label>
+                              <input type="text" class="form-control" id="soyad" name="guncelle-soyad"
+                                   placeholder="" style="border-color: #5295e8">
+                          </div>
+                        </div>
+                        <div class="form-row ">
+                          <div class="form-group profil-kisim">
+                            <label for="eposta">Eposta</label>
+                              <input type="email" class="form-control" id="eposta" name="guncelle-eposta"
+                                   placeholder="" style="border-color: #5295e8">
+                          </div>
+                        </div>
+                        <div class="form-row ">
+                          <div class="form-group profil-kisim">
+                            <label for="cinsiyet">Cinsiyet</label>
+                              <select class="form-control wide" id="cinsiyet" style="border-color: #5295e8" name="guncelle-cinsiyet">
+                                <option value="Secilmemis">Seçiniz</option>
+                              <option value="Erkek">Erkek</option>
+                              <option value="Kadin">Kadın</option>
+                            </select>
+                          </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="kayit-buton-row">
+                                <div class="buttons">
+                                      <button type="reset" class="blob-btn shadow" id="iptal-butonu">
+                                        Geri Dön
+                                        <span class="blob-btn__inner">
+                                          <span class="blob-btn__blobs">
+                                            <span class="blob-btn__blob"></span>
+                                            <span class="blob-btn__blob"></span>
+                                            <span class="blob-btn__blob"></span>
+                                            <span class="blob-btn__blob"></span>
+                                          </span>
+                                        </span>
+                                      </button>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="profil-col" id="profil-col-2">
+                        <div class="form-row ">
+                          <div class="form-group profil-kisim">
+                            <label for="dogumTarih">Doğum Tarihi</label>
+                            <input type="date" min="1950-01-01" max="2023-12-31"
+                                   class="form-control" id="dogumTarih" name="guncelle-dogumTarih"
+                                   placeholder="" style="border-color: #5295e8">
+                          </div>
+                        </div>
+                        <div class="form-row ">
+                          <div class="form-group profil-kisim">
+                            <label for="adres">Adres</label>
+                              <input type="text" class="form-control" id="adres" name="guncelle-adres"
+                                   placeholder="" style="border-color: #5295e8">
+                          </div>
+                        </div>
+                        <div class="form-row ">
+                          <div class="form-group profil-kisim">
+                            <label for="telefonNumara">Telefon Numarası</label>
+                            <input type="number" class="form-control" id="telefonNumara" name="guncelle-telefonNumara"
+                                   size="10" placeholder="XXXXXXXXXX" style="border-color: #5295e8">
+                          </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="kayit-buton-row">
+                                <div class="buttons">
+                                      <button type="submit" class="blob-btn shadow" id="onayla-butonu">
+                                        Onayla
+                                        <span class="blob-btn__inner">
+                                          <span class="blob-btn__blobs">
+                                            <span class="blob-btn__blob"></span>
+                                            <span class="blob-btn__blob"></span>
+                                            <span class="blob-btn__blob"></span>
+                                            <span class="blob-btn__blob"></span>
+                                          </span>
+                                        </span>
+                                      </button>
+
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </form>
+        </div>
+    </section>
+
+  <!-- end sign up section -->
+
+  <!-- custom button content -->
+  <svg xmlns="http://www.w3.org/2000/svg" version="1.1" style="display: none">
+    <defs>
+      <filter id="goo">
+        <feGaussianBlur in="SourceGraphic" result="blur" stdDeviation="10"></feGaussianBlur>
+        <feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 21 -7" result="goo"></feColorMatrix>
+        <feBlend in2="goo" in="SourceGraphic" result="mix"></feBlend>
+      </filter>
+    </defs>
+  </svg>
+  <!-- end custom button content -->
+
+    <!-- footer section -->
+    {% include 'yoneticiMenuler/footerYonetici.html' %}
+    <!-- end footer section -->
+
+    <script>
+        $(document).ready(function() {
+            $('#bilgiGoster').on('submit', function(event) {
+                event.preventDefault(); // Formun normal submit işlemini durdur
+                $.ajax({
+                    url: '/yoneticiMenu/yoneticiProfil',
+                    type: 'POST',
+                    data: {'durum': 'bilgiDegisme'}, // Gerekirse form verilerini buraya ekleyin
+                    success: function(response) {
+                        // Sunucudan dönen JSON veriyi yazdır
+                        $('#bilgiGoster').css('display', 'none');
+                        $('#bilgiGuncelle').css('display', 'block');
+                    },
+                    error: function(error) {
+                        console.log("Error:", error);
+                    }
+                });
+            });
+
+            $('#bilgiGuncelle').on('submit', function(event) {
+                event.preventDefault(); // Formun normal submit işlemini durdur
+                $.ajax({
+                    url: '/yoneticiMenu/yoneticiProfil',
+                    type: 'POST',
+                    data: {
+                        'durum': 'bilgiGuncelleme',
+                        'ad': document.getElementById('ad').value,
+                        'soyad': document.getElementById('soyad').value,
+                        'eposta': document.getElementById('eposta').value,
+                        'cinsiyet': document.getElementById('cinsiyet').value,
+                        'dogumTarih': document.getElementById('dogumTarih').value,
+                        'adres': document.getElementById('adres').value,
+                        'telefonNo': document.getElementById('telefonNumara').value}, // Gerekirse form verilerini buraya ekleyin
+                    success: function(response) {
+                        $('#profil-Bildirim')
+                            .css({
+                                'display': 'block',
+                                'background-color': '#96ff99',
+                                'border-color': '#ceeec3',
+                                'color': '#37c53d'
+                            })
+                            .html('<p class="profil-Mesaj">' + '<strong>' + 'Başarılı! ' + '</strong>'
+                            + 'Bilgiler Güncellendi' + '</p>');
+                            $('#navbarHasta_isim')
+                                .text(document.getElementById('ad').value +
+                                    " " + document.getElementById('soyad').value);
+
+                    },
+                    error: function(error) {
+                        const errorMessage = error.responseJSON ? error.responseJSON.error : "Bilinmeyen hata";
+                        $('#profil-Bildirim')
+                            .css({
+                                'display': 'block',
+                                'background-color': '#f2dede',
+                                'border-color': '#ebccd1',
+                                'color': '#a94442'
+                            })
+                            .html('<p class="profil-Mesaj">' + '<strong>' + 'HATA! ' + '</strong>'
+                                + errorMessage + '</p>');
+
+                        console.log("Error: Girdiler hatalı!");
+                    }
+                });
+            }).on('reset', function(event) {
+                event.preventDefault(); // Formun normal submit işlemini durdur
+                $.ajax({
+                    url: '/yoneticiMenu/yoneticiProfil',
+                    type: 'POST',
+                    data: {'durum': 'bilgiİptal'}, // Gerekirse form verilerini buraya ekleyin
+                    success: function(response) {
+                        // Önceki haline geri döndürür
+                        $('#bilgiGoster').css('display', 'block');
+                        $('#bilgiGuncelle').css('display', 'none');
+                        $('#profil-Bildirim').css('display', 'none');
+
+                        // Mevcut kullanıcı bilgilerini güncelle
+                        $('#ad-bilgi').text(response.ad);
+                        $('#soyad-bilgi').text(response.soyad);
+                        $('#eposta-bilgi').text(response.eposta);
+                        $('#cinsiyet-bilgi').text(response.cinsiyet);
+                        $('#dogumTarih-bilgi').text(response.dogumTarih);
+                        $('#adres-bilgi').text(response.adres);
+                        $('#telefonNo-bilgi').text(response.telefonNo);
+                        $('#navbarHasta_isim').text(response.ad + " " + response.soyad);
+
+                    },
+                    error: function(error) {
+                        console.log("Error:", error);
+                    }
+                });
+            });
+        });
+
+    </script>
+
+</body>
+</html>
